@@ -1,0 +1,69 @@
+.card-item {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.card-item img {
+	width: 65%;
+}
+
+.colorNav {
+	display: block;
+	width: 100%;
+	padding: 16px;
+	text-align: center;
+}
+
+.colorNav a {
+	text-decoration: none !important;
+	color: #ffff !important;
+}
+
+.brand {
+	display: block;
+	width: 100%;
+	height: auto;
+	margin-top: -5%;
+	margin-bottom: -5%;
+	margin-left: -5%;
+	margin-right: -5%;
+	padding-top: 5%;
+	padding-bottom: 5%;
+	padding-left: 5%;
+	padding-right: 5%;
+}
+
+.brand img {
+	width: 20%;
+}
+
+/*----------------------------
+	Color Themes
+-----------------------------*/
+
+
+.bg-green {
+	background-color: #00c08b;
+	color: #FFFFFB;
+}
+
+.bg-red {
+	background-color: #ea5080;
+	color: #FFFFFB;
+}
+
+.bg-blue {
+	background-color: #53bfe2;
+	color: #FFFFFB;
+}
+
+.bg-yellow {
+	background-color: #f8c54d;
+	color: #1F1300;
+}
+
+.bg-purple {
+	background-color: #df6dc2;
+	color: #FFFFFB;
+}
