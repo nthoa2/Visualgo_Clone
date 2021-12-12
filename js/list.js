@@ -108,13 +108,13 @@ var List = function () {
     this.generateRandomFixedSize = function (val) {
         if (activeStatus == "stack") {
             if (val > maxStackSize) {
-                $('#create-err').html('Sorry, the maximum number of vertex allowed is {maxSize}'.replace("{maxSize}", maxStackSize));
+                $('#create-err').html('Xin lỗi, số đỉnh cho phép tối đa là {maxSize}'.replace("{maxSize}", maxStackSize));
                 return false;
             }
         }
         else {
             if (val > maxSize) {
-                $('#create-err').html('Sorry, the maximum number of vertex allowed is {maxSize}'.replace("{maxSize}", maxSize));
+                $('#create-err').html('Xin lỗi, số đỉnh cho phép tối đa là {maxSize}'.replace("{maxSize}", maxSize));
                 return false;
             }
         }
@@ -127,19 +127,19 @@ var List = function () {
         var vertexAmt = vertexTextArr.length;
         if (activeStatus == "stack") {
             if (vertexAmt > maxStackSize) {
-                $('#create-err').html('Sorry, the maximum number of vertex allowed is {maxSize}'.replace("{maxSize}", maxStackSize));
+                $('#create-err').html('Xin lỗi, số đỉnh cho phép tối đa là {maxSize}'.replace("{maxSize}", maxStackSize));
                 return false;
             }
         }
         else {
             if (vertexAmt > maxSize) {
-                $('#create-err').html('Sorry, the maximum number of vertex allowed is {maxSize}'.replace("{maxSize}", maxSize));
+                $('#create-err').html('Xin lỗi, số đỉnh cho phép tối đa là {maxSize}'.replace("{maxSize}", maxSize));
                 return false;
             }
         }
 
         if (vertexTextArr == '') { // prevent creation of empty list
-            $('#create-err').html('Sorry, the minimum number of vertex is at least 1.');
+            $('#create-err').html('Xin lỗi, số đỉnh tối thiểu là 1.');
             return false;
         }
 
@@ -170,8 +170,8 @@ var List = function () {
 
         if (currentVertex == null) {
             cs = createState(iL, vertexTraversed, edgeTraversed);
-            // The current Linked List is empty, we return NOT_FOUND.
-            cs["status"] = 'The current Linked List is empty, we return NOT_FOUND.';
+            // Danh sách liên kết hiện tại trống, chúng ta trả về NOT_FOUND.
+            cs["status"] = 'Danh sách liên kết hiện tại trống, chúng ta trả về NOT_FOUND.';
             cs["lineNo"] = 1;
             stateList.push(cs);
         }
@@ -181,9 +181,9 @@ var List = function () {
             curVtxIdx = iL[currentVertex]["vtxIdx"];
             cs["vl"][curVtxIdx]["state"] = VERTEX_HIGHLIGHTED;
             cs["vl"][curVtxIdx]["extratext"] = curVtxIdx + (curVtxIdx == 0 ? "/head" : (iL[currentVertex]["next"] == null ? "/tail" : "")) + "/temp";
-            // This is the current Linked List.
-            // We want to search for value v = {val} starting from the head (index 0).
-            cs["status"] = 'This is the current Linked List.<br>We want to search for value v = {val} starting from the head (index 0).'.replace("{val}", val);
+            // Đây là danh sách liên kết hiện tại.
+            // Chúng ta muốn tìm kiếm giá trị v = {val} bắt đầu từ head (index 0).
+            cs["status"] = 'Đây là danh sách liên kết hiện tại.<br>Chúng ta muốn tìm kiếm giá trị v = {val} bắt đầu từ head (index 0).'.replace("{val}", val);
             cs["lineNo"] = 2;
             stateList.push(cs);
 
@@ -193,7 +193,7 @@ var List = function () {
                 cs = createState(iL, vertexTraversed, edgeTraversed);
                 // Comparing {currentVertex} with {val} (index = {index}).
                 // {currentVertex} is not equal to {val} so we have to continue.
-                cs["status"] = 'Comparing {currentVertex} (index = {index}) with v = {val}.<br>{currentVertex} is not equal to {val} so we have to continue.'.replace("{currentVertex}", currentVertex).replace("{val}", val).replace("{index}", index).replace("{currentVertex}", currentVertex).replace("{val}", val);
+                cs["status"] = 'So sánh {currentVertex} (index = {index}) với v = {val}.<br>{currentVertex} nếu không bằng {val} vì vậy chúng ta tiếp tục'.replace("{currentVertex}", currentVertex).replace("{val}", val).replace("{index}", index).replace("{currentVertex}", currentVertex).replace("{val}", val);
                 cs["vl"][curVtxIdx]["extratext"] = curVtxIdx + (curVtxIdx == 0 ? "/head" : (iL[currentVertex]["next"] == null ? "/tail" : "")) + "/temp";
                 cs["lineNo"] = 3;
                 stateList.push(cs);
@@ -205,16 +205,16 @@ var List = function () {
                     cs = createState(iL, vertexTraversed, edgeTraversed);
                     // We try advancing temp to the next vertex.
                     // But...
-                    cs["status"] = 'We try advancing temp to the next vertex.<br>But...';
+                    cs["status"] = 'Chúng ta cố gắng tăng tốc độ lên đỉnh tiếp theo.<br>Nhưng...';
                     cs["lineNo"] = 4;
                     stateList.push(cs);
 
                     // if temp == null
                     //   return -1
                     cs = createState(iL, vertexTraversed, edgeTraversed);
-                    // temp is null (we have gone past the tail after O(N) step(s)).
-                    // We conclude that value {val} is NOT_FOUND in the Linked List.
-                    cs["status"] = 'temp is null (we have gone past the tail after O(N) step(s)).<br>We conclude that value v = {val} is NOT_FOUND in the Linked List.'.replace("{val}", val);
+                    // nhiệt độ là null (chúng ta đã đi qua đuôi sau (các) bước O (N)).
+                    // We conclude that value {val} NOT_FOUND trong Danh sách liên kết.
+                    cs["status"] = 'Temp = null (chúng ta đã đi qua tail sau (các) bước O (N)).<br>We conclude that value v = {val} là NOT_FOUND trong Danh sách liên kết.'.replace("{val}", val);
                     cs["lineNo"] = [5, 6];
                     stateList.push(cs);
 
@@ -236,7 +236,7 @@ var List = function () {
                 cs["el"][edgeHighlighted]["state"] = EDGE_TRAVERSED;
                 // So temp advances to the next vertex.
                 // temp is not null, continue searching.
-                cs["status"] = 'So temp advances to the next vertex.<br>temp is not null, continue searching.';
+                cs["status"] = 'Vì vậy, tạm thời tiến tới đỉnh tiếp theo. <br> tạm thời không phải là giá trị rỗng, hãy tiếp tục tìm kiếm.';
                 cs["lineNo"] = [4, 5];
                 stateList.push(cs);
 
@@ -251,8 +251,8 @@ var List = function () {
                 cs["vl"][curVtxIdx]["state"] = VERTEX_HIGHLIGHTED;
                 cs["vl"][curVtxIdx]["extratext"] = curVtxIdx + (curVtxIdx == 0 ? "/head" : (iL[currentVertex]["next"] == null ? "/tail" : "")) + "/temp";
                 // Found value v = {val} at this highlighted vertex so we return index {index}.
-                // The whole operation is O(N).
-                cs["status"] = 'Found value v = {val} at this highlighted vertex so we return index {index}.<br>The whole operation is O(N).'.replace("{val}", val).replace("{index}", index);
+                // Độ phức tạp là O(N).
+                cs["status"] = 'Tìm giá trị v = {val} tại đỉnh được đánh dấu này để chúng ta trả về chỉ mục {index}.<br>Độ phức tạp là O(N).'.replace("{val}", val).replace("{index}", index);
                 cs["lineNo"] = 7;
                 stateList.push(cs);
             }
@@ -269,8 +269,8 @@ var List = function () {
 
         if (currentVertex == null) {
             cs = createState(iL, vertexTraversed, edgeTraversed);
-            // The current Linked List is empty, we return NOT_FOUND.
-            cs["status"] = 'The current Linked List is empty, we return NOT_FOUND.';
+            // Danh sách liên kết hiện tại trống, chúng ta trả về NOT_FOUND.
+            cs["status"] = 'Danh sách liên kết hiện tại trống, chúng ta trả về NOT_FOUND.';
             cs["lineNo"] = 1;
             stateList.push(cs);
         }
@@ -285,8 +285,8 @@ var List = function () {
             cs = createState(iL, vertexTraversed, edgeTraversed);
             curVtxIdx = iL[currentVertex]["vtxIdx"];
             cs["vl"][curVtxIdx]["state"] = VERTEX_HIGHLIGHTED;
-            // Return the value stored at the head: {currentVertex}.
-            cs["status"] = (isHead ? 'Return the value stored at the head: {currentVertex}.' : 'Return the value stored at the tail: {currentVertex}.').replace("{currentVertex}", currentVertex);
+            // Trả về giá trị được lưu trữ ở head: {currentVertex}.
+            cs["status"] = (isHead ? 'Trả về giá trị được lưu trữ ở head: {currentVertex}.' : 'Trả về giá trị được lưu trữ ở tail: {currentVertex}.').replace("{currentVertex}", currentVertex);
             cs["lineNo"] = 2;
             stateList.push(cs);
         }
@@ -304,35 +304,35 @@ var List = function () {
 
         // 1. Check whether value is number
         if (isNaN(val)) {
-            // Please fill in an Integer.
-            $('#insert-err').html('Please fill in an Integer.');
+            // Vui lòng chỉ nhập số nguyên
+            $('#insert-err').html('Vui lòng chỉ nhập số nguyên');
             return false;
         }
         // 2. No duplicates allowed. Also works if more than one similar value are inserted
         if (tempinternalList[val] != null) {
-            // No duplicate vertex allowed!
-            $('#insert-err').html('No duplicate vertex allowed!');
+            // Không cho phép đỉnh trùng lặp!
+            $('#insert-err').html('Không cho phép đỉnh trùng lặp!');
             if (typeof callback == 'function') callback();
             return false;
         }
         // 3. Check range
         if (parseInt(val) < valueRange[0] || parseInt(val) > valueRange[1]) {
-            // Sorry, only values between {range0} and {range1} can be inserted.
-            $('#insert-err').html('Sorry, only values between {range0} and {range1} can be inserted.'.replace("{range0}", valueRange[0]).replace("{range1}", valueRange[1]));
+            // Xin lỗi, chỉ những giá trị giữa {range0} and {range1} có thể được chèn.
+            $('#insert-err').html('Xin lỗi, chỉ những giá trị giữa {range0} v {range1} có thể được chèn.'.replace("{range0}", valueRange[0]).replace("{range1}", valueRange[1]));
             return false;
         }
         // 4. check size
         if (activeStatus == "stack") {
             if (amountVertex >= maxStackSize) {
-                // Sorry, the maximum size is {maxSize}.
-                $('#insert-err').html('Sorry, the maximum size is {maxSize}.'.replace("{maxSize}", maxStackSize));
+                // Xin lỗi, kích thước tối đa là {maxSize}.
+                $('#insert-err').html('Xin lỗi, kích thước tối đa là {maxSize}.'.replace("{maxSize}", maxStackSize));
                 return false;
             }
         }
         else {
             if (amountVertex >= maxSize) {
-                // Sorry, the maximum size is {maxSize}.
-                $('#insert-err').html('Sorry, the maximum size is {maxSize}.'.replace("{maxSize}", maxSize));
+                // Xin lỗi, kích thước tối đa là {maxSize}.
+                $('#insert-err').html('Xin lỗi, kích thước tối đa là {maxSize}.'.replace("{maxSize}", maxSize));
                 return false;
             }
         }
@@ -379,8 +379,8 @@ var List = function () {
             cs["el"][newVtxIdx]["state"] = OBJ_HIDDEN;
             if ((activeStatus == "doublylist") || (activeStatus == "deque"))
                 cs["el"][newVtxIdx + BACK_EDGE_CONST]["state"] = OBJ_HIDDEN;
-            // Create new vertex to store value {val}.
-            cs["status"] = 'Create new vertex to store value {val}.'.replace("{val}", val);
+            // Tạo đỉnh mới để lưu giá trị. {val}.
+            cs["status"] = 'Tạo đỉnh mới để lưu giá trị. {val}.'.replace("{val}", val);
             cs["lineNo"] = 1;
             stateList.push(cs);
 
@@ -394,8 +394,8 @@ var List = function () {
             cs["vl"][oldHeadIdx]["extratext"] = "head";
             if ((activeStatus == "doublylist") || (activeStatus == "deque"))
                 cs["el"][newVtxIdx + BACK_EDGE_CONST]["state"] = OBJ_HIDDEN;
-            // Now, temp.next points to the current head.
-            cs["status"] = 'Now, vtx.next points to the current head.';
+            // Now, temp.next trỏ đến the current head.
+            cs["status"] = 'Now, vtx.next trỏ đến the current head.';
             cs["lineNo"] = 2;
             stateList.push(cs);
 
@@ -407,8 +407,8 @@ var List = function () {
                 cs["vl"][newVtxIdx]["extratext"] = "vtx";
                 cs["el"][newVtxIdx + BACK_EDGE_CONST]["state"] = EDGE_HIGHLIGHTED;
                 cs["el"][newVtxIdx + BACK_EDGE_CONST]["animateHighlighted"] = true;
-                // (Old) head.prev points to vtx.
-                cs["status"] = '(Old) head.prev points to vtx.';
+                // (Old) head.prev trỏ đến vtx.
+                cs["status"] = '(Old) head.prev trỏ đến vtx.';
                 cs["lineNo"] = 3;
                 stateList.push(cs);
             }
@@ -418,9 +418,9 @@ var List = function () {
             cs = createState(iL, vertexTraversed, edgeTraversed);
             cs["vl"][newVtxIdx]["state"] = VERTEX_HIGHLIGHTED;
             cs["vl"][newVtxIdx]["extratext"] = "vtx";
-            // Create new vertex to store value {val}.
-            // But as head is currently null, temp.next remains null.
-            cs["status"] = 'Create new vertex to store value {val}.'.replace("{val}", val) + '<br>But as head is currently null, temp.next remains null.';
+            // Tạo đỉnh mới để lưu giá trị. {val}.
+            // Tuy nhiên, vì head hiện là rỗng, temp.next vẫn là null.
+            cs["status"] = 'Tạo đỉnh mới để lưu giá trị. {val}.'.replace("{val}", val) + '<br>Tuy nhiên, vì head hiện là rỗng, temp.next vẫn là null.';
             cs["lineNo"] = [1, 2];
             stateList.push(cs);
         }
@@ -429,8 +429,8 @@ var List = function () {
         cs = createState(iL, vertexTraversed, edgeTraversed);
         cs["vl"][newVtxIdx]["state"] = VERTEX_GREEN_FILL;
         cs["vl"][newVtxIdx]["extratext"] = "head/vtx";
-        // Now, head points to vtx.
-        cs["status"] = 'Now, head points to vtx.';
+        // Now, head trỏ đến vtx.
+        cs["status"] = 'Now, head trỏ đến vtx.';
         if ((activeStatus == "doublylist") || (activeStatus == "deque"))
             cs["lineNo"] = 4;
         else
@@ -442,8 +442,8 @@ var List = function () {
             cs = createState(iL, vertexTraversed, edgeTraversed);
             cs["vl"][newVtxIdx]["state"] = VERTEX_GREEN_FILL;
             cs["vl"][newVtxIdx]["extratext"] = "head/tail/vtx";
-            // Tail points to head.
-            cs["status"] = 'Tail points to head.';
+            // Tail trỏ đến head.
+            cs["status"] = 'Tail trỏ đến head.';
             cs["lineNo"] = 3;
             stateList.push(cs);
         }
@@ -452,9 +452,9 @@ var List = function () {
         cs = createState(iL, vertexTraversed, edgeTraversed);
         cs["vl"][newVtxIdx]["state"] = VERTEX_GREEN_FILL;
         cs["vl"][newVtxIdx]["extratext"] = "head" + (amountVertex == 1 ? "/tail" : "") + "/vtx";
-        // Re-layout the Linked List for visualization.
-        // The whole process is O({N}).
-        cs["status"] = 'Re-layout the Linked List for visualization.<br>The whole process is O({N}).'.replace("{N}", "1");
+        // Bố cục lại Danh sách liên kết để dễ hình dung.
+        // Độ phức tạp là O({N}).
+        cs["status"] = 'Bố cục lại Danh sách liên kết để dễ hình dung.<br>Độ phức tạp là O({N}).'.replace("{N}", "1");
         cs["lineNo"] = 0;
         stateList.push(cs);
 
@@ -471,29 +471,29 @@ var List = function () {
 
         // 1. Check whether value is number
         if (isNaN(val)) {
-            // Please fill in an Integer.
-            $('#insert-err').html('Please fill in an Integer.');
+            // Vui lòng chỉ nhập số nguyên
+            $('#insert-err').html('Vui lòng chỉ nhập số nguyên');
             if (typeof callback == 'function') callback();
             return false;
         }
         // 2. No duplicates allowed. Also works if more than one similar value are inserted
         // if (tempinternalList[val] != null) {
-        //     // No duplicate vertex allowed!
-        //     $('#insert-err').html('No duplicate vertex allowed!');
+        //     // Không cho phép đỉnh trùng lặp!
+        //     $('#insert-err').html('Không cho phép đỉnh trùng lặp!');
         //     if (typeof callback == 'function') callback();
             // return false;
         // }
         // 3. Check range
         if (parseInt(val) < valueRange[0] || parseInt(val) > valueRange[1]) {
-            // Sorry, only values between {range0} and {range1} can be inserted.
-            $('#insert-err').html('Sorry, only values between {range0} and {range1} can be inserted.'.replace("{range0}", valueRange[0]).replace("{range1}", valueRange[1]));
+            // Xin lỗi, chỉ những giá trị giữa {range0} and {range1} có thể được chèn.
+            $('#insert-err').html('Xin lỗi, chỉ những giá trị giữa {range0} and {range1} có thể được chèn.'.replace("{range0}", valueRange[0]).replace("{range1}", valueRange[1]));
             if (typeof callback == 'function') callback();
             return false;
         }
         // 4. check size
         if (amountVertex >= maxSize) {
-            // Sorry, the maximum size is {maxSize}.
-            $('#insert-err').html('Sorry, the maximum size is {maxSize}.'.replace("{maxSize}", maxSize));
+            // Xin lỗi, kích thước tối đa là {maxSize}.
+            $('#insert-err').html('Xin lỗi, kích thước tối đa là {maxSize}.'.replace("{maxSize}", maxSize));
             if (typeof callback == 'function') callback();
             return false;
     }
@@ -541,8 +541,8 @@ var List = function () {
         cs["el"][curVtxIdx]["state"] = OBJ_HIDDEN;
         if ((activeStatus == "doublylist") || (activeStatus == "deque"))
             cs["el"][curVtxIdx + BACK_EDGE_CONST]["state"] = OBJ_HIDDEN;
-        // Create new vertex to store value {val}.
-        cs["status"] = 'Create new vertex to store value {val}.'.replace("{val}", val);
+        // Tạo đỉnh mới để lưu giá trị. {val}.
+        cs["status"] = 'Tạo đỉnh mới để lưu giá trị. {val}.'.replace("{val}", val);
         cs["lineNo"] = 1;
         stateList.push(cs);
 
@@ -556,8 +556,8 @@ var List = function () {
         cs["el"][curVtxIdx]["animateHighlighted"] = true;
         if ((activeStatus == "doublylist") || (activeStatus == "deque"))
             cs["el"][curVtxIdx + BACK_EDGE_CONST]["state"] = OBJ_HIDDEN;
-        // Now vtx.next points to new vertex.
-        cs["status"] = 'Now temp.next points to new vertex.';
+        // Now vtx.next trỏ đến new vertex.
+        cs["status"] = 'Now temp.next trỏ đến new vertex.';
         cs["lineNo"] = 2;
         stateList.push(cs);
 
@@ -569,8 +569,8 @@ var List = function () {
             cs["vl"][newVtxIdx]["extratext"] = "vtx";
             cs["el"][curVtxIdx + BACK_EDGE_CONST]["state"] = EDGE_HIGHLIGHTED;
             cs["el"][curVtxIdx + BACK_EDGE_CONST]["animateHighlighted"] = true;
-            // Update prev pointer of the new vertex to point back to the (old) tail.
-            cs["status"] = 'Update prev pointer of the new vertex to point back to the (old) tail.';
+            // Cập nhật con trỏ trước của đỉnh mới để trỏ ngược về đuôi (cũ).
+            cs["status"] = 'Cập nhật con trỏ prev của đỉnh mới để trỏ ngược về tail (cũ).';
             cs["lineNo"] = 2;
             stateList.push(cs);
         }
@@ -579,9 +579,9 @@ var List = function () {
         cs = createState(iL, vertexTraversed, edgeTraversed);
         cs["vl"][newVtxIdx]["state"] = VERTEX_GREEN_FILL;
         cs["vl"][newVtxIdx]["extratext"] = "tail/vtx";
-        // Now, tail points to the new vertex too.
-        // The whole operation is O(1) if we maintain the tail pointer.
-        cs["status"] = 'Now, tail points to the new vertex too.<br>The whole operation is O(1) if we maintain the tail pointer.';
+        // Bây giờ, đuôi trỏ đến đỉnh mới.
+        // Độ phức tạp là O(1) nếu chúng ta giữ nguyên con trỏ đuôi.
+        cs["status"] = 'Bây giờ, con trỏ tail trỏ đến đỉnh mới.<br>Độ phức tạp là O(1) nếu chúng ta giữ nguyên con trỏ đuôi.';
         cs["lineNo"] = 3;
         stateList.push(cs);
 
@@ -593,13 +593,13 @@ var List = function () {
     this.insertKth = function (index, v, callback) {
         // index checking start
         if (isNaN(index)) {
-            // Please fill in an Integer.
-            $('#insert-err').html('Please fill in an Integer.');
+            // Vui lòng chỉ nhập số nguyên
+            $('#insert-err').html('Vui lòng chỉ nhập số nguyên');
             return false;
         }
         if ((index < 1) || (index > amountVertex)) {
-            // Please enter a valid index between [1..{limit}].
-            $('#insert-err').html('Please enter a valid index between [1..{limit}].'.replace("{limit}", Math.max(1, amountVertex - 1)));
+            // Vui lòng nhập một chỉ mục hợp lệ giữa [1..{limit}].
+            $('#insert-err').html('Vui lòng nhập một chỉ mục hợp lệ giữa [1..{limit}].'.replace("{limit}", Math.max(1, amountVertex - 1)));
             return false;
         }
 
@@ -612,26 +612,26 @@ var List = function () {
 
         // 1. Check whether value is number
         if (isNaN(val)) {
-            // Please fill in an Integer.
-            $('#insert-err').html('Please fill in an Integer.');
+            // Vui lòng chỉ nhập số nguyên
+            $('#insert-err').html('Vui lòng chỉ nhập số nguyên');
             return false;
         }
         // 2. No duplicates allowed. Also works if more than one similar value are inserted
         if (tempinternalList[val] != null) {
-            // No duplicate vertex allowed!
-            $('#insert-err').html('No duplicate vertex allowed!');
+            // Không cho phép đỉnh trùng lặp!
+            $('#insert-err').html('Không cho phép đỉnh trùng lặp!');
             return false;
         }
         // 3. Check range
         if (parseInt(val) < valueRange[0] || parseInt(val) > valueRange[1]) {
-            // Sorry, only values between {range0} and {range1} can be inserted.
-            $('#insert-err').html('Sorry, only values between {range0} and {range1} can be inserted.'.replace("{range0}", valueRange[0]).replace("{range1}", valueRange[1]));
+            // Xin lỗi, chỉ những giá trị giữa {range0} and {range1} có thể được chèn.
+            $('#insert-err').html('Xin lỗi, chỉ những giá trị giữa {range0} and {range1} có thể được chèn.'.replace("{range0}", valueRange[0]).replace("{range1}", valueRange[1]));
             return false;
         }
         // 4. check size
         if (amountVertex >= maxSize) {
-            // Sorry, the maximum size is {maxSize}.
-            $('#insert-err').html('Sorry, the maximum size is {maxSize}.'.replace("{maxSize}", maxSize));
+            // Xin lỗi, kích thước tối đa là {maxSize}.
+            $('#insert-err').html('Xin lỗi, kích thước tối đa là {maxSize}.'.replace("{maxSize}", maxSize));
             return false;
         }
 
@@ -658,9 +658,9 @@ var List = function () {
             cs["vl"][temp1Idx]["state"] = VERTEX_HIGHLIGHTED;
             cs["vl"][temp1Idx]["extratext"] = i + (i == 0 ? "/head" : (iL[currentVertex]["next"] == null ? "/tail" : "")) + "/pre";
             vertexTraversed[currentVertex] = true;
-            // Increment k, index specified has not been reached.
+            // Increment k, Chỉ số được chỉ định chưa đạt được.
             // k is now: {k}.
-            cs["status"] = 'Decrement k, index specified has not been reached.<br>k is now: {k}.'.replace("{k}", k);
+            cs["status"] = 'Giảm k, chỉ số được chỉ định chưa đạt.<br>k bây giờ là: {k}.'.replace("{k}", k);
             cs["lineNo"] = 2;
             stateList.push(cs);
 
@@ -678,8 +678,8 @@ var List = function () {
             cs["vl"][temp1Idx]["extratext"] = i + (i == 0 ? "/head" : (iL[currentVertex]["next"] == null ? "/tail" : "")) + "/pre";
             cs["el"][edgeHighlighted]["animateHighlighted"] = true;
             cs["el"][edgeHighlighted]["state"] = EDGE_TRAVERSED;
-            // We set prev to the next vertex.
-            cs["status"] = 'We set prev to the next vertex.';
+            // Chúng ta thiết lập trước cho đỉnh tiếp theo.
+            cs["status"] = 'Chúng ta thiết lập trước cho đỉnh tiếp theo.';
             cs["lineNo"] = 3;
             stateList.push(cs);
 
@@ -694,7 +694,7 @@ var List = function () {
             vertexTraversed[currentVertex] = true;
             // We have found the insertion point.
             // We continue the next insertion step.
-            cs["status"] = 'We have found the insertion point.<br>We continue the next insertion step.';
+            cs["status"] = 'Chúng ta đã tìm ra điểm chèn. <br> Chúng ta tiếp tục bước chèn tiếp theo.';
             cs["lineNo"] = 2;
             stateList.push(cs);
         }
@@ -713,7 +713,7 @@ var List = function () {
         edgeTraversed[temp1Idx] = true;
         // The specified index is found.
         // pre is before the insertion point and aft is the insertion point.
-        cs["status"] = 'The index before insertion point is found.<br>pre is before the insertion point and aft is the insertion point.';
+        cs["status"] = 'Chỉ mục trước khi tìm thấy điểm chèn. <br> Prev là trước điểm chèn và phía sau là điểm chèn.';
         cs["lineNo"] = 4;
         stateList.push(cs);
 
@@ -738,8 +738,8 @@ var List = function () {
         cs["vl"][temp2Idx]["extratext"] = (i + 1) + (i + 1 == 0 ? "/head" : (iL[temp2Vertex]["next"] == null ? "/tail" : "")) + "/aft";
         cs["vl"][newVtxIdx]["state"] = VERTEX_GREEN_FILL;
         cs["vl"][newVtxIdx]["extratext"] = "vtx";
-        // Create new vertex to store value {val}.
-        cs["status"] = 'Create new vertex to store value {val}.'.replace("{val}", val);
+        // Tạo đỉnh mới để lưu giá trị. {val}.
+        cs["status"] = 'Tạo đỉnh mới để lưu giá trị. {val}.'.replace("{val}", val);
         cs["lineNo"] = 5;
         stateList.push(cs);
         edgeTraversed[newVtxIdx] = true;
@@ -761,8 +761,8 @@ var List = function () {
         cs["el"][newVtxIdx]["animateHighlighted"] = true;
         if ((activeStatus == "doublylist") || (activeStatus == "deque"))
             cs["el"][newVtxIdx + BACK_EDGE_CONST]["state"] = OBJ_HIDDEN;
-        // v.next points to aft.
-        cs["status"] = 'vtx.next points to aft.';
+        // v.next trỏ đến aft.
+        cs["status"] = 'vtx.next trỏ đến aft.';
         cs["lineNo"] = 6;
         stateList.push(cs);
 
@@ -779,8 +779,8 @@ var List = function () {
             cs["el"][newVtxIdx]["state"] = EDGE_GREEN;
             cs["el"][newVtxIdx + BACK_EDGE_CONST]["state"] = EDGE_GREEN;
             cs["el"][temp1Idx + BACK_EDGE_CONST]["state"] = OBJ_HIDDEN;
-            // aft.prev points to vtx.
-            cs["status"] = 'aft.prev points to vtx.';
+            // aft.prev trỏ đến vtx.
+            cs["status"] = 'aft.prev trỏ đến vtx.';
             cs["lineNo"] = 6;
             stateList.push(cs);
         }
@@ -800,8 +800,8 @@ var List = function () {
         cs["el"][temp1Idx]["state"] = EDGE_TRAVERSED;
         if ((activeStatus == "doublylist") || (activeStatus == "deque"))
             cs["el"][temp1Idx + BACK_EDGE_CONST]["state"] = OBJ_HIDDEN;
-        // pre.next points to vtx.
-        cs["status"] = 'pre.next points to vtx.';
+        // pre.next trỏ đến vtx.
+        cs["status"] = 'pre.next trỏ đến vtx.';
         cs["lineNo"] = 7;
         stateList.push(cs);
 
@@ -816,8 +816,8 @@ var List = function () {
             cs["vl"][newVtxIdx]["extratext"] = temp2Idx + "/vtx";
             cs["el"][temp1Idx]["state"] = EDGE_TRAVERSED;
             cs["el"][temp1Idx + BACK_EDGE_CONST]["state"] = EDGE_TRAVERSED;
-            // vtx.prev points to pre.
-            cs["status"] = 'vtx.prev points to pre.';
+            // vtx.prev trỏ đến pre.
+            cs["status"] = 'vtx.prev trỏ đến pre.';
             cs["lineNo"] = 7;
             stateList.push(cs);
         }
@@ -826,9 +826,9 @@ var List = function () {
         cs = createState(iL, {}, {});
         cs["vl"][newVtxIdx]["state"] = VERTEX_GREEN_FILL;
         cs["vl"][newVtxIdx]["extratext"] = (i + 1) + "/vtx";
-        // Re-layout the Linked List for visualization.
-        // The whole process is O({N}).
-        cs["status"] = 'Re-layout the Linked List for visualization.<br>The whole process is O({N}).'.replace("{N}", "N");
+        // Bố cục lại Danh sách liên kết để dễ hình dung.
+        // Độ phức tạp là O({N}).
+        cs["status"] = 'Bố cục lại Danh sách liên kết để dễ hình dung.<br>Độ phức tạp là O({N}).'.replace("{N}", "N");
         cs["lineNo"] = 0;
         stateList.push(cs);
 
@@ -845,9 +845,9 @@ var List = function () {
 
         if (currentVertex == null) {
             cs = createState(iL, vertexTraversed, edgeTraversed);
-            // The Linked List is already empty.
-            // No action is performed.
-            cs["status"] = 'The Linked List is already empty.<br>No action is performed.';
+            // Danh sách liên kết đã trống.
+            // Không có tác vụ nào được thực hiện.
+            cs["status"] = 'Danh sách liên kết đã trống.<br>Không có tác vụ nào được thực hiện.';
             cs["lineNo"] = 1;
             stateList.push(cs);
         }
@@ -857,8 +857,8 @@ var List = function () {
                 cs = createState(iL, vertexTraversed, edgeTraversed);
                 curVtxIdx = iL[currentVertex]["vtxIdx"];
                 cs["vl"][curVtxIdx]["state"] = VERTEX_HIGHLIGHTED;
-                // The head is the only vertex in this List.
-                cs["status"] = 'The head is the only vertex in this List.';
+                // Phần đầu là đỉnh duy nhất trong Danh sách này.
+                cs["status"] = 'Phần head là đỉnh duy nhất trong Danh sách này.';
                 cs["lineNo"] = 2;
                 stateList.push(cs);
 
@@ -866,8 +866,8 @@ var List = function () {
                 cs = createState(iL, vertexTraversed, edgeTraversed);
                 curVtxIdx = iL[currentVertex]["vtxIdx"];
                 cs["vl"][curVtxIdx]["state"] = VERTEX_HIGHLIGHTED;
-                // Head points to next (which is null).
-                cs["status"] = 'Head points to next (which is null).';
+                // Head trỏ đến next (which is null).
+                cs["status"] = 'Head trỏ đến next (which is null).';
                 cs["lineNo"] = 3;
                 stateList.push(cs);
 
@@ -882,7 +882,7 @@ var List = function () {
                 cs = createState(iL, vertexTraversed, edgeTraversed);
                 // Remove head vertex.
                 // We now have an empty List.
-                cs["status"] = 'Remove head vertex.<br>We now have an empty List.';
+                cs["status"] = 'Loại bỏ đỉnh đầu(head). <br> Bây giờ chúng ta có một Danh sách trống.';
                 cs["lineNo"] = 4;
                 stateList.push(cs);
             }
@@ -893,7 +893,7 @@ var List = function () {
                 cs["vl"][curVtxIdx]["state"] = VERTEX_HIGHLIGHTED;
                 cs["vl"][curVtxIdx]["extratext"] = "head/temp";
                 // The head has a next vertex.
-                cs["status"] = 'The head has a next vertex.';
+                cs["status"] = 'Head có một đỉnh kế tiếp.';
                 cs["lineNo"] = 2;
                 stateList.push(cs);
 
@@ -909,8 +909,8 @@ var List = function () {
                 cs["vl"][nextVtxIdx]["extratext"] = "head";
                 cs["el"][curVtxIdx]["state"] = EDGE_GREEN;
                 cs["el"][curVtxIdx]["animateHighlighted"] = true;
-                // head points to the next vertex.
-                cs["status"] = 'head points to the next vertex.';
+                // head trỏ đến the next vertex.
+                cs["status"] = 'head trỏ đến the next vertex.';
                 cs["lineNo"] = 3;
                 stateList.push(cs);
 
@@ -924,7 +924,7 @@ var List = function () {
                 cs = createState(iL, vertexTraversed, edgeTraversed);
                 cs["vl"][nextVtxIdx]["state"] = VERTEX_GREEN_FILL;
                 // Delete temp = (previous) head.
-                cs["status"] = 'Delete temp = (previous) head.';
+                cs["status"] = 'Xóa temp = (previous) head.';
                 cs["lineNo"] = 4;
                 stateList.push(cs);
 
@@ -932,8 +932,8 @@ var List = function () {
                     // head.prev = null
                     cs = createState(iL, vertexTraversed, edgeTraversed);
                     cs["vl"][nextVtxIdx]["state"] = VERTEX_GREEN_FILL;
-                    // Set head.prev to null for consistency purpose.
-                    cs["status"] = 'Set head.prev to null for consistency purpose.';
+                    // Đặt head.prev thành null cho mục đích nhất quán.
+                    cs["status"] = 'Đặt head.prev thành null cho mục đích nhất quán.';
                     cs["lineNo"] = 5;
                     stateList.push(cs);
                 }
@@ -944,9 +944,9 @@ var List = function () {
                 cs = createState(iL, vertexTraversed, edgeTraversed);
                 cs["vl"][nextVtxIdx]["state"] = VERTEX_GREEN_FILL;
                 if (amountVertex == 1) cs["vl"][nextVtxIdx]["extratext"] = "head/tail";
-                // Re-layout the Linked List for visualization.
-                // The whole process is O({N}).
-                cs["status"] = 'Re-layout the Linked List for visualization.<br>The whole process is O({N}).'.replace("{N}", "1");
+                // Bố cục lại Danh sách liên kết để dễ hình dung.
+                // Độ phức tạp là O({N}).
+                cs["status"] = 'Bố cục lại Danh sách liên kết để dễ hình dung.<br>Độ phức tạp là O({N}).'.replace("{N}", "1");
                 stateList.push(cs);
             }
         }
@@ -964,9 +964,9 @@ var List = function () {
 
         if (currentVertex == null) {
             cs = createState(iL, vertexTraversed, edgeTraversed);
-            // The Linked List is already empty.
-            // No action is performed.
-            cs["status"] = 'The Linked List is already empty.<br>No action is performed.';
+            // Danh sách liên kết đã trống.
+            // Không có tác vụ nào được thực hiện.
+            cs["status"] = 'Danh sách liên kết đã trống.<br>Không có tác vụ nào được thực hiện.';
             cs["lineNo"] = 1;
             stateList.push(cs);
         }
@@ -980,7 +980,7 @@ var List = function () {
             cs["vl"][curVtxIdx]["extratext"] = "head/pre";
             // Set up pre pointer.
             // pre will eventually point to the last vertex before tail.
-            cs["status"] = 'Set up pre pointer.<br>pre will eventually point to the last vertex before tail.';
+            cs["status"] = 'Thiết lập con trỏ Pre. <br> pre cuối cùng sẽ trỏ tới đỉnh cuối cùng trước tail.';
             cs["lineNo"] = 2;
             stateList.push(cs);
 
@@ -996,7 +996,7 @@ var List = function () {
             cs["el"][curVtxIdx]["state"] = EDGE_TRAVERSED;
             // Set up temp pointer.
             // temp will eventually point to the current tail.
-            cs["status"] = 'Set up temp pointer.<br>temp will eventually point to the current tail.';
+            cs["status"] = 'Thiết lập con trỏ tạm thời(temp). <br> temp cuối cùng sẽ trỏ đến tail hiện tại.';
             cs["lineNo"] = 3;
             stateList.push(cs);
 
@@ -1011,8 +1011,8 @@ var List = function () {
                 cs["vl"][nextVtxIdx]["state"] = VERTEX_GREEN_FILL;
                 cs["vl"][nextVtxIdx]["extratext"] = (iL[nextVertex]["next"] == null ? "tail/" : "") + "temp";
                 vertexTraversed[currentVertex] = true;
-                // Check if temp.next is null.
-                cs["status"] = 'Check if temp.next is null.';
+                // Kiểm tra xem temp.next có phải là null hay không.
+                cs["status"] = 'Kiểm tra xem temp.next có phải là null hay không.';
                 cs["lineNo"] = 4;
                 stateList.push(cs);
 
@@ -1043,7 +1043,7 @@ var List = function () {
                 cs["el"][edgeHighlighted2]["state"] = EDGE_GREEN;
                 // It is not null.
                 // So both pre and temp pointers advance to their next vertex.
-                cs["status"] = 'It is not null.<br>So both pre and temp pointers advance to their next vertex.';
+                cs["status"] = 'Nó không phải là giá trị rỗng. <br> Vì vậy, cả con trỏ pre và con trỏ temp đều tiến tới đỉnh tiếp theo của chúng.';
                 cs["lineNo"] = 5;
                 stateList.push(cs);
             }
@@ -1061,7 +1061,7 @@ var List = function () {
             vertexTraversed[currentVertex] = true;
             // It is null.
             // So set the next of pre (the new tail) to null.
-            cs["status"] = 'It is null.<br>So set the next of pre (the new tail) to null.';
+            cs["status"] = 'Nó là null. <br> Vì vậy, hãy đặt phần tiếp theo của pre (tail mới) thành null.';
             cs["lineNo"] = 6;
             stateList.push(cs);
 
@@ -1079,8 +1079,8 @@ var List = function () {
             cs = createState(iL, vertexTraversed, edgeTraversed);
             cs["vl"][curVtxIdx]["state"] = VERTEX_GREEN_FILL;
             if (amountVertex == 1) cs["vl"][curVtxIdx]["extratext"] = "head/tail";
-            // Delete temp (the previous tail) then update the tail pointer to prev (the current tail). The whole process is O(N) just to find the pre pointer.
-            cs["status"] = 'Delete temp (the previous tail) then update the tail pointer to pre (the current tail). The whole process is O(N) just to find the pre pointer.';
+            // Delete temp (the previous tail) then update the tail pointer to prev (the current tail). Độ phức tạp là O(N) just to find the pre pointer.
+            cs["status"] = 'Xóa temp (the previus tail) sau đó cập nhật con trỏ đuôi thành pre (tail hiện tại). Độ phức tạp là O (N) chỉ để tìm con trỏ pre.';
             cs["lineNo"] = 7;
             stateList.push(cs);
         }
@@ -1097,9 +1097,9 @@ var List = function () {
 
         if (currentVertex == null) {
             cs = createState(iL, vertexTraversed, edgeTraversed);
-            // The Linked List is already empty.
-            // No action is performed.
-            cs["status"] = 'The Linked List is already empty.<br>No action is performed.';
+            // Danh sách liên kết đã trống.
+            // Không có tác vụ nào được thực hiện.
+            cs["status"] = 'Danh sách liên kết đã trống.<br>Không có tác vụ nào được thực hiện.';
             cs["lineNo"] = 1;
             stateList.push(cs);
         }
@@ -1169,7 +1169,7 @@ var List = function () {
             if (amountVertex == 1) cs["vl"][curVtxIdx]["extratext"] = "head/tail";
             // Delete temp.
             // The whole operations is just O(1) as we can access (old) tail.prev.
-            cs["status"] = 'Delete temp.<br>The whole operations is just O(1) as we can access (old) tail.prev.';
+            cs["status"] = 'Xóa tạm thời. <br> Toàn bộ các thao tác chỉ là O (1) vì chúng ta có thể truy cập (cũ) tail.prev.';
             cs["lineNo"] = 5;
             stateList.push(cs);
         }
@@ -1184,17 +1184,17 @@ var List = function () {
 
         // Check whether value is number
         if (isNaN(index)) {
-            $('#remove-err').html('Please fill in an Integer.');
+            $('#remove-err').html('Vui lòng chỉ nhập số nguyên');
             return false;
         }
         if (amountVertex < 3) {
-            // This operation only works for N bigger than 2.
-            $('#remove-err').html('This operation only works for N bigger than 2.');
+            // Thao tác này chỉ hoạt động đối với N lớn hơn 2.
+            $('#remove-err').html('Thao tác này chỉ hoạt động đối với N lớn hơn 2.');
             return false;
         }
         if ((index < 1) || (index >= amountVertex - 1)) {
-            // Please enter a valid index between [1..{limit}].
-            $('#remove-err').html('Please enter a valid index between [1..{limit}].'.replace("{limit}", Math.max(1, amountVertex - 2)));
+            // Vui lòng nhập một chỉ mục hợp lệ giữa [1..{limit}].
+            $('#remove-err').html('Vui lòng nhập một chỉ mục hợp lệ giữa [1..{limit}].'.replace("{limit}", Math.max(1, amountVertex - 2)));
             return false;
         }
 
@@ -1210,9 +1210,9 @@ var List = function () {
 
         if (prevVtx == null) {
             cs = createState(iL, vertexTraversed, edgeTraversed);
-            // The Linked List is already empty.
-            // No action is performed.
-            cs["status"] = 'The Linked List is already empty.<br>No action is performed.';
+            // Danh sách liên kết đã trống.
+            // Không có tác vụ nào được thực hiện.
+            cs["status"] = 'Danh sách liên kết đã trống.<br>Không có tác vụ nào được thực hiện.';
             cs["lineNo"] = 1;
             stateList.push(cs);
         }
@@ -1224,7 +1224,7 @@ var List = function () {
             cs["vl"][prevIdx]["extratext"] = "0/head/pre";
             // Set prev to head.
             // Pointer prev will stop at one vertex before the deleted vertex.
-            cs["status"] = 'Set prev to head.<br>Pointer prev will stop at one vertex before the deleted vertex.';
+            cs["status"] = 'Gán pre là head. <br> Con trỏ pre sẽ dừng tại một đỉnh trước đỉnh bị xóa.';
             cs["lineNo"] = 2;
             stateList.push(cs);
 
@@ -1234,9 +1234,9 @@ var List = function () {
                 cs["vl"][prevIdx]["state"] = VERTEX_HIGHLIGHTED;
                 cs["vl"][prevIdx]["extratext"] = i + (i == 0 ? "/head" : "") + "/pre";
                 vertexTraversed[prevVtx] = true;
-                // Index specified has not been reached.
+                // Chỉ số được chỉ định chưa đạt được.
                 // k = {k}.
-                cs["status"] = 'Index specified has not been reached.<br>k = {i}.'.replace("{k}", i);
+                cs["status"] = 'Chỉ số được chỉ định chưa đạt được.<br>k = {i}.'.replace("{k}", i);
                 cs["lineNo"] = 3;
                 stateList.push(cs);
 
@@ -1252,8 +1252,8 @@ var List = function () {
                 edgeTraversed[edgeHighlighted] = true;
                 cs["el"][edgeHighlighted]["animateHighlighted"] = true;
                 cs["el"][edgeHighlighted]["state"] = EDGE_TRAVERSED;
-                // Pointer prev advances to the next vertex.
-                cs["status"] = 'Pointer prev advances to the next vertex.';
+                // Con trỏ trước đó tiến đến đỉnh tiếp theo.
+                cs["status"] = 'Con trỏ prev đó tiến đến đỉnh tiếp theo.';
                 cs["lineNo"] = 4;
                 stateList.push(cs);
             }
@@ -1262,9 +1262,9 @@ var List = function () {
             cs["vl"][prevIdx]["state"] = VERTEX_HIGHLIGHTED;
             cs["vl"][prevIdx]["extratext"] = i + "/pre";
             vertexTraversed[prevVtx] = true;
-            // k is 0, prev now points to one vertex behind the vertex to-be-deleted.
+            // k is 0, prev now trỏ đến one vertex behind the vertex to-be-deleted.
             // We stop searching and continue with the removal.
-            cs["status"] = 'k is 0, prev now points to one vertex behind the vertex to-be-deleted.<br>We stop searching and continue with the removal.';
+            cs["status"] = 'k là 0, hiện tại trỏ đến một đỉnh phía sau đỉnh cần xóa. <br> Chúng ta ngừng tìm kiếm và tiếp tục xóa.';
             cs["lineNo"] = 3;
             stateList.push(cs);
 
@@ -1292,7 +1292,7 @@ var List = function () {
             vertexTraversed[prevVtx] = true;
             // We store reference to the vertex to-be-deleted.
             // We also store reference to the vertex after the to-be-deleted vertex.
-            cs["status"] = 'We store reference to the vertex to-be-deleted.<br>We also store reference to the vertex after the to-be-deleted vertex.';
+            cs["status"] = 'Chúng ta lưu trữ tham chiếu đến đỉnh sẽ bị xóa. <br> Chúng ta cũng lưu trữ tham chiếu đến đỉnh sau đỉnh sắp xóa.';
             cs["lineNo"] = 5;
             stateList.push(cs);
 
@@ -1314,8 +1314,8 @@ var List = function () {
                 cs["el"][prevIdx + BACK_EDGE_CONST]["state"] = EDGE_HIGHLIGHTED;
                 cs["el"][delIdx + BACK_EDGE_CONST]["state"] = OBJ_HIDDEN;
             }
-            // We connect the vertex behind the vertex to-be-deleted (pointer prev) with the next vertex after the vertex to-be-deleted (pointer after).
-            cs["status"] = 'We connect the vertex behind the vertex to-be-deleted (pointer prev) with the next vertex after the vertex to-be-deleted (pointer after).';
+            // Ta nối đỉnh phía sau đỉnh cần xóa (con trỏ trước) với đỉnh tiếp theo sau đỉnh cần xóa (con trỏ sau).
+            cs["status"] = 'Ta nối đỉnh phía sau đỉnh cần xóa (con trỏ trước) với đỉnh tiếp theo sau đỉnh cần xóa (con trỏ sau).';
             cs["lineNo"] = 6;
             stateList.push(cs);
 
@@ -1326,8 +1326,8 @@ var List = function () {
             cs = createState(iL, vertexTraversed, edgeTraversed);
             cs["vl"][prevIdx]["state"] = VERTEX_HIGHLIGHTED;
             cs["vl"][afterIdx]["state"] = VERTEX_GREEN_FILL;
-            // Now we delete this vertex.
-            cs["status"] = 'Now we delete this vertex.';
+            // Bây giờ chúng ta xóa đỉnh này.
+            cs["status"] = 'Bây giờ chúng ta xóa đỉnh này.';
             cs["lineNo"] = 7;
             stateList.push(cs);
             amountVertex--;
@@ -1338,9 +1338,9 @@ var List = function () {
             cs["vl"][prevIdx]["state"] = VERTEX_HIGHLIGHTED;
             cs["vl"][afterIdx]["state"] = VERTEX_GREEN_FILL;
             if (amountVertex == 1) cs["vl"][afterIdx]["extratext"] = "head/tail";
-            // Re-layout the Linked List for visualization.
-            // The whole process is O({N}).
-            cs["status"] = 'Re-layout the Linked List for visualization.<br>The whole process is O({N}).'.replace("{N}", "N");
+            // Bố cục lại Danh sách liên kết để dễ hình dung.
+            // Độ phức tạp là O({N}).
+            cs["status"] = 'Bố cục lại Danh sách liên kết để dễ hình dung.<br>Độ phức tạp là O({N}).'.replace("{N}", "N");
             stateList.push(cs);
         }
 
@@ -1759,7 +1759,7 @@ $('#title-DLL').click(function () {
     noteTitle.innerHTML = '<h1>Doubly Linked List</h1>';
     note.innerHTML = "<div>Doubly Linked List is a variation of Linked list in which navigation is possible in both ways, " +
         "either forward and backward easily as compared to Single Linked List" +
-        "As per the above illustration, following are the important points to be considered.<br>" +
+        "As per the above illustration, following are the important trỏ đến be considered.<br>" +
         "Doubly Linked List contains a link element called first and last.<br>" +
         "Each link carries a data field(s) and two link fields called next and prev.<br>" +
         "Each link is linked with its next link using its next link.<br>"+

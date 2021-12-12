@@ -237,7 +237,7 @@ var Sorting = function () {
 
     // end class FunctionList
 
-    var generateRandomNumber = function (min, max) { //generates a random integer between min and max (both inclusive)
+    var generateRandomNumber = function (min, max) { //generates a random integer between min and max (both bao gồm)
         return Math.floor(Math.random() * (max - min + 1)) + min;
     };
 
@@ -249,7 +249,7 @@ var Sorting = function () {
         return numArray;
     };
 
-    var generateRandomNumber = function (min, max) { //generates a random integer between min and max (both inclusive)
+    var generateRandomNumber = function (min, max) { //generates a random integer between min and max (both bao gồm)
         return Math.floor(Math.random() * (max - min + 1)) + min;
     };
 
@@ -315,9 +315,9 @@ var Sorting = function () {
             swapped = false;
 
             // Set the swapped flag to false.
-            // Then iterate from 1 to {endIdx} inclusive.
-            state.status = '<div>Set the swapped flag to false.</div><div>Then iterate from 1 to {endIdx} inclusive.</div>'.replace("{endIdx}", indexOfLastUnsortedElement - 1);
-            state.logMessage = '<div>Set the swapped flag to false.</div><div>Then iterate from 1 to {endIdx} inclusive.</div>'.replace("{endIdx}", indexOfLastUnsortedElement - 1)
+            // Sau đó, lặp lại từ 1 đến {endIdx} bao gồm.
+            state.status = '<div>Gán vị trí cần đổi = false.</div><div>Sau đó, lặp lại từ 1 đến {endIdx} bao gồm.</div>'.replace("{endIdx}", indexOfLastUnsortedElement - 1);
+            state.logMessage = '<div>Gán vị trí cần đổi = false.</div><div>Sau đó, lặp lại từ 1 đến {endIdx} bao gồm.</div>'.replace("{endIdx}", indexOfLastUnsortedElement - 1)
                 + state.logMessage;
             state.lineNo = [2, 3];
             StateHelper.updateCopyPush(statelist, state);
@@ -326,13 +326,13 @@ var Sorting = function () {
                 state.backlinks[i - 1].highlight = HIGHLIGHT_STANDARD;
                 state.backlinks[i].highlight = HIGHLIGHT_STANDARD;
 
-                // Checking if {val1} > {val2} and swap them if that is true.
-                // The current value of swapped = {swapped}.
-                state.status = '<div>Checking if {val1} &gt; {val2} and swap them if that is true.</div><div>The current value of swapped = {swapped}.</div>'
+                // Kiểm tra, nếu {val1} > {val2} và hoán đổi vị trí chúng
+                // Giá trị hiện tại của swapped = {swapped}.
+                state.status = '<div>Kiểm tra, nếu {val1} &gt; {val2} và hoán đổi vị trí chúng</div><div>Giá trị hiện tại của swapped = {swapped}.</div>'
                     .replace("{val1}", state.backlinks[i - 1].value)
                     .replace("{val2}", state.backlinks[i].value)
                     .replace("{swapped}", swapped);
-                state.logMessage = '<div>Checking if {val1} &gt; {val2} and swap them if that is true.</div><div>The current value of swapped = {swapped}.</div>'
+                state.logMessage = '<div>Kiểm tra, nếu {val1} &gt; {val2} và hoán đổi vị trí chúng</div><div>Giá trị hiện tại của swapped = {swapped}.</div>'
                     .replace("{val1}", state.backlinks[i - 1].value)
                     .replace("{val2}", state.backlinks[i].value)
                     .replace("{swapped}", swapped) + state.logMessage;
@@ -342,22 +342,22 @@ var Sorting = function () {
                 if (state.backlinks[i - 1].value > state.backlinks[i].value) {
                     swapped = true;
 
-                    // Swapping the positions of {val1} and {val2}.
+                    // Hoán đổi vị tr {val1} and {val2}.
                     // Set swapped = true.
-                    state.status = '<div>Swapping the positions of {val1} and {val2}.</div><div>Set swapped = true.</div>'
+                    state.status = '<div>Hoán đổi vị trí của {val1} và {val2}.</div><div>Gán swapped = true.</div>'
                         .replace("{val1}", state.backlinks[i - 1].value)
                         .replace("{val2}", state.backlinks[i].value);
                     // state.logMessage = '<div>swap {val1} and {val2}</div>'
                     //     .replace("{val1}", state.backlinks[i - 1].value)
                     //     .replace("{val2}", state.backlinks[i].value) + state.logMessage;
-                    state.logMessage = '<div>Swapping the positions of {val1} and {val2}.</div><div>Set swapped = true.</div>'
+                    state.logMessage = '<div>Hoán đổi vị trí của {val1} và {val2}.</div><div>Gán swapped = true.</div>'
                         .replace("{val1}", state.backlinks[i - 1].value)
                         .replace("{val2}", state.backlinks[i].value) + state.logMessage;
                     if (this.computeInversionIndex) {
                         swapCounter++;
-                        // For inversion index computation: Add 1 to swapCounter.
-                        // The current value of swapCounter = {swapCounter}.
-                        state.status += ' For inversion index: Add 1 to swapCounter.<div>Current value of swapCounter = {swapCounter}.</div>'.replace("{swapCounter}", swapCounter);
+                        // For Chỉ số nghịch đảo computation: Add 1 to swapCounter.
+                        // Giá trị hiện tại của swapCounter = {swapCounter}.
+                        state.status += ' Đối với chỉ số nghịch đảo: Thêm 1 vào swapCounter.<div>Giá trị hiện tại của swapCounter = {swapCounter}.</div>'.replace("{swapCounter}", swapCounter);
                     }
 
                     state.lineNo = [5, 6];
@@ -373,18 +373,18 @@ var Sorting = function () {
             indexOfLastUnsortedElement--;
             state.backlinks[indexOfLastUnsortedElement].highlight = HIGHLIGHT_SORTED;
             if (swapped == false)
-                // No swap is done in this pass.
-                // We can terminate Bubble Sort now.
-                state.status = '<div>No swap is done in this pass.</div><div>We can terminate Bubble Sort now</div>';
-            // state.logMessage = '<div>No swap is done in this pass.</div><div>We can terminate Bubble Sort now</div>' + state.logMessage;
+                // Không có sự hoán đổi nào được thực hiện trong thẻ này.
+                // Chúng ta có thể chấm dứt tính năng Sắp xếp bong bóng ngay bây giờ.
+                state.status = '<div>Không có sự hoán đổi nào được thực hiện trong thẻ này.</div><div>Chúng ta có thể chấm dứt tính năng Sắp xếp nổi bọt ngay bây giờ</div>';
+            // state.logMessage = '<div>Không có sự hoán đổi nào được thực hiện trong thẻ này.</div><div>Chúng ta có thể chấm dứt tính năng Sắp xếp bong bóng ngay bây giờ</div>' + state.logMessage;
             else {
                 // Mark last unsorted element as sorted now.
                 // As at least one swap is done in this pass, we continue.
-                state.status = '<div>Mark last unsorted element as sorted now.</div><div>As at least one swap is done in this pass, we continue.</div>';
-                state.logMessage = '<div>Mark last unsorted element as sorted now.</div><div>As at least one swap is done in this pass, we continue.</div>' + state.logMessage;
+                state.status = '<div> Phần tử chưa được sắp xếp cuối cùng là đã được sắp xếp ngay bây giờ. </div> <div> Vì ít nhất một hoán đổi được thực hiện trong lần vượt qua này, chúng ta tiếp tục. </div>';
+                state.logMessage = '<div> Phần tử chưa được sắp xếp cuối cùng là đã được sắp xếp ngay bây giờ. </div> <div> Vì ít nhất một hoán đổi được thực hiện trong lần vượt qua này, chúng ta tiếp tục. </div>' + state.logMessage;
             }
             state.lineNo = 7;
-            StateHelper.updateCopyPush(statelist, state);
+            StateHelper.updateCophầnpyPush(statelist, state);
         }
         while (swapped);
 
@@ -392,11 +392,11 @@ var Sorting = function () {
             state.backlinks[i].highlight = HIGHLIGHT_SORTED;
 
         // The array/list is now sorted.
-        state.status = '<div>List sorted!</div>';
-        state.logMessage = '<div>List sorted!</div>' + state.logMessage;
+        state.status = '<div>Danh sách đã được sắp xếp !</div>';
+        state.logMessage = '<div>Danh sách đã được sắp xếp !</div>' + state.logMessage;
         if (this.computeInversionIndex)
-            // Inversion Index = {swapCounter}.
-            state.status += ' Inversion Index = {swapCounter}.'.replace("swapCounter", swapCounter);
+            // Chỉ số nghịch đảo = {swapCounter}.
+            state.status += ' Chỉ số nghịch đảo = {swapCounter}.'.replace("swapCounter", swapCounter);
 
         state.lineNo = 0;
         StateHelper.updateCopyPush(statelist, state);
@@ -425,10 +425,10 @@ var Sorting = function () {
 
             // Iteration {iteration}: Set {val} as the current minimum.
             // Then iterate through the rest to find the true minimum.
-            state.status = '<div>Iteration {iteration}: Set {val} as the current minimum, then iterate through the remaining unsorted elements to find the true minimum.</div>'
+            state.status = '<div>Lặp lại {iteration}: Gán {val} là giá trị nhỏ nhất hiện tại, sau đó lặp lại qua các phần tử chưa được sắp xếp còn lại để tìm ra giá trị nhỏ nhất thực sự.</div>'
                 .replace("{iteration}", (i + 1))
                 .replace("{val}", state.backlinks[i].value);
-            state.logMessage = '<div>Iteration {iteration}: Set {val} as the current minimum, then iterate through the remaining unsorted elements to find the true minimum.</div>'
+            state.logMessage = '<div>Lặp lại {iteration}: Gán {val} là giá trị nhỏ nhất hiện tại, sau đó lặp lại qua các phần tử chưa được sắp xếp còn lại để tìm ra giá trị nhỏ nhất thực sự.</div>'
                 .replace("{iteration}", (i + 1))
                 .replace("{val}", state.backlinks[i].value) + state.logMessage;
             state.lineNo = [1, 2, 3];
@@ -438,10 +438,10 @@ var Sorting = function () {
 
             for (var j = i + 1; j < numElements; j++) {
                 // Check if {val} is smaller than the current minimum ({minVal}).
-                state.status = '<div>Check if {val} is smaller than the current minimum ({minVal}).</div>'
+                state.status = '<div>Kiểm tra nếu {val} nhỏ hơn giá trị nhỏ nhất hiện tại thì gán nó = ({minVal}).</div>'
                     .replace("{val}", state.backlinks[j].value)
                     .replace("{minVal}", state.backlinks[minPosition].value);
-                state.logMessage = '<div>Check if {val} is smaller than the current minimum ({minVal}).</div>'
+                state.logMessage = '<div>Kiểm tra nếu {val} nhỏ hơn giá trị nhỏ nhất hiện tại thì gán nó = ({minVal}).</div>'
                     .replace("{val}", state.backlinks[j].value)
                     .replace("{minVal}", state.backlinks[minPosition].value) + state.logMessage;
                 state.lineNo = 4;
@@ -451,11 +451,11 @@ var Sorting = function () {
                 state.backlinks[j].highlight = HIGHLIGHT_NONE;
 
                 if (state.backlinks[j].value < state.backlinks[minPosition].value) {
-                    state.status = '<div>Set {val} as the new minimum.</div>'
+                    state.status = '<div>Gán {val} là giá trị nhỏ nhất</div>'
                         .replace("{val}", state.backlinks[j].value);
                     // state.logMessage = '<div>{val} is the current minimum</div>'
                     //     .replace("{val}", state.backlinks[j].value) + state.logMessage;
-                    state.logMessage = '<div>Set {val} as the new minimum.</div>'
+                    state.logMessage = '<div>Gán {val} là giá trị nhỏ nhất</div>'
                         .replace("{val}", state.backlinks[j].value) + state.logMessage;
                     state.lineNo = 5;
                     state.backlinks[minPosition].highlight = HIGHLIGHT_NONE;
@@ -468,14 +468,14 @@ var Sorting = function () {
 
             if (minPosition != i) { // Highlight the first-most unswapped position, if it isn't the minimum
                 // Set {val} as the new minimum.
-                state.status = '<div>Swap the minimum ({minVal}) with the first unsorted element ({element}).</div>'
+                state.status = '<div>Đổi chổ hai giá trị ({minVal}) với phần tử đầu tiên chưa được sắp xếp ({element}).</div>'
                     .replace("{minVal}", state.backlinks[minPosition].value)
                     .replace("{element}", state.backlinks[i].value);
 
                 // state.logMessage = '<div>swap {minVal} and {element}</div>'
                 //     .replace("{minVal}", state.backlinks[minPosition].value)
                 //     .replace("{element}", state.backlinks[i].value) + state.logMessage;
-                state.logMessage = '<div>Swap the minimum ({minVal}) with the first unsorted element ({element}).</div>'
+                state.logMessage = '<div>Đổi chổ hai giá trị ({minVal}) với phần tử đầu tiên chưa được sắp xếp ({element}).</div>'
                     .replace("{minVal}", state.backlinks[minPosition].value)
                     .replace("{element}", state.backlinks[i].value) + state.logMessage;
 
@@ -488,15 +488,15 @@ var Sorting = function () {
             }
             else {
                 // As the minimum is the first unsorted element, no swap is necessary.
-                state.status = '<div>As the minimum is the first unsorted element, no swap is necessary.</div>';
-                state.logMessage = '<div>As the minimum is the first unsorted element, no swap is necessary.</div>' + state.logMessage;
+                state.status = '<div>Vì là phần tử nhỏ nhất ở đầu nên không cần hoán đổi.</div>';
+                state.logMessage = '<div>Vì là phần tử nhỏ nhất ở đầu nên không cần hoán đổi.</div>' + state.logMessage;
                 state.lineNo = 6;
                 StateHelper.updateCopyPush(statelist, state);
             }
 
             // {val} is now considered sorted.
-            state.status = '<div>{val} is now considered sorted.</div>'.replace("{val}", state.backlinks[i].value);
-            state.logMessage = '<div>{val} is now considered sorted.</div>'.replace("{val}", state.backlinks[i].value) + state.logMessage;
+            state.status = '<div>{val} hiện giờ được coi là đã sắp xếp.</div>'.replace("{val}", state.backlinks[i].value);
+            state.logMessage = '<div>{val} hiện được coi là đã sắp xếp.</div>'.replace("{val}", state.backlinks[i].value) + state.logMessage;
             state.backlinks[minPosition].highlight = HIGHLIGHT_NONE;
             state.backlinks[i].highlight = HIGHLIGHT_SORTED;
             StateHelper.updateCopyPush(statelist, state);
@@ -506,8 +506,8 @@ var Sorting = function () {
             state.backlinks[i].highlight = HIGHLIGHT_SORTED; // highlight everything
         // The array/list is now sorted.
         // (After all iterations, the last element will naturally be sorted.)
-        state.status = 'List sorted!' + '<br>' + '(After all iterations, the last element will naturally be sorted.)';
-        state.logMessage = "<div>List sorted!</div>" + state.logMessage;
+        state.status = 'Danh sách đã được sắp xếp !' + '<br>' + '(Sau tất cả các lần lặp lại, phần tử cuối cùng sẽ được sắp xếp một cách tự động.)';
+        state.logMessage = "<div>Danh sách đã được sắp xếp !</div>" + state.logMessage;
         status.lineNo = 0;
         StateHelper.updateCopyPush(statelist, state);
 
@@ -536,21 +536,21 @@ var Sorting = function () {
         quickSortSplit(state, 0, numElements - 1);
 
         state.lineNo = 0;
-        state.status = '<div>List sorted!</div>';
-        state.logMessage = '<div>List sorted!</div>' + state.logMessage;
+        state.status = '<div>Danh sách đã được sắp xếp !</div>';
+        state.logMessage = '<div>Danh sách đã được sắp xếp !</div>' + state.logMessage;
 
         for (var i = 0; i < numElements; i++)
             state.backlinks[i].highlight = HIGHLIGHT_SORTED; //unhighlight everything
         StateHelper.updateCopyPush(statelist, state);
     }
 
-    var quickSortSplit = function (state, startIndex, endIndex) { //startIndex & endIndex inclusive
-        state.status = '<div>Working on partition [{partition}] (index {startIndex} to {endIndex} both inclusive).</div>'
+    var quickSortSplit = function (state, startIndex, endIndex) { //startIndex & endIndex bao gồm
+        state.status = '<div>Thao tác trên phân vùng [{partition}] (index {startIndex} to {endIndex} bao gồm cả hai).</div>'
             .replace("{partition}", state.backlinks.slice(startIndex, endIndex + 1).map(function (d) {
                 return d.value;
             }))
             .replace("{startIndex}", startIndex).replace("{endIndex}", endIndex);
-        state.logMessage = '<div>Working on partition [{partition}] (index {startIndex} to {endIndex} both inclusive).</div>'
+        state.logMessage = '<div>Thao tác trên phân vùng [{partition}] (index {startIndex} to {endIndex} bao gồm cả hai).</div>'
             .replace("{partition}", state.backlinks.slice(startIndex, endIndex + 1).map(function (d) {
                 return d.value;
             }))
@@ -561,8 +561,8 @@ var Sorting = function () {
             return;
 
         if (startIndex == endIndex) {
-            state.status += '<div>Since partition size == 1, element inside partition is necessarily at sorted position.</div>';
-            state.logMessage += '<div>Since partition size == 1, element inside partition is necessarily at sorted position.</div>' + state.logMessage;
+            state.status += '<div>Kể từ khi kích thước phân vùng == 1, phần tử bên trong phân vùng cần phải ở vị trí sắp xếp.</div>';
+            state.logMessage += '<div>Kể từ khi kích thước phân vùng == 1, phần tử bên trong phân vùng cần phải ở vị trí sắp xếp.</div>' + state.logMessage;
             state.backlinks[startIndex].highlight = HIGHLIGHT_SORTED;
             StateHelper.updateCopyPush(statelist, state);
             return;
@@ -580,10 +580,10 @@ var Sorting = function () {
 
             pivotIndex = generateRandomNumber(startIndex, endIndex);
 
-            state.status += '<div>Randomly selected {pivot} (index {index}) as pivot.</div>'
+            state.status += '<div>Được lựa chọn ngẫu nhiên {pivot} (index {index}) là pivot.</div>'
                 .replace("{pivot}", state.backlinks[pivotIndex].value)
                 .replace("{index}", pivotIndex);
-            state.logMessage += '<div>Randomly selected {pivot} (index {index}) as pivot.</div>'
+            state.logMessage += '<div>Được lựa chọn ngẫu nhiên {pivot} (index {index}) là pivot.</div>'
                 .replace("{pivot}", state.backlinks[pivotIndex].value)
                 .replace("{index}", pivotIndex) + state.logMessage;
             state.lineNo = [1, 2];
@@ -592,13 +592,13 @@ var Sorting = function () {
             StateHelper.updateCopyPush(statelist, state);
 
             if (pivotIndex != startIndex) {
-                state.status = '<div>Swap pivot ({pivot}}, index {index}) with first element ({first}, index {firstIndex}). (storeIndex = {storeIndex}.)</div>'
+                state.status = '<div>Hoán đổi pivot ({pivot}}, index {index}) với phần tử đầu tiên ({first}, index {firstIndex}). (storeIndex = {storeIndex}.)</div>'
                     .replace("{pivot}", state.backlinks[pivotIndex].value)
                     .replace("{index}", pivotIndex)
                     .replace("{first}", state.backlinks[startIndex].value)
                     .replace("{firstIndex}", startIndex)
                     .replace("{storeIndex}", (startIndex + 1));
-                state.logMessage = '<div>Swap pivot ({pivot}}, index {index}) with first element ({first}, index {firstIndex}). (storeIndex = {storeIndex}.)</div>'
+                state.logMessage = '<div>Hoán đổi pivot ({pivot}}, index {index}) với phần tử đầu tiên ({first}, index {firstIndex}). (storeIndex = {storeIndex}.)</div>'
                     .replace("{pivot}", state.backlinks[pivotIndex].value)
                     .replace("{index}", pivotIndex)
                     .replace("{first}", state.backlinks[startIndex].value)
@@ -615,13 +615,13 @@ var Sorting = function () {
         else {
             pivotIndex = startIndex;
 
-            state.status += '<div>Selecting {pivot} as pivot. (storeIndex = {storeIndex}.)</div>'
+            state.status += '<div>Chọn {pivot} là pivot. (storeIndex = {storeIndex}.)</div>'
                 .replace("{pivot}", state.backlinks[pivotIndex].value)
                 .replace("{storeIndex}", (startIndex + 1));
 
-            // state.logMessage = '<div>Select {val} as pivot</div>'
+            // state.logMessage = '<div>Select {val} là pivot</div>'
             //     .replace("{val}", state.backlinks[pivotIndex].value) + state.logMessage;
-            state.logMessage += '<div>Selecting {pivot} as pivot. (storeIndex = {storeIndex}.)</div>'
+            state.logMessage += '<div>Chọn {pivot} là pivot. (storeIndex = {storeIndex}.)</div>'
                 .replace("{pivot}", state.backlinks[pivotIndex].value)
                 .replace("{storeIndex}", (startIndex + 1)) + state.logMessage;
 
@@ -635,10 +635,10 @@ var Sorting = function () {
         var pivotValue = state.backlinks[pivotIndex].value;
 
         for (var i = storeIndex; i <= endIndex; i++) {
-            state.status = '<div>Checking if {val} < {pivot} (pivot).</div>'
+            state.status = '<div>Kiểm tra, nếu {val} < {pivot} (pivot).</div>'
                 .replace("{val}", state.backlinks[i].value)
                 .replace("{pivot}", pivotValue);
-            state.logMessage = '<div>Checking if {val} < {pivot} (pivot).</div>'
+            state.logMessage = '<div>Kiểm tra, nếu {val} < {pivot} (pivot).</div>'
                 .replace("{val}", state.backlinks[i].value)
                 .replace("{pivot}", pivotValue) + state.logMessage;
             state.lineNo = [4, 5];
@@ -647,7 +647,7 @@ var Sorting = function () {
             StateHelper.updateCopyPush(statelist, state);
             if (state.backlinks[i].value < pivotValue) {
 
-                state.status = '<div>{val} < {pivot} (pivot) is true. <div>Swapping index {idx} (value = {valI}) with element at storeIndex (index = {storeIdx}, value = {storeVal}).</div> (Value of storeIndex after swap = {newStoreIdx}).</div>'
+                state.status = '<div>{val} < {pivot} (pivot) là true. <div>Hoán đổi vị trí {idx} (value = {valI}) với phần tử tại vị trí storeIndex (index = {storeIdx}, giá trị = {storeVal}).</div> (Giá trị sau khi hoán đổi là  = {newStoreIdx}).</div>'
                     .replace("{idx}", i)
                     .replace("{val}", state.backlinks[i].value)
                     .replace("{valI}", state.backlinks[i].value)
@@ -655,7 +655,7 @@ var Sorting = function () {
                     .replace("{storeIdx}", storeIndex)
                     .replace("{storeVal}", state.backlinks[storeIndex].value)
                     .replace("{newStoreIdx}", (storeIndex + 1));
-                state.logMessage = '<div>{val} < {pivot} (pivot) is true. <div>Swapping index {idx} (value = {valI}) with element at storeIndex (index = {storeIdx}, value = {storeVal}).</div> (Value of storeIndex after swap = {newStoreIdx}).</div>'
+                state.logMessage = '<div>{val} < {pivot} (pivot) là true. <div>Hoán đổi vị trí {idx} (value = {valI}) với phần tử tại vị trí storeIndex (index = {storeIdx}, giá trị = {storeVal}).</div> (Giá trị sau khi hoán đổi là  = {newStoreIdx}).</div>'
                     .replace("{idx}", i)
                     .replace("{val}", state.backlinks[i].value)
                     .replace("{valI}", state.backlinks[i].value)
@@ -667,7 +667,7 @@ var Sorting = function () {
                 state.lineNo = [4, 6];
 
                 if (i != storeIndex) {
-                    state.logMessage = '<div>Swap {val1} and {val2}</div>'
+                    state.logMessage = '<div>Hoán đổi {val1} và {val2}</div>'
                         .replace("{val1}", state.backlinks[i].value)
                         .replace("{val2}", state.backlinks[storeIndex].value) + state.logMessage;
                     EntryBacklinkHelper.swapBacklinks(state.backlinks, storeIndex, i);
@@ -681,12 +681,12 @@ var Sorting = function () {
                 state.backlinks[i].highlight = HIGHLIGHT_RIGHT;
             }
         }
-        state.status = '<div>Iteration complete.</div>';
-        state.logMessage = '<div>Iteration complete.</div>' + state.logMessage;
+        state.status = '<div>Quá trình lặp lại hoàn tất.</div>';
+        state.logMessage = '<div>Quá trình lặp lại hoàn tất.</div>' + state.logMessage;
         state.lineNo = 4;
         StateHelper.updateCopyPush(statelist, state);
         if (storeIndex - 1 != pivotIndex) {
-            state.status = '<div>Swapping pivot (index = {pivotIdx}, value = {pivot}) with element at storeIndex - 1 (index = {newIdx}, value = {newVal}).</div>'
+            state.status = '<div>Hoán đổi pivot (index = {pivotIdx}, giá trị = {pivot}) với phần tử tại storeIndex - 1 (index = {newIdx}, giá trị = {newVal}).</div>'
                 .replace("{pivotIdx}", pivotIndex)
                 .replace("{pivot}", pivotValue)
                 .replace("{newIdx}", (storeIndex - 1))
@@ -695,7 +695,7 @@ var Sorting = function () {
             // state.logMessage = '<div>Swap {val1} and {val2}</div>'
             //     .replace("{val1}", pivotValue)
             //     .replace("{val2}", state.backlinks[storeIndex - 1].value) + state.logMessage;
-            state.logMessage = '<div>Swapping pivot (index = {pivotIdx}, value = {pivot}) with element at storeIndex - 1 (index = {newIdx}, value = {newVal}).</div>'
+            state.logMessage = '<div>Hoán đổi pivot (index = {pivotIdx}, giá trị = {pivot}) với phần tử tại storeIndex - 1 (index = {newIdx}, giá trị = {newVal}).</div>'
                 .replace("{pivotIdx}", pivotIndex)
                 .replace("{pivot}", pivotValue)
                 .replace("{newIdx}", (storeIndex - 1))
@@ -706,8 +706,8 @@ var Sorting = function () {
             StateHelper.updateCopyPush(statelist, state);
         }
 
-        state.status = '<div>Pivot is now at its sorted position.</div>';
-        state.logMessage = '<div>Pivot is now at its sorted position.</div>' + state.logMessage;
+        state.status = '<div>Pivot hiện đang ở vị trí được sắp xếp của nó.</div>';
+        state.logMessage = '<div>Pivot hiện đang ở vị trí được sắp xếp của nó.</div>' + state.logMessage;
         state.lineNo = 7;
 
         for (var i = startIndex; i <= endIndex; i++)
@@ -743,9 +743,9 @@ var Sorting = function () {
         initLogMessage(state);
 
         // Mark first element is sorted
-        state.status = "<div>Mark the first element ({first}) as sorted.</div>"
+        state.status = "<div>Đánh dấu phần tử đầu tiên({first}) đã sắp xếp</div>"
             .replace('{first}', state.backlinks[0].value);
-        state.logMessage = "<div>Mark the first element ({first}) as sorted.</div>"
+        state.logMessage = "<div>Đánh dấu phần tử đầu tiên({first}) đã sắp xếp</div>"
             .replace('{first}', state.backlinks[0].value) + state.logMessage;
         state.backlinks[0].highlight = HIGHLIGHT_SORTED;
         state.lineNo = 1;
@@ -755,9 +755,9 @@ var Sorting = function () {
         for (var i = 1; i < numElements; i++) {
             state.backlinks[i].highlight = HIGHLIGHT_SPECIAL;
             state.lineNo = [2, 3];
-            state.status = "<div>Extract the first unsorted element ({val}).</div>"
+            state.status = "<div>Trích xuất phần tử chưa được sắp xếp đầu tiên ({val}).</div>"
                 .replace('{val}', state.backlinks[i].value);
-            state.logMessage = "<div>Extract the first unsorted element ({val}).</div>"
+            state.logMessage = "<div>Trích xuất phần tử chưa được sắp xếp đầu tiên ({val}).</div>"
                 .replace('{val}', state.backlinks[i].value) + state.logMessage;
             StateHelper.updateCopyPush(statelist, state);
             state.backlinks[i].secondaryPositionStatus = POSITION_USE_SECONDARY_IN_DEFAULT_POSITION;
@@ -766,18 +766,18 @@ var Sorting = function () {
             for (var j = (i - 1); j >= 0; j--) {
                 state.backlinks[j].highlight = HIGHLIGHT_STANDARD;
                 state.lineNo = 4;
-                state.status = "<div>Figure where to insert extracted element; comparing with sorted element {val}.</div>".replace('{val}', state.backlinks[j].value);
-                state.logMessage = "<div>Figure where to insert extracted element; comparing with sorted element {val}.</div>".replace('{val}', state.backlinks[j].value) + state.logMessage;
+                state.status = "<div>tìm vị trí để chèn phần tử đã trích xuất; so sánh với phần tử được sắp xếp {val}.</div>".replace('{val}', state.backlinks[j].value);
+                state.logMessage = "<div>tìm vị trí để chèn phần tử đã trích xuất; so sánh với phần tử được sắp xếp {val}.</div>".replace('{val}', state.backlinks[j].value) + state.logMessage;
                 StateHelper.updateCopyPush(statelist, state);
                 if (state.backlinks[j].value > state.backlinks[j + 1].value) {
                     // Swap
                     state.backlinks[j].highlight = HIGHLIGHT_SORTED;
                     state.lineNo = [5, 6];
-                    state.status = "<div>{val1} > {val2} is true, hence move current sorted element ({val}) to the right by 1.</div>"
+                    state.status = "<div>{val1} > {val2} là true, do đó di chuyển phần tử được sắp xếp hiện tại ({val}) sang bên phải 1.</div>"
                         .replace('{val1}', state.backlinks[j].value)
                         .replace('{val2}', state.backlinks[j + 1].value)
                         .replace('{val}', state.backlinks[j].value);
-                    state.logMessage = "<div>{val1} > {val2} is true, hence move current sorted element ({val}) to the right by 1.</div>"
+                    state.logMessage = "<div>{val1} > {val2} là true, do đó di chuyển phần tử được sắp xếp hiện tại ({val}) sang bên phải 1.</div>"
                         .replace('{val1}', state.backlinks[j].value)
                         .replace('{val2}', state.backlinks[j + 1].value)
                         .replace('{val}', state.backlinks[j].value) + state.logMessage;
@@ -791,10 +791,10 @@ var Sorting = function () {
                     state.backlinks[j].highlight = HIGHLIGHT_SORTED;
                     state.backlinks[j + 1].highlight = HIGHLIGHT_SORTED;
                     state.lineNo = 7;
-                    state.status = "<div>{val1} > {val2} is false, insert element at current position.</div>"
+                    state.status = "<div>{val1} > {val2} là false, hãy chèn phần tử vào vị trí hiện tại.</div>"
                         .replace('{val1}', state.backlinks[j].value)
                         .replace('{val2}', state.backlinks[j + 1].value);
-                    state.logMessage = "<div>{val1} > {val2} is false, insert element at current position.</div>"
+                    state.logMessage = "<div>{val1} > {val2} là false, hãy chèn phần tử vào vị trí hiện tại.</div>"
                         .replace('{val1}', state.backlinks[j].value)
                         .replace('{val2}', state.backlinks[j + 1].value) + state.logMessage;
                     state.backlinks[j + 1].secondaryPositionStatus = POSITION_USE_PRIMARY;
@@ -815,8 +815,8 @@ var Sorting = function () {
         } // End forward loop
 
         state.lineNo = 0;
-        state.status = "<div>List sorted!</div>";
-        state.logMessage = "<div>List sorted!</div>" + state.logMessage;
+        state.status = "<div>Danh sách đã được sắp xếp !</div>";
+        state.logMessage = "<div>Danh sách đã được sắp xếp !</div>" + state.logMessage;
         StateHelper.updateCopyPush(statelist, state);
 
         this.play(callback);
@@ -866,8 +866,8 @@ var Sorting = function () {
                 if (i + 1 <= end) {
                     state.backlinks[i + 1].highlight = HIGHLIGHT_SPECIAL;
                     state.lineNo = 4;
-                    state.status = "<div>Checking if {val1} > {val2}.</div>".replace('{val1}', state.backlinks[i].value).replace('{val2}', state.backlinks[i + 1].value);
-                    state.logMessage = "<div>Checking if {val1} > {val2}.</div>".replace('{val1}', state.backlinks[i].value).replace('{val2}', state.backlinks[i + 1].value) + state.logMessage;
+                    state.status = "<div>Kiểm tra, nếu {val1} > {val2}.</div>".replace('{val1}', state.backlinks[i].value).replace('{val2}', state.backlinks[i + 1].value);
+                    state.logMessage = "<div>Kiểm tra, nếu {val1} > {val2}.</div>".replace('{val1}', state.backlinks[i].value).replace('{val2}', state.backlinks[i + 1].value) + state.logMessage;
                     StateHelper.updateCopyPush(statelist, state);
                 }
 
@@ -925,8 +925,8 @@ var Sorting = function () {
                 if (i - 1 >= start) {
                     state.backlinks[i - 1].highlight = HIGHLIGHT_SPECIAL;
                     state.lineNo = 9;
-                    state.status = "<div>Checking if {val1} < {val2}</div>".replace('{val1}', state.backlinks[i].value).replace('{val2}', state.backlinks[i - 1].value);
-                    state.logMessage = "<div>Checking if {val1} < {val2}</div>".replace('{val1}', state.backlinks[i].value).replace('{val2}', state.backlinks[i - 1].value);
+                    state.status = "<div>Kiểm tra, nếu {val1} < {val2}</div>".replace('{val1}', state.backlinks[i].value).replace('{val2}', state.backlinks[i - 1].value);
+                    state.logMessage = "<div>Kiểm tra, nếu {val1} < {val2}</div>".replace('{val1}', state.backlinks[i].value).replace('{val2}', state.backlinks[i - 1].value);
                     StateHelper.updateCopyPush(statelist, state);
                 }
 
@@ -964,7 +964,7 @@ var Sorting = function () {
             StateHelper.updateCopyPush(statelist, state);
         } // End while loop
 
-        state.status = "List sorted!";
+        state.status = "Danh sách đã được sắp xếp !";
         for (var i = 0; i < numElements; i++) {
             state.backlinks[i].highlight = HIGHLIGHT_SORTED;
         }
@@ -1039,8 +1039,8 @@ var Sorting = function () {
             }
         }
 
-        state.status = "<div>List sorted!</div>";
-        state.logMessage = "<div>List sorted!</div>" + state.logMessage;
+        state.status = "<div>Danh sách đã được sắp xếp !</div>";
+        state.logMessage = "<div>Danh sách đã được sắp xếp !</div>" + state.logMessage;
         for (var i = 0; i < numElements; i++) {
             state.backlinks[i].highlight = HIGHLIGHT_SORTED;
         }
@@ -1094,10 +1094,10 @@ var Sorting = function () {
                     state.backlinks[j].secondaryPositionStatus = POSITION_USE_SECONDARY_IN_DEFAULT_POSITION;
                     state.backlinks[j - gap].highlight = HIGHLIGHT_STANDARD;
                     state.backlinks[j - gap].secondaryPositionStatus = POSITION_USE_SECONDARY_IN_DEFAULT_POSITION;
-                    state.status = "<div>Checking if {val1} > {val2}.</div>"
+                    state.status = "<div>Kiểm tra, nếu {val1} > {val2}.</div>"
                         .replace('{val1}', state.backlinks[j - gap].value)
                         .replace('{val2}', state.backlinks[j].value);
-                    state.logMessage = "<div>Checking if {val1} > {val2}.</div>"
+                    state.logMessage = "<div>Kiểm tra, nếu {val1} > {val2}.</div>"
                         .replace('{val1}', state.backlinks[j - gap].value)
                         .replace('{val2}', state.backlinks[j].value) + state.logMessage;
                     state.lineNo = 5;
@@ -1131,8 +1131,8 @@ var Sorting = function () {
             } // End for i
         } // End for gap
 
-        state.status = "<div>List sorted!</div>";
-        state.logMessage = "<div>List sorted!</div>" + state.logMessage;
+        state.status = "<div>Danh sách đã được sắp xếp !</div>";
+        state.logMessage = "<div>Danh sách đã được sắp xếp !</div>" + state.logMessage;
         for (var i = 0; i < numElements; i++) {
             state.backlinks[i].highlight = HIGHLIGHT_SORTED;
         }
@@ -1151,7 +1151,7 @@ var Sorting = function () {
         populatePseudocode([
             'split each element into partitions of size 1',
             'recursively merge adjancent partitions',
-            '  for i = leftPartStartIndex to rightPartLastIndex inclusive',
+            '  for i = leftPartStartIndex to rightPartLastIndex bao gồm',
             '    if leftPartHeadValue <= rightPartHeadValue',
             '      copy leftPartHeadValue',
             '    else: copy rightPartHeadValue',
@@ -1160,11 +1160,11 @@ var Sorting = function () {
 
         this.mergeSortSplit(state, 0, numElements);
 
-        state.status = "<div>List sorted!</div>";
+        state.status = "<div>Danh sách đã được sắp xếp !</div>";
         for (var i = 0; i < numElements; i++) {
             state.backlinks[i].highlight = HIGHLIGHT_SORTED;
         }
-        state.logMessage = "<div>List sorted!</div>" + state.logMessage;
+        state.logMessage = "<div>Danh sách đã được sắp xếp !</div>" + state.logMessage;
         StateHelper.updateCopyPush(statelist, state);
         this.play(callback);
 
@@ -1183,8 +1183,8 @@ var Sorting = function () {
 
         // Copy sorted array back to original array
 
-        state.status = "<div>Copy sorted elements back to original array.</div>";
-        state.logMessage = "<div>Copy sorted elements back to original array.</div>" + state.logMessage;
+        state.status = "<div>Sao chép các phần tử đã sắp xếp về mảng ban đầu.</div>";
+        state.logMessage = "<div>Sao chép các phần tử đã sắp xếp về mảng ban đầu.</div>" + state.logMessage;
 
         state.lineNo = 7;
 
@@ -1213,7 +1213,7 @@ var Sorting = function () {
             state.backlinks[i].highlight = HIGHLIGHT_STANDARD;
         }
 
-        state.status = "<div>We now merge partitions [{partition1}] (index {startIdx1} to {endIdx1} both inclusive) and [{partition2}] (index {startIdx2} to {endIdx2} both inclusive).</div>"
+        state.status = "<div>Giờ chúng ta hợp nhất các phân vùng [{partition1}] (index {startIdx1} đến {endIdx1}  bao gồm cả hai) and [{partition2}] (index {startIdx2} đến {endIdx2}  bao gồm cả hai).</div>"
             .replace('{partition1}', state.backlinks.slice(startIndex, midIndex).map(function (d) {
                 return d.value;
             }))
@@ -1222,7 +1222,7 @@ var Sorting = function () {
                 return d.value;
             }))
             .replace('{startIdx2}', midIndex).replace('{endIdx2}', (endIndex - 1));
-        state.logMessage = "<div>We now merge partitions [{partition1}] (index {startIdx1} to {endIdx1} both inclusive) and [{partition2}] (index {startIdx2} to {endIdx2} both inclusive).</div>"
+        state.logMessage = "<div>Giờ chúng ta hợp nhất các phân vùng [{partition1}] (index {startIdx1} đến {endIdx1}  bao gồm cả hai) and [{partition2}] (index {startIdx2} đến {endIdx2}  bao gồm cả hai).</div>"
             .replace('{partition1}', state.backlinks.slice(startIndex, midIndex).map(function (d) {
                 return d.value;
             }))
@@ -1241,14 +1241,14 @@ var Sorting = function () {
                 state.backlinks[leftIndex].secondaryPositionStatus = i;
 
                 if (rightIndex < endIndex) {
-                    state.status = "<div>Since {leftPart} (left partition) <= {rightPart} (right partition), we copy {leftPart} into new array.</div>"
+                    state.status = "<div>Vì {leftPart} (left partition) <= {rightPart} (right partition), chúng ta sao chép {leftPart} vào trong mảng mới</div>"
                         .replace(/{leftPart}/g, state.backlinks[leftIndex].value).replace('{rightPart}', state.backlinks[rightIndex].value);
-                    state.logMessage = "<div>Since {leftPart} (left partition) <= {rightPart} (right partition), we copy {leftPart} into new array.</div>"
+                    state.logMessage = "<div>Vì {leftPart} (left partition) <= {rightPart} (right partition), chúng ta sao chép {leftPart} vào trong mảng mới</div>"
                         .replace(/{leftPart}/g, state.backlinks[leftIndex].value).replace('{rightPart}', state.backlinks[rightIndex].value) + state.logMessage;
                 }
                 else {
-                    state.status = "<div>Since right partition is empty, we copy {leftPart} (left partition) into new array.</div>".replace('{leftPart}', state.backlinks[leftIndex].value);
-                    state.logMessage = "<div>Since right partition is empty, we copy {leftPart} (left partition) into new array.</div>".replace('{leftPart}', state.backlinks[leftIndex].value)
+                    state.status = "<div>Vì phân vùng bên phải trống, chúng ta sao chép {leftPart} (left partition) vào trong mảng mới</div>".replace('{leftPart}', state.backlinks[leftIndex].value);
+                    state.logMessage = "<div>Vì phân vùng bên phải trống, chúng ta sao chép {leftPart} (left partition) vào trong mảng mới</div>".replace('{leftPart}', state.backlinks[leftIndex].value)
                         + state.logMessage;
                 }
 
@@ -1262,14 +1262,14 @@ var Sorting = function () {
                 state.lineNo = [3, 6];
 
                 if (leftIndex < midIndex) {
-                    state.status = "<div>Since {leftPart} (left partition) > {rightPart} (right partition), we copy {rightPart} into new array.</div>"
+                    state.status = "<div>Vì {leftPart} (left partition) > {rightPart} (right partition), chúng ta sao chép {rightPart} vào trong mảng mới</div>"
                         .replace('{leftPart}', state.backlinks[leftIndex].value).replace(/{rightPart}/g, state.backlinks[rightIndex].value);
-                    state.logMessage = "<div>Since {leftPart} (left partition) > {rightPart} (right partition), we copy {rightPart} into new array.</div>"
+                    state.logMessage = "<div>Vì {leftPart} (left partition) > {rightPart} (right partition), chúng ta sao chép {rightPart} vào trong mảng mới</div>"
                         .replace('{leftPart}', state.backlinks[leftIndex].value).replace(/{rightPart}/g, state.backlinks[rightIndex].value) + state.logMessage;
                 }
                 else {
-                    state.status = "<div>Since left partition is empty, we copy {rightPart} (right partition) into new array.</div>".replace('{rightPart}', state.backlinks[rightIndex].value);
-                    state.logMessage = "<div>Since left partition is empty, we copy {rightPart} (right partition) into new array.</div>".replace('{rightPart}', state.backlinks[rightIndex].value) + state.logMessage;
+                    state.status = "<div>Vì phân vùng bên trái rỗng, chúng ta sao chép {rightPart} (right partition) vào trong mảng mới</div>".replace('{rightPart}', state.backlinks[rightIndex].value);
+                    state.logMessage = "<div>Vì phân vùng bên trái rỗng, chúng ta sao chép {rightPart} (right partition) vào trong mảng mới</div>".replace('{rightPart}', state.backlinks[rightIndex].value) + state.logMessage;
                 }
                 state.lineNo = [3, 6];
 
@@ -1638,7 +1638,7 @@ $('#bubbleSort').click(function () {
         title.innerHTML = "Bubble Sort";
         changeSortType(gw.bubbleSort);
         noteTitle.innerHTML = 'Bubble Sort';
-        note.innerHTML = "<div>Bubble sort, sometimes referred to as sinking sort, is a simple sorting algorithm that repeatedly steps through the list to be sorted, compares each pair of adjacent items and swaps them if they are in the wrong order. The pass through the list is repeated until no swaps are needed, which indicates that the list is sorted.</div>";
+        note.innerHTML = "<div>Sắp xếp nổi bọt, đôi khi được gọi là sắp xếp chìm, là một thuật toán sắp xếp đơn giản lặp đi lặp lại các bước qua danh sách được sắp xếp, so sánh từng cặp mục liền kề và hoán đổi chúng nếu chúng không đúng thứ tự. Việc chuyển qua danh sách được lặp lại cho đến khi không cần hoán đổi, điều này cho biết rằng danh sách đã được sắp xếp.</div>";
 
     } else {
         sort();
@@ -1655,7 +1655,7 @@ $('#selectionSort').click(function () {
         changeSortType(gw.selectionSort);
 
         noteTitle.innerHTML = 'Selection Sort';
-        note.innerHTML = "<div>Selection sort is a sorting algorithm, specifically an in-place comparison sort. It has O(n2) time complexity, making it inefficient on large lists, and generally performs worse than the similar insertion sort. Selection sort is noted for its simplicity, and it has performance advantages over more complicated algorithms in certain situations, particularly where auxiliary memory is limited.</div>";
+        note.innerHTML = "<div>Sắp xếp chọn là một thuật toán sắp xếp, cụ thể là sắp xếp so sánh tại chỗ. Nó có độ phức tạp về thời gian là O (n2), làm cho nó không hiệu quả trên các danh sách lớn và thường hoạt động kém hơn so với loại chèn tương tự. Sắp xếp lựa chọn được chú ý vì tính đơn giản của nó và nó có lợi thế về hiệu suất so với các thuật toán phức tạp hơn trong một số trường hợp nhất định, đặc biệt khi bộ nhớ phụ bị hạn chế.</div>";
     } else {
         sort();
     }
@@ -1671,7 +1671,7 @@ $('#quickSort').click(function () {
         changeSortType(gw.quickSort);
 
         noteTitle.innerHTML = 'Quick Sort';
-        note.innerHTML = "<div>Quicksort (sometimes called partition-exchange sort) is an efficient sorting algorithm, serving as a systematic method for placing the elements of an array in order. Developed by Tony Hoare in 1959, with his work published in 1961, it is still a commonly used algorithm for sorting. When implemented well, it can be about two or three times faster than its main competitors, merge sort and heapsort.</div>";
+        note.innerHTML = "<div>Sắp xếp nhanh (đôi khi được gọi là sắp xếp trao đổi phân vùng) là một thuật toán sắp xếp hiệu quả, phục vụ như một phương pháp có hệ thống để sắp xếp các phần tử của một mảng theo thứ tự. Được phát triển bởi Tony Hoare vào năm 1959, với công trình của ông được xuất bản vào năm 1961, nó vẫn là một thuật toán được sử dụng phổ biến để sắp xếp. Khi được triển khai tốt, nó có thể nhanh hơn khoảng hai hoặc ba lần so với các đối thủ cạnh tranh chính của nó, sắp xếp hợp nhất và sắp xếp theo thứ tự.</div>";
     } else {
         sort();
     }
@@ -1687,7 +1687,7 @@ $('#insertionSort').click(function () {
         changeSortType(gw.insertionSort);
 
         noteTitle.innerHTML = 'Insertion Sort';
-        note.innerHTML = "<div>Insertion sort is a simple sorting algorithm that builds the final sorted array (or list) one item at a time. It is much less efficient on large lists than more advanced algorithms such as quicksort, heapsort, or merge sort.</div>";
+        note.innerHTML = "<div>Sắp xếp chèn là một thuật toán sắp xếp đơn giản xây dựng mảng (hoặc danh sách) được sắp xếp cuối cùng một mục tại một thời điểm. Nó kém hiệu quả hơn nhiều trên các danh sách lớn so với các thuật toán nâng cao hơn như quicksort, heapsort hoặc merge sort.</div>";
 
     } else {
         sort();
@@ -1754,7 +1754,7 @@ $('#mergeSort').click(function () {
         changeSortType(gw.mergeSort);
 
         noteTitle.innerHTML = 'Merge Sort';
-        note.innerHTML = "<div>In computer science, merge sort (also commonly spelled mergesort) is an efficient, general-purpose, comparison-based sorting algorithm. Most implementations produce a stable sort, which means that the implementation preserves the input order of equal elements in the sorted output. Mergesort is a divide and conquer algorithm that was invented by John von Neumann in 1945. A detailed description and analysis of bottom-up mergesort appeared in a report by Goldstine and Neumann as early as 1948.</div>";
+        note.innerHTML = "<div>Trong khoa học máy tính, sắp xếp trộn (cũng thường được đánh vần là mergesort) là một thuật toán sắp xếp hiệu quả, có mục đích chung, dựa trên so sánh. Hầu hết các triển khai tạo ra một sắp xếp ổn định, có nghĩa là việc triển khai bảo toàn thứ tự đầu vào của các phần tử bằng nhau trong đầu ra được sắp xếp. Mergesort là một thuật toán chia và chinh phục được John von Neumann phát minh vào năm 1945. Mô tả và phân tích chi tiết về hợp nhất từ dưới lên đã xuất hiện trong một báo cáo của Goldstine và Neumann vào đầu năm 1948.</div>";
     } else {
         sort();
     }
