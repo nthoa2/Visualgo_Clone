@@ -43,7 +43,7 @@ var Sorting = function () {
     var maxRadixElementValue = 9999;
 
 
-// green, pink, blue, red, yellow, indigo, orange, lime
+    // green, pink, blue, red, yellow, indigo, orange, lime
 
 
     var transitionTime = 750;
@@ -56,7 +56,7 @@ var Sorting = function () {
 
     this.selectedSortFunction;
 
-// list of states
+    // list of states
 
     var scaler;
     var canvas;
@@ -80,7 +80,7 @@ var Sorting = function () {
     var POSITION_USE_PRIMARY = "a";
     var POSITION_USE_SECONDARY_IN_DEFAULT_POSITION = "b";
 
-// Objects definition
+    // Objects definition
 
     var Entry = function (value, highlight, position, secondaryPositionStatus) {
         this.value = value; // number
@@ -105,7 +105,7 @@ var Sorting = function () {
         this.logMessage = logMessage;
     }
 
-//Helpers
+    //Helpers
 
     var EntryBacklinkHelper = new Object();
     EntryBacklinkHelper.appendList = function (entries, backlinks, numArray) {
@@ -141,7 +141,7 @@ var Sorting = function () {
         backlinks[j] = swaptemp;
     }
 
-// class StateHelper
+    // class StateHelper
     var StateHelper = new Object();
 
     StateHelper.createNewState = function (numArray) {
@@ -170,9 +170,9 @@ var Sorting = function () {
         EntryBacklinkHelper.update(stateToPush.entries, stateToPush.backlinks);
         list.push(StateHelper.copyState(stateToPush));
     }
-// end class StateHelper
+    // end class StateHelper
 
-// class FunctionList
+    // class FunctionList
 
     var FunctionList = new Object();
     FunctionList.text_y = function (d) {
@@ -235,7 +235,7 @@ var Sorting = function () {
         return text;
     }
 
-// end class FunctionList
+    // end class FunctionList
 
     var generateRandomNumber = function (min, max) { //generates a random integer between min and max (both inclusive)
         return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -373,8 +373,8 @@ var Sorting = function () {
             indexOfLastUnsortedElement--;
             state.backlinks[indexOfLastUnsortedElement].highlight = HIGHLIGHT_SORTED;
             if (swapped == false)
-            // No swap is done in this pass.
-            // We can terminate Bubble Sort now.
+                // No swap is done in this pass.
+                // We can terminate Bubble Sort now.
                 state.status = '<div>No swap is done in this pass.</div><div>We can terminate Bubble Sort now</div>';
             // state.logMessage = '<div>No swap is done in this pass.</div><div>We can terminate Bubble Sort now</div>' + state.logMessage;
             else {
@@ -395,7 +395,7 @@ var Sorting = function () {
         state.status = '<div>List sorted!</div>';
         state.logMessage = '<div>List sorted!</div>' + state.logMessage;
         if (this.computeInversionIndex)
-        // Inversion Index = {swapCounter}.
+            // Inversion Index = {swapCounter}.
             state.status += ' Inversion Index = {swapCounter}.'.replace("swapCounter", swapCounter);
 
         state.lineNo = 0;
@@ -1000,7 +1000,7 @@ var Sorting = function () {
         state.lineNo = 1;
         StateHelper.updateCopyPush(statelist, state);
 
-        while(swapped || gap != 1) {
+        while (swapped || gap != 1) {
             gap = Math.floor(gap / 1.3);
             if (gap < 1)
                 gap = 1;
@@ -1442,7 +1442,7 @@ var Sorting = function () {
         // Entry ==============================
         var newData = canvasData.enter()
             .append('div')
-            .classed({"radix-sort-element": true})
+            .classed({ "radix-sort-element": true })
             .style({
                 "left": FunctionList.radixElement_left,
                 "bottom": FunctionList.radixElement_bottom
@@ -1543,7 +1543,7 @@ var Sorting = function () {
                     }
 
                     if (num < 1 || num > numArrayMaxElementValue) {
-                        window.alert('Element range must be in range from {min} to {max}'.replace('{min}', '1').replace('{max}',numArrayMaxElementValue));
+                        window.alert('Element range must be in range from {min} to {max}'.replace('{min}', '1').replace('{max}', numArrayMaxElementValue));
                         return false;
                     }
 
@@ -1607,17 +1607,17 @@ var noteTitle = document.getElementById('noteTitle');
 
 // var gw = new Sorting();
 
-$('#execute').click(function() {
-    if(isPlaying) return;
-   sort();
+$('#execute').click(function () {
+    if (isPlaying) return;
+    sort();
 });
 
-$('#create-random').click(function() {
+$('#create-random').click(function () {
     createList('random');
 });
 
-$('#create-custom').click(function() {
-   createList('custom');
+$('#create-custom').click(function () {
+    createList('custom');
 });
 
 this.changeClass = function () {
@@ -1780,12 +1780,12 @@ window.onload = function () {
     var reloading = sessionStorage.getItem("type");
     // gw = new Sorting();
     switch (reloading) {
-        case "bubble" :
+        case "bubble":
             title.innerHTML = "Bubble Sort";
             gw.init();
             gw.bubbleSort();
             break;
-        case "selection" :
+        case "selection":
             title.innerHTML = "Selection Sort";
             gw.init();
             gw.selectionSort();
@@ -1836,7 +1836,7 @@ function createList(type) {
     setTimeout(function () {
         gw.createList(type);
         isPlaying = false;
-    }, 1000);
+    }, 2000);
 }
 
 function sort(callback) {
@@ -1845,7 +1845,7 @@ function sort(callback) {
         if (gw.sort(callback)) {
             isPlaying = true;
         }
-    }, 1000);
+    }, 2000);
 }
 
 function convertToNumber(num) {
