@@ -1742,10 +1742,10 @@ $('#title-LL').click(function () {
     changeTextList();
     lw.setActiveStatus("list");
     title.innerHTML = "Single Linked List";
-    noteTitle.innerHTML = '<h1>Single Linked List</h1>';
-    note.innerHTML = "<div>A Single Linked List is a sequence of data structures, which are connected together via links.\n" +
-        "Linked List is a sequence of links which contains items. Each link contains a connection to another link. \n" +
-        "Linked list is the second most-used data structure after array.</div>"
+    noteTitle.innerHTML = '<h1>Danh sách liên kết đơn</h1>';
+    note.innerHTML = "<div>Danh sách được liên kết đơn là một chuỗi các cấu trúc dữ liệu, được kết nối với nhau thông qua các liên kết.\n" +
+        "Danh sách liên kết là một chuỗi các liên kết chứa các mục. Mỗi liên kết chứa một kết nối(Next Link) đến liên kết khác. \n" +
+        "Danh sách được liên kết là cấu trúc dữ liệu được dùng nhiều thứ hai sau mảng.</div>"
     clearConsole();
 
 });
@@ -1756,15 +1756,14 @@ $('#title-DLL').click(function () {
     lw.setActiveStatus("doublylist");
     // $("#title-DLL").text('Doubly Linked List');
     title.innerHTML = "Doubly Linked List";
-    noteTitle.innerHTML = '<h1>Doubly Linked List</h1>';
-    note.innerHTML = "<div>Doubly Linked List is a variation of Linked list in which navigation is possible in both ways, " +
-        "either forward and backward easily as compared to Single Linked List" +
-        "As per the above illustration, following are the important trỏ đến be considered.<br>" +
-        "Doubly Linked List contains a link element called first and last.<br>" +
-        "Each link carries a data field(s) and two link fields called next and prev.<br>" +
-        "Each link is linked with its next link using its next link.<br>"+
-        "Each link is linked with its previous link using its previous link.<br>"+
-        "The last link carries a link as null to mark the end of the list.</div>"
+    noteTitle.innerHTML = '<h1>Danh sách liên kết đôi</h1>';
+    note.innerHTML = "<div>Danh sách được liên kết gấp đôi là một biến thể của Danh sách được liên kết trong đó có thể điều hướng theo cả hai cách, " +
+        "dễ dàng chuyển tiếp hoặc lùi lại so với Danh sách được liên kết đơn" +
+        "Danh sách liên kết đôi chứa một phần tử link và được gọi là First và Last.<br>" +
+        "Mỗi link mang một trường dữ liệu và một trường link được gọi là Next.<br>" +
+        "Mỗi link được liên kết với phần tử kế tiếp bởi sử dụng Next Link.<br>"+
+        "Mỗi link được liên kết với phần tử phía trước bởi sử dụng Prev Link.<br>"+
+        "Last Link mang một link trỏ tới NULL để đánh dầu phần cuối của Danh sách liên kết.</div>"
     clearConsole();
 });
 
