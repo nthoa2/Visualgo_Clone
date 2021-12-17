@@ -320,7 +320,7 @@ var BST = function () {
                 cs["el"][edgeHighlighted]["animateHighlighted"] = true;
                 cs["el"][edgeHighlighted]["state"] = EDGE_TRAVERSED;
                 //cs["status"] = "Vì vậy, hãy tìm kiếm ở bên phải."; //status_search_4
-                cs["status"] = 'Vì vậy, hãy tìm kiếm ở bên phải.';
+                cs["status"] = 'Vì vậy, tiếp tục tìm kiếm ở bên phải.';
                 cs["lineNo"] = 6;
                 sl.push(cs);
             }
@@ -347,7 +347,7 @@ var BST = function () {
                 cs["el"][edgeHighlighted]["animateHighlighted"] = true;
                 cs["el"][edgeHighlighted]["state"] = EDGE_TRAVERSED;
                 //cs["status"] = "Vì vậy, hãy tìm kiếm bên trái.";  //status_search_7
-                cs["status"] = 'Vì vậy, hãy tìm kiếm bên trái.';
+                cs["status"] = 'Vì vậy, tiếp tục tìm kiếm bên trái.';
                 cs["lineNo"] = 7;
                 sl.push(cs);
             }
@@ -986,7 +986,7 @@ var BST = function () {
                 vertexTraversed[cur] = true;
 
                 //cs["status"] = "Searching for node " + val + " to remove";  //status_remove_1
-                cs["status"] = 'Searching for node {val} to remove'.replace("{val}", val);
+                cs["status"] = 'Đang tìm kiếm node có giá trị =  {val} để xóa.'.replace("{val}", val);
                 cs["lineNo"] = 1;
                 sl.push(cs);
 
@@ -1006,7 +1006,7 @@ var BST = function () {
                 cs["el"][edgeHighlighted]["state"] = EDGE_TRAVERSED;
 
                 //cs["status"] = "Searching for node " + val + " to remove";  //status_remove_1
-                cs["status"] = 'Searching for node {val} to remove'.replace("{val}", val);
+                cs["status"] = 'Đang tìm kiếm node có giá trị =  {val} để xóa.'.replace("{val}", val);
                 cs["lineNo"] = 1;
                 sl.push(cs);
             }
@@ -1018,7 +1018,7 @@ var BST = function () {
                 cs["vl"][currentVertexClass]["state"] = VERTEX_HIGHLIGHTED;
 
                 //cs["status"] = "Searching for node " + val + " to remove";  //status_remove_1
-                cs["status"] = 'Searching for node {val} to remove'.replace("{val}", val);
+                cs["status"] = 'Đang tìm kiếm node có giá trị =  {val} để xóa.'.replace("{val}", val);
                 cs["lineNo"] = 1;
                 sl.push(cs);
             }
@@ -1026,7 +1026,7 @@ var BST = function () {
             else {
                 cs = createState(iBST);
                 //cs["status"] = "Node " + val + " không có trong BST";  //status_remove_2
-                cs["status"] = 'Node {val} không có trong BST'.replace("{val}", val);
+                cs["status"] = 'Node có giá trị = {val} không có trong BST'.replace("{val}", val);
                 cs["lineNo"] = 0; //Node {val} không có trong BST
                 sl.push(cs);
                 continue;
@@ -1037,7 +1037,7 @@ var BST = function () {
             if (iBST[cur]["leftChild"] == null && iBST[cur]["rightChild"] == null) {
                 cs = createState(iBST, vertexTraversed, edgeTraversed);
                 //cs["status"] = "Node " + val + " has no children. It is a leaf."; //status_remove_3
-                cs["status"] = 'Node {val} has no children. It is a leaf.'.replace("{val}", val);
+                cs["status"] = 'Node có giá trị = {val} không còn node con. Nó chính là node lá.'.replace("{val}", val);
                 if (!isAVL) cs["lineNo"] = 2;
                 else cs["lineNo"] = 1;
                 sl.push(cs);
@@ -1061,7 +1061,7 @@ var BST = function () {
                 cs = createState(iBST, vertexTraversed, edgeTraversed);
 
                 //cs["status"] = "Remove leaf " + val;  //status_remove_4
-                cs["status"] = 'Remove leaf {val}'.replace("{val}", val);
+                cs["status"] = 'Xóa node lá {val}'.replace("{val}", val);
                 if (!isAVL) cs["lineNo"] = 3;
                 else cs["lineNo"] = 1;
                 sl.push(cs);
@@ -1072,7 +1072,7 @@ var BST = function () {
             else if (iBST[cur]["leftChild"] == null) { // Only right child
                 cs = createState(iBST, vertexTraversed, edgeTraversed);
                 //cs["status"] = "Node " + val + " has a right child only"; //status_remove_5
-                cs["status"] = 'Node {val} has a right child only'.replace("{val}", val);
+                cs["status"] = 'Node có giá trị {val} chỉ có node con bên phải'.replace("{val}", val);
                 if (!isAVL) cs["lineNo"] = 4;
                 else cs["lineNo"] = 1;
                 sl.push(cs);
@@ -1105,7 +1105,7 @@ var BST = function () {
                     cs["el"][rightChildVertexClass]["state"] = EDGE_HIGHLIGHTED;
 
                 //cs["status"] = "Delete node " + val + " and connect its parent to its right child"; //status_remove_6
-                cs["status"] = 'Delete node {val} and connect its parent to its right child'.replace("{val}", val);
+                cs["status"] = 'Xóa node có giá trị {val} và nối node cha của nó với node con bên phải nó.'.replace("{val}", val);
                 if (!isAVL) cs["lineNo"] = 5;
                 else cs["lineNo"] = 1;
                 sl.push(cs);
@@ -1130,7 +1130,7 @@ var BST = function () {
             else if (iBST[cur]["rightChild"] == null) { // Only left child
                 cs = createState(iBST, vertexTraversed, edgeTraversed);
                 //cs["status"] = "Node " + val + " has a left child only";  //status_remove_8
-                cs["status"] = 'Node {val} has a left child only'.replace("{val}", val);
+                cs["status"] = 'Node có giá trị {val} chỉ có node con bên trái.'.replace("{val}", val);
                 if (!isAVL) cs["lineNo"] = 4;
                 else cs["lineNo"] = 1;
                 sl.push(cs);
@@ -1163,7 +1163,7 @@ var BST = function () {
                     cs["el"][leftChildVertexClass]["state"] = EDGE_HIGHLIGHTED;
 
                 //cs["status"] = "Delete node " + val + " and connect its parent to its left child";  //status_remove_9
-                cs["status"] = 'Delete node {val} and connect its parent to its left child'.replace("{val}", val);
+                cs["status"] = 'Xóa node có giá trị {val} và nối node cha của nó với node con bên trái nó '.replace("{val}", val);
                 if (!isAVL) cs["lineNo"] = 5;
                 else cs["lineNo"] = 1;
                 sl.push(cs);
@@ -1200,7 +1200,7 @@ var BST = function () {
                 cs["el"][successorVertexClass]["animateHighlighted"] = true;
 
                 //cs["status"] = "Finding successor of " + val; //status_remove_10
-                cs["status"] = 'Finding successor of {val}'.replace("{val}", val);
+                cs["status"] = 'Đang tìm kiếm node thừa kế node {val}...'.replace("{val}", val);
                 if (!isAVL) cs["lineNo"] = 6;
                 else cs["lineNo"] = 1;
                 sl.push(cs);
@@ -1214,7 +1214,7 @@ var BST = function () {
                 cs["vl"][successorVertexClass]["state"] = VERTEX_HIGHLIGHTED;
 
                 //cs["status"] = "Finding successor of " + val; //status_remove_10
-                cs["status"] = 'Finding successor of {val}'.replace("{val}", val);
+                cs["status"] = 'Đang tìm kiếm node thừa kế node {val}...'.replace("{val}", val);
                 if (!isAVL) cs["lineNo"] = 6;
                 else cs["lineNo"] = 1;
                 sl.push(cs);
@@ -1231,7 +1231,7 @@ var BST = function () {
                     cs["el"][successorVertexClass]["animateHighlighted"] = true;
 
                     //cs["status"] = "Finding successor of " + val; //status_remove_10
-                    cs["status"] = 'Finding successor of {val}'.replace("{val}", val);
+                    cs["status"] = 'Đang tìm kiếm node thừa kế node {val}...'.replace("{val}", val);
                     if (!isAVL) cs["lineNo"] = 6;
                     else cs["lineNo"] = 1;
                     sl.push(cs);
@@ -1245,7 +1245,7 @@ var BST = function () {
                     cs["vl"][successorVertexClass]["state"] = VERTEX_HIGHLIGHTED;
 
                     //cs["status"] = "Finding successor of " + val; //status_remove_10
-                    cs["status"] = 'Finding successor of {val}'.replace("{val}", val);
+                    cs["status"] = 'Đang tìm kiếm node thừa kế node {val}...'.replace("{val}", val);
                     if (!isAVL) cs["lineNo"] = 6;
                     else cs["lineNo"] = 1;
                     sl.push(cs);
@@ -1318,7 +1318,7 @@ var BST = function () {
                 }
 
                 //cs["status"] = "Replace node " + val + " với its successor"; //status_remove_11
-                cs["status"] = 'Replace node {val} với its successor'.replace("{val}", val);
+                cs["status"] = 'Đổi vị trí node {val} với node thừa kế nó.'.replace("{val}", val);
                 if (!isAVL) cs["lineNo"] = 6;
                 else cs["lineNo"] = 1;
                 sl.push(cs);
@@ -1360,7 +1360,7 @@ var BST = function () {
 
             cs = createState(iBST);
             //cs["status"] = "Removal of " + val + " completed";  //status_remove_12
-            cs["status"] = 'Removal of {val} completed'.replace("{val}", val);
+            cs["status"] = 'Thực hiện xóa node có giá trị = {val} thành công.'.replace("{val}", val);
             if (!isAVL) cs["lineNo"] = 0;
             else cs["lineNo"] = 1;
             sl.push(cs);

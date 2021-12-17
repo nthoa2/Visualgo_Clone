@@ -344,13 +344,13 @@ var Sorting = function () {
 
                     // Hoán đổi vị tr {val1} and {val2}.
                     // Set swapped = true.
-                    state.status = '<div>Hoán đổi vị trí của {val1} và {val2}.</div><div>Gán swapped = true.</div>'
+                    state.status = '<div>Hoán đổi vị trí của {val1} và {val2}.</div><div>Swapped = true.</div>'
                         .replace("{val1}", state.backlinks[i - 1].value)
                         .replace("{val2}", state.backlinks[i].value);
                     // state.logMessage = '<div>swap {val1} and {val2}</div>'
                     //     .replace("{val1}", state.backlinks[i - 1].value)
                     //     .replace("{val2}", state.backlinks[i].value) + state.logMessage;
-                    state.logMessage = '<div>Hoán đổi vị trí của {val1} và {val2}.</div><div>Gán swapped = true.</div>'
+                    state.logMessage = '<div>Hoán đổi vị trí của {val1} và {val2}.</div><div>Swapped = true.</div>'
                         .replace("{val1}", state.backlinks[i - 1].value)
                         .replace("{val2}", state.backlinks[i].value) + state.logMessage;
                     if (this.computeInversionIndex) {
@@ -380,11 +380,11 @@ var Sorting = function () {
             else {
                 // Mark last unsorted element as sorted now.
                 // As at least one swap is done in this pass, we continue.
-                state.status = '<div> Phần tử chưa được sắp xếp cuối cùng là đã được sắp xếp ngay bây giờ. </div> <div> Vì ít nhất một hoán đổi được thực hiện trong lần vượt qua này, chúng ta tiếp tục. </div>';
-                state.logMessage = '<div> Phần tử chưa được sắp xếp cuối cùng là đã được sắp xếp ngay bây giờ. </div> <div> Vì ít nhất một hoán đổi được thực hiện trong lần vượt qua này, chúng ta tiếp tục. </div>' + state.logMessage;
+                state.status = '<div> Phần tử cuối cùng đã được sắp xếp. </div> <div>  Chúng ta tiếp tục hoán đổi. </div>';
+                state.logMessage = '<div> Phần tử cuối cùng đã được sắp xếp. </div> <div>  Chúng ta tiếp tục hoán đổi. </div>' + state.logMessage;
             }
             state.lineNo = 7;
-            StateHelper.updateCophầnpyPush(statelist, state);
+            StateHelper.updateCopyPush(statelist, state);
         }
         while (swapped);
 
@@ -425,10 +425,10 @@ var Sorting = function () {
 
             // Iteration {iteration}: Set {val} as the current minimum.
             // Then iterate through the rest to find the true minimum.
-            state.status = '<div>Lặp lại {iteration}: Gán {val} là giá trị nhỏ nhất hiện tại, sau đó lặp lại qua các phần tử chưa được sắp xếp còn lại để tìm ra giá trị nhỏ nhất thực sự.</div>'
+            state.status = '<div>Lần sắp xếp {iteration}: gán {val} là giá trị nhỏ nhất hiện tại, sau đó lặp lại qua các phần tử chưa được sắp xếp còn lại để tìm ra giá trị nhỏ nhất thực sự.</div>'
                 .replace("{iteration}", (i + 1))
                 .replace("{val}", state.backlinks[i].value);
-            state.logMessage = '<div>Lặp lại {iteration}: Gán {val} là giá trị nhỏ nhất hiện tại, sau đó lặp lại qua các phần tử chưa được sắp xếp còn lại để tìm ra giá trị nhỏ nhất thực sự.</div>'
+            state.logMessage = '<div>Lần sắp xếp {iteration}: gán {val} là giá trị nhỏ nhất hiện tại, sau đó lặp lại qua các phần tử chưa được sắp xếp còn lại để tìm ra giá trị nhỏ nhất thực sự.</div>'
                 .replace("{iteration}", (i + 1))
                 .replace("{val}", state.backlinks[i].value) + state.logMessage;
             state.lineNo = [1, 2, 3];
@@ -438,10 +438,10 @@ var Sorting = function () {
 
             for (var j = i + 1; j < numElements; j++) {
                 // Check if {val} is smaller than the current minimum ({minVal}).
-                state.status = '<div>Kiểm tra nếu {val} nhỏ hơn giá trị nhỏ nhất hiện tại thì gán nó = ({minVal}).</div>'
+                state.status = '<div>So sánh giá trị {val} có nhỏ hơn giá trị nhỏ nhất hiện tại ({minVal} ) hay không?.</div>'
                     .replace("{val}", state.backlinks[j].value)
                     .replace("{minVal}", state.backlinks[minPosition].value);
-                state.logMessage = '<div>Kiểm tra nếu {val} nhỏ hơn giá trị nhỏ nhất hiện tại thì gán nó = ({minVal}).</div>'
+                state.logMessage = '<div>So sánh giá trị {val} có nhỏ hơn giá trị nhỏ nhất hiện tại ({minVal} ) hay không?.</div>'
                     .replace("{val}", state.backlinks[j].value)
                     .replace("{minVal}", state.backlinks[minPosition].value) + state.logMessage;
                 state.lineNo = 4;
@@ -451,11 +451,11 @@ var Sorting = function () {
                 state.backlinks[j].highlight = HIGHLIGHT_NONE;
 
                 if (state.backlinks[j].value < state.backlinks[minPosition].value) {
-                    state.status = '<div>Gán {val} là giá trị nhỏ nhất</div>'
+                    state.status = '<div>Gán {val} là giá trị nhỏ nhất tạm thời.</div>'
                         .replace("{val}", state.backlinks[j].value);
                     // state.logMessage = '<div>{val} is the current minimum</div>'
                     //     .replace("{val}", state.backlinks[j].value) + state.logMessage;
-                    state.logMessage = '<div>Gán {val} là giá trị nhỏ nhất</div>'
+                    state.logMessage = '<div>Gán {val} là giá trị nhỏ nhất tạm thời.</div>'
                         .replace("{val}", state.backlinks[j].value) + state.logMessage;
                     state.lineNo = 5;
                     state.backlinks[minPosition].highlight = HIGHLIGHT_NONE;
@@ -468,14 +468,14 @@ var Sorting = function () {
 
             if (minPosition != i) { // Highlight the first-most unswapped position, if it isn't the minimum
                 // Set {val} as the new minimum.
-                state.status = '<div>Đổi chổ hai giá trị ({minVal}) với phần tử đầu tiên chưa được sắp xếp ({element}).</div>'
+                state.status = '<div>Đổi chổ giá trị nhỏ nhất hiện tại là ({minVal}) với phần tử đầu tiên (chưa được sắp xếp) ({element}).</div>'
                     .replace("{minVal}", state.backlinks[minPosition].value)
                     .replace("{element}", state.backlinks[i].value);
 
                 // state.logMessage = '<div>swap {minVal} and {element}</div>'
                 //     .replace("{minVal}", state.backlinks[minPosition].value)
                 //     .replace("{element}", state.backlinks[i].value) + state.logMessage;
-                state.logMessage = '<div>Đổi chổ hai giá trị ({minVal}) với phần tử đầu tiên chưa được sắp xếp ({element}).</div>'
+                state.logMessage = '<div>Đổi chổ giá trị nhỏ nhất hiện tại là ({minVal}) với phần tử đầu tiên (chưa được sắp xếp) ({element}).</div>'
                     .replace("{minVal}", state.backlinks[minPosition].value)
                     .replace("{element}", state.backlinks[i].value) + state.logMessage;
 
@@ -545,12 +545,12 @@ var Sorting = function () {
     }
 
     var quickSortSplit = function (state, startIndex, endIndex) { //startIndex & endIndex bao gồm
-        state.status = '<div>Thao tác trên phân vùng [{partition}] (index {startIndex} to {endIndex} bao gồm cả hai).</div>'
+        state.status = '<div>Thao tác trên phân vùng [{partition}] bao gồm (index {startIndex} to {endIndex} ).</div>'
             .replace("{partition}", state.backlinks.slice(startIndex, endIndex + 1).map(function (d) {
                 return d.value;
             }))
             .replace("{startIndex}", startIndex).replace("{endIndex}", endIndex);
-        state.logMessage = '<div>Thao tác trên phân vùng [{partition}] (index {startIndex} to {endIndex} bao gồm cả hai).</div>'
+        state.logMessage = '<div>Thao tác trên phân vùng [{partition}] bao gồm (index {startIndex} to {endIndex} ).</div>'
             .replace("{partition}", state.backlinks.slice(startIndex, endIndex + 1).map(function (d) {
                 return d.value;
             }))
@@ -755,9 +755,9 @@ var Sorting = function () {
         for (var i = 1; i < numElements; i++) {
             state.backlinks[i].highlight = HIGHLIGHT_SPECIAL;
             state.lineNo = [2, 3];
-            state.status = "<div>Trích xuất phần tử chưa được sắp xếp đầu tiên ({val}).</div>"
+            state.status = "<div>Lấy ra phần tử  đầu tiên chưa được sắp xếp ({val}).</div>"
                 .replace('{val}', state.backlinks[i].value);
-            state.logMessage = "<div>Trích xuất phần tử chưa được sắp xếp đầu tiên ({val}).</div>"
+            state.logMessage = "<div>Lấy ra phần tử  đầu tiên chưa được sắp xếp ({val}).</div>"
                 .replace('{val}', state.backlinks[i].value) + state.logMessage;
             StateHelper.updateCopyPush(statelist, state);
             state.backlinks[i].secondaryPositionStatus = POSITION_USE_SECONDARY_IN_DEFAULT_POSITION;
@@ -766,8 +766,8 @@ var Sorting = function () {
             for (var j = (i - 1); j >= 0; j--) {
                 state.backlinks[j].highlight = HIGHLIGHT_STANDARD;
                 state.lineNo = 4;
-                state.status = "<div>tìm vị trí để chèn phần tử đã trích xuất; so sánh với phần tử được sắp xếp {val}.</div>".replace('{val}', state.backlinks[j].value);
-                state.logMessage = "<div>tìm vị trí để chèn phần tử đã trích xuất; so sánh với phần tử được sắp xếp {val}.</div>".replace('{val}', state.backlinks[j].value) + state.logMessage;
+                state.status = "<div>Tìm vị trí để chèn phần tử vừa lấy ra, so sánh với phần tử đã được sắp xếp {val}.</div>".replace('{val}', state.backlinks[j].value);
+                state.logMessage = "<div>Tìm vị trí để chèn phần tử vừa lấy ra, so sánh với phần tử đã được sắp xếp {val}.</div>".replace('{val}', state.backlinks[j].value) + state.logMessage;
                 StateHelper.updateCopyPush(statelist, state);
                 if (state.backlinks[j].value > state.backlinks[j + 1].value) {
                     // Swap
@@ -791,10 +791,10 @@ var Sorting = function () {
                     state.backlinks[j].highlight = HIGHLIGHT_SORTED;
                     state.backlinks[j + 1].highlight = HIGHLIGHT_SORTED;
                     state.lineNo = 7;
-                    state.status = "<div>{val1} > {val2} là false, hãy chèn phần tử vào vị trí hiện tại.</div>"
+                    state.status = "<div>{val1} > {val2} là false, giữ nguyên phần tử ở vị trí hiện tại.</div>"
                         .replace('{val1}', state.backlinks[j].value)
                         .replace('{val2}', state.backlinks[j + 1].value);
-                    state.logMessage = "<div>{val1} > {val2} là false, hãy chèn phần tử vào vị trí hiện tại.</div>"
+                    state.logMessage = "<div>{val1} > {val2} là false, giữ nguyên phần tử ở vị trí hiện tại.</div>"
                         .replace('{val1}', state.backlinks[j].value)
                         .replace('{val2}', state.backlinks[j + 1].value) + state.logMessage;
                     state.backlinks[j + 1].secondaryPositionStatus = POSITION_USE_PRIMARY;
@@ -1183,8 +1183,8 @@ var Sorting = function () {
 
         // Copy sorted array back to original array
 
-        state.status = "<div>Sao chép các phần tử đã sắp xếp về mảng ban đầu.</div>";
-        state.logMessage = "<div>Sao chép các phần tử đã sắp xếp về mảng ban đầu.</div>" + state.logMessage;
+        state.status = "<div>Đưa các phần tử đã sắp xếp vào lại mảng ban đầu.</div>";
+        state.logMessage = "<div>Đưa các phần tử đã sắp xếp vào lại mảng ban đầu.</div>" + state.logMessage;
 
         state.lineNo = 7;
 
@@ -1213,7 +1213,7 @@ var Sorting = function () {
             state.backlinks[i].highlight = HIGHLIGHT_STANDARD;
         }
 
-        state.status = "<div>Giờ chúng ta hợp nhất các phân vùng [{partition1}] (index {startIdx1} đến {endIdx1}  bao gồm cả hai) and [{partition2}] (index {startIdx2} đến {endIdx2}  bao gồm cả hai).</div>"
+        state.status = "<div>Giờ chúng ta gộp phân vùng [{partition1}] bao gồm (index {startIdx1} đến {endIdx1}  ) và [{partition2}] bao gồm (index {startIdx2} đến {endIdx2} ).</div>"
             .replace('{partition1}', state.backlinks.slice(startIndex, midIndex).map(function (d) {
                 return d.value;
             }))
@@ -1222,7 +1222,7 @@ var Sorting = function () {
                 return d.value;
             }))
             .replace('{startIdx2}', midIndex).replace('{endIdx2}', (endIndex - 1));
-        state.logMessage = "<div>Giờ chúng ta hợp nhất các phân vùng [{partition1}] (index {startIdx1} đến {endIdx1}  bao gồm cả hai) and [{partition2}] (index {startIdx2} đến {endIdx2}  bao gồm cả hai).</div>"
+        state.logMessage = "<div>Giờ chúng ta gộp phân vùng [{partition1}] bao gồm (index {startIdx1} đến {endIdx1} ) và [{partition2}] bao gồm (index {startIdx2} đến {endIdx2} ).</div>"
             .replace('{partition1}', state.backlinks.slice(startIndex, midIndex).map(function (d) {
                 return d.value;
             }))
@@ -1241,14 +1241,14 @@ var Sorting = function () {
                 state.backlinks[leftIndex].secondaryPositionStatus = i;
 
                 if (rightIndex < endIndex) {
-                    state.status = "<div>Vì {leftPart} (left partition) <= {rightPart} (right partition), chúng ta sao chép {leftPart} vào trong mảng mới</div>"
+                    state.status = "<div>Ta thấy {leftPart} <= {rightPart} ,    sao chép {leftPart}(phần tử bên trái) vào trong mảng mới</div>"
                         .replace(/{leftPart}/g, state.backlinks[leftIndex].value).replace('{rightPart}', state.backlinks[rightIndex].value);
-                    state.logMessage = "<div>Vì {leftPart} (left partition) <= {rightPart} (right partition), chúng ta sao chép {leftPart} vào trong mảng mới</div>"
+                    state.logMessage = "<div>Ta thấy {leftPart} <= {rightPart} , sao chép {leftPart} (phần tử bên trái) vào trong mảng mới</div>"
                         .replace(/{leftPart}/g, state.backlinks[leftIndex].value).replace('{rightPart}', state.backlinks[rightIndex].value) + state.logMessage;
                 }
                 else {
-                    state.status = "<div>Vì phân vùng bên phải trống, chúng ta sao chép {leftPart} (left partition) vào trong mảng mới</div>".replace('{leftPart}', state.backlinks[leftIndex].value);
-                    state.logMessage = "<div>Vì phân vùng bên phải trống, chúng ta sao chép {leftPart} (left partition) vào trong mảng mới</div>".replace('{leftPart}', state.backlinks[leftIndex].value)
+                    state.status = "<div>Vì phân vùng bên phải trống, chúng ta sao chép {leftPart} (phần tử bên trái) vào trong mảng mới</div>".replace('{leftPart}', state.backlinks[leftIndex].value);
+                    state.logMessage = "<div>Vì phân vùng bên phải trống, chúng ta sao chép {leftPart} (phần tử bên trái) vào trong mảng mới</div>".replace('{leftPart}', state.backlinks[leftIndex].value)
                         + state.logMessage;
                 }
 
@@ -1262,14 +1262,14 @@ var Sorting = function () {
                 state.lineNo = [3, 6];
 
                 if (leftIndex < midIndex) {
-                    state.status = "<div>Vì {leftPart} (left partition) > {rightPart} (right partition), chúng ta sao chép {rightPart} vào trong mảng mới</div>"
+                    state.status = "<div>Ta thấy {leftPart}  > {rightPart} ,  sao chép {rightPart} (phần tử bên phải) vào trong mảng mới</div>"
                         .replace('{leftPart}', state.backlinks[leftIndex].value).replace(/{rightPart}/g, state.backlinks[rightIndex].value);
-                    state.logMessage = "<div>Vì {leftPart} (left partition) > {rightPart} (right partition), chúng ta sao chép {rightPart} vào trong mảng mới</div>"
+                    state.logMessage = "<div>Ta thấy {leftPart}  > {rightPart} , sao chép {rightPart} (phần tử bên phải) vào trong mảng mới</div>"
                         .replace('{leftPart}', state.backlinks[leftIndex].value).replace(/{rightPart}/g, state.backlinks[rightIndex].value) + state.logMessage;
                 }
                 else {
-                    state.status = "<div>Vì phân vùng bên trái rỗng, chúng ta sao chép {rightPart} (right partition) vào trong mảng mới</div>".replace('{rightPart}', state.backlinks[rightIndex].value);
-                    state.logMessage = "<div>Vì phân vùng bên trái rỗng, chúng ta sao chép {rightPart} (right partition) vào trong mảng mới</div>".replace('{rightPart}', state.backlinks[rightIndex].value) + state.logMessage;
+                    state.status = "<div>Vì phân vùng bên trái rỗng, chúng ta sao chép {rightPart} (phần tử bên phải) vào trong mảng mới</div>".replace('{rightPart}', state.backlinks[rightIndex].value);
+                    state.logMessage = "<div>Vì phân vùng bên trái rỗng, chúng ta sao chép {rightPart} (phần tử bên phải) vào trong mảng mới</div>".replace('{rightPart}', state.backlinks[rightIndex].value) + state.logMessage;
                 }
                 state.lineNo = [3, 6];
 
