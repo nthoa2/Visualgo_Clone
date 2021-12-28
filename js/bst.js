@@ -969,13 +969,11 @@ var BST = function () {
         for (i = 0; i < vertexTextArr.length; i++) {
             var val = parseInt(vertexTextArr[i]);
             var vertexCheckBf;
-
             // Re-initialization
             vertexTraversed = {};
             edgeTraversed = {};
             cur = iBST["root"];
             cs = createState(iBST);
-
             // Find vertex
             while (cur != val && cur != null) {
                 cs = createState(iBST, vertexTraversed, edgeTraversed);

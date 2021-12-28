@@ -1,34 +1,39 @@
-<!doctype html>
+<!DOCTYPE html>
 <html class="no-js" lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title> Visualizer Algorithms </title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/x-icon" href="./icons/utc2icon.png">
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="css/sub-menu.css">
-    <link rel="stylesheet" href="css/vendor.css">
-    <link rel="stylesheet" href="css/viz.css">
-    <link rel="stylesheet" href="css/addition.css">
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Visualizer Algorithms</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="./icons/utc2icon.png" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <link rel="stylesheet" href="css/sub-menu.css" />
+    <link rel="stylesheet" href="css/vendor.css" />
+    <link rel="stylesheet" href="css/viz.css" />
+    <link rel="stylesheet" href="css/addition.css" />
     <!-- Theme initialization -->
     <script>
-        var themeSettings = (localStorage.getItem('themeSettings')) ? JSON.parse(localStorage.getItem('themeSettings')) : {};
-        var themeName = themeSettings.themeName || '';
+        var themeSettings = localStorage.getItem("themeSettings") ?
+            JSON.parse(localStorage.getItem("themeSettings")) : {};
+        var themeName = themeSettings.themeName || "";
         if (themeName) {
-            document.write('<link rel="stylesheet" id="theme-style" href="css/app-' + themeName + '.css">');
+            document.write(
+                '<link rel="stylesheet" id="theme-style" href="css/app-' +
+                themeName +
+                '.css">'
+            );
         } else {
-            document.write('<link rel="stylesheet" id="theme-style" href="css/app.css">');
+            document.write(
+                '<link rel="stylesheet" id="theme-style" href="css/app.css">'
+            );
         }
     </script>
-
 </head>
 
 <body>
-
     <div class="main-wrapper">
         <div class="app" id="app">
             <header class="header">
@@ -52,8 +57,7 @@
                     <nav class="menu">
                         <ul class="sidebar-menu metismenu" id="sidebar-menu">
                             <li>
-                                <a href="index.html">
-                                    <i class="fa fa-home"></i> Home </a>
+                                <a href="index.html"> <i class="fa fa-home"></i> Home </a>
                             </li>
                             <li>
                                 <a href="sort.html">
@@ -130,13 +134,13 @@
                                             </div>
                                             <div class="col-4">
                                                 <label>
-                                                    <input class="radio" type="radio" name="sidebarPosition" value="sidebar-fixed">
+                                                    <input class="radio" type="radio" name="sidebarPosition" value="sidebar-fixed" />
                                                     <span></span>
                                                 </label>
                                             </div>
                                             <div class="col-4">
                                                 <label>
-                                                    <input class="radio" type="radio" name="sidebarPosition" value="">
+                                                    <input class="radio" type="radio" name="sidebarPosition" value="" />
                                                     <span></span>
                                                 </label>
                                             </div>
@@ -147,13 +151,13 @@
                                             </div>
                                             <div class="col-4">
                                                 <label>
-                                                    <input class="radio" type="radio" name="headerPosition" value="header-fixed">
+                                                    <input class="radio" type="radio" name="headerPosition" value="header-fixed" />
                                                     <span></span>
                                                 </label>
                                             </div>
                                             <div class="col-4">
                                                 <label>
-                                                    <input class="radio" type="radio" name="headerPosition" value="">
+                                                    <input class="radio" type="radio" name="headerPosition" value="" />
                                                     <span></span>
                                                 </label>
                                             </div>
@@ -164,13 +168,13 @@
                                             </div>
                                             <div class="col-4">
                                                 <label>
-                                                    <input class="radio" type="radio" name="footerPosition" value="footer-fixed">
+                                                    <input class="radio" type="radio" name="footerPosition" value="footer-fixed" />
                                                     <span></span>
                                                 </label>
                                             </div>
                                             <div class="col-4">
                                                 <label>
-                                                    <input class="radio" type="radio" name="footerPosition" value="">
+                                                    <input class="radio" type="radio" name="footerPosition" value="" />
                                                     <span></span>
                                                 </label>
                                             </div>
@@ -200,8 +204,7 @@
                                     </div>
                                 </li>
                             </ul>
-                            <a href="">
-                                <i class="fa fa-cog"></i> Customize </a>
+                            <a href=""> <i class="fa fa-cog"></i> Customize </a>
                         </li>
                     </ul>
                 </footer>
@@ -210,13 +213,11 @@
             <div class="sidebar-mobile-menu-handle" id="sidebar-mobile-menu-handle"></div>
             <div class="mobile-menu-handle"></div>
             <article class="content dashboard-page">
-
                 <div class="row sameheight-container">
                     <div class="col-md-8">
                         <div class="card">
                             <div class="gridGraph" style="background-color: white">
-                                <svg id="viz">
-                                </svg>
+                                <svg id="viz"></svg>
                             </div>
                         </div>
                     </div>
@@ -224,11 +225,8 @@
                         <div class="card-block">
                             <div class="title-block">
                                 <h4 class="title" id="noteTitle"></h4>
-
                             </div>
-                            <div id="noteContent" style="text-align: justify">
-
-                            </div>
+                            <div id="noteContent" style="text-align: justify"></div>
                         </div>
                     </div>
                 </div>
@@ -243,20 +241,19 @@
                     </div>
                 </div>
                 <div class="row sameheight-container">
-
                     <div class="col-md-3">
-
-                        <div class="dropdown gridControl-item" style="margin-bottom: 35px;">
-
-                            <div id="create-go" class="execAction btn btn-primary" style="width: 100%;">
+                        <div class="dropdown gridControl-item" style="margin-bottom: 35px">
+                            <div id="create-go" class="execAction btn btn-primary" style="width: 100%">
                                 Create
                             </div>
 
                             <div class="dropdown-content">
-                                <div id="create-empty" class="execAction btn btn-primary" onClick="empty(); clearConsole()">Empty
+                                <div id="create-empty" class="execAction btn btn-primary" onClick="empty(); clearConsole()">
+                                    Empty
                                 </div>
 
-                                <div id="create-random" class="execAction btn btn-primary" onClick="random(); clearConsole()">Random
+                                <div id="create-random" class="execAction btn btn-primary" onClick="random(); clearConsole()">
+                                    Random
                                 </div>
 
                                 <div id="create-random-sorted" class="execAction btn btn-primary" onClick="randomSorted(); clearConsole()">
@@ -266,79 +263,73 @@
                                 <div id="createfixedsize-go" class="execAction btn btn-primary" onClick="randomFixedSize(); clearConsole()">
                                     Random Fixed Size
                                 </div>
-                                <input type="number" id="v-create-size" class="inputinline" title="Enter the size of the linked list" autocomplete="off" min=1 max=10 value=7 style="width: 85%">
+                                <input type="number" id="v-create-size" class="inputinline" title="Enter the size of the linked list" autocomplete="off" min="1" max="10" value="7" style="width: 85%" />
 
                                 <div id="createuserdefined-go" class="execAction btn btn-primary" onClick="nonRandom(); clearConsole()">
                                     --- User Defined List ---
                                 </div>
-                                <input type="text" id="v-create-arr" title="Enter the elements separated by comma" autocomplete="off" value="1,2,3" style="width: 85%">
+                                <input type="text" id="v-create-arr" title="Enter the elements separated by comma" autocomplete="off" value="1,2,3" style="width: 85%" />
                             </div>
-
                         </div>
 
-                        <div class="dropdown gridControl-item" style="margin-bottom: 35px;">
-
-                            <div id="search-go" class="execAction btn btn-primary" onclick="searchVertex(); clearConsole()" style="width:100%;">
+                        <div class="dropdown gridControl-item" style="margin-bottom: 35px">
+                            <div id="search-go" class="execAction btn btn-primary" onclick="searchVertex(); clearConsole()" style="width: 100%">
                                 Search
                             </div>
 
                             <div class="dropdown-content">
-
-                                <input type="number" id="v-search" title="Enter an Integer" autocomplete="off" min=0 max=99 value=5 style="display: inline; width: 100%">
+                                <input type="number" id="v-search" title="Enter an Integer" autocomplete="off" min="0" max="99" value="5" style="display: inline; width: 100%" />
                             </div>
                         </div>
 
-                        <div class="dropdown gridControl-item" style="margin-bottom: 35px;">
-
-                            <div id="insert-go" class="execAction btn btn-primary" style="width: 100%;">
+                        <div class="dropdown gridControl-item" style="margin-bottom: 35px">
+                            <div id="insert-go" class="execAction btn btn-primary" style="width: 100%">
                                 Insert
                             </div>
 
                             <div class="dropdown-content">
-                                <div id="insert-head" id="inserttail-go" class="execAction btn btn-primary" onClick="insertHead(); clearConsole()" title="Insert to Head">i = 0 (Head), specify v =
+                                <div id="insert-head" id="inserttail-go" class="execAction btn btn-primary" onClick="insertHead(); clearConsole()" title="Insert to Head">
+                                    i = 0 (Head), specify v =
                                 </div>
-                                <input type="number" id="v-insert-head-value" title="Enter an Integer" autocomplete="off" min=0 max=99 value=85 style="width: 85%" ;>
-                                <div id="insert-tail" id="inserthead-input" class="execAction btn btn-primary" onClick="insertTail(); clearConsole()" title="Insert to Tail">i = N (After Tail),
-                                    specify v =
+                                <input type="number" id="v-insert-head-value" title="Enter an Integer" autocomplete="off" min="0" max="99" value="85" style="width: 85%" ; />
+                                <div id="insert-tail" id="inserthead-input" class="execAction btn btn-primary" onClick="insertTail(); clearConsole()" title="Insert to Tail">
+                                    i = N (After Tail), specify v =
                                 </div>
-                                <input type="number" id="v-insert-tail-value" title="Enter an Integer" autocomplete="off" min=0 max=99 value=80 style="width: 85%" ;>
-                                <div id="insertkth-go" class="execAction btn btn-primary" onClick="insertKth(); clearConsole()" title="Insert to kth">specify both i in [1..N-1]
-                                    and v =
+                                <input type="number" id="v-insert-tail-value" title="Enter an Integer" autocomplete="off" min="0" max="99" value="80" style="width: 85%" ; />
+                                <div id="insertkth-go" class="execAction btn btn-primary" onClick="insertKth(); clearConsole()" title="Insert to kth">
+                                    specify both i in [1..N-1] and v =
                                 </div>
-                                Position: <input type="number" id="v-insert-kth" title="Enter an Integer" autocomplete="off" min=1 max=9 value=2 style="width: 85%" ;>
-                                Value: <input type="number" id="v-insert-kth-value" title="Enter an Integer" autocomplete="off" min=0 max=99 value=90 style="width: 85%" ;>
+                                Position:
+                                <input type="number" id="v-insert-kth" title="Enter an Integer" autocomplete="off" min="1" max="9" value="2" style="width: 85%" ; />
+                                Value:
+                                <input type="number" id="v-insert-kth-value" title="Enter an Integer" autocomplete="off" min="0" max="99" value="90" style="width:85%" ; />
                             </div>
                         </div>
-
-                        <div class="dropdown gridControl-item" style="margin-bottom: 35px;">
-
-                            <div id="remove-go" class="execAction btn btn-primary" style="width:100%;">
+                        <div class="dropdown gridControl-item" style="margin-bottom: 35px">
+                            <div id="remove-go" class="execAction btn btn-primary" style="width: 100%">
                                 Remove
                             </div>
-
                             <div class="dropdown-content">
-                                <div id="remove-head" class="execAction btn btn-primary" onClick="removeHead(); clearConsole()">Remove i = 0 (Head)
+                                <div id="remove-head" class="execAction btn btn-primary" onClick="removeHead(); clearConsole()">
+                                    Remove i = 0 (Head)
                                 </div>
-
-                                <div id="remove-tail" class="execAction btn btn-primary" onClick="removeTail(); clearConsole()">Remove i = N-1 (Tail)
+                                <div id="remove-tail" class="execAction btn btn-primary" onClick="removeTail(); clearConsole()">
+                                    Remove i = N-1 (Tail)
                                 </div>
-
-                                <div id="removekth-go" class="execAction btn btn-primary" onClick="removeKth(); clearConsole()" title="Remove k-th">specify both i in [1..N-1] and v =
+                                <div id="removekth-go" class="execAction btn btn-primary" onClick="removeKth(); clearConsole()" title="Remove k-th">
+                                    specify both i in [1..N-1] and v =
                                 </div>
-                                <input type="number" id="v-remove-kth" title="Enter an Integer" autocomplete="off" min=1 max=8 value=2 style="width: 85%">
+                                <input type="number" id="v-remove-kth" title="Enter an Integer" autocomplete="off" min="1" max="8" value="2" style="width: 85%" />
                             </div>
                         </div>
-
                     </div>
                     <div class="col-md-5">
-                        <div class="card">
-                            <div id="log" class="panel">
-                                <p style="font-size: 13px;"></p>
+                        <!-- <div class="card">
+                            <div id="log" class="panel" style="font-size: 13px;">
+                                <p></p>
                             </div>
-
-                        </div>
+                        </div> -->
                     </div>
-
                     <div class="col-md-4">
                         <div class="row card items">
                             <ul class="item-list striped" style="font-size: 13px">
@@ -350,7 +341,7 @@
                                 <li class="item">
                                     <div class="gridPseudo" style="background-color: white">
                                         <div id="codetrace" class="panel">
-                                            <p id="code1" style="padding-top: 10px;"></p>
+                                            <p id="code1" style="padding-top: 10px"></p>
                                             <p id="code2"></p>
                                             <p id="code3"></p>
                                             <p id="code4"></p>
@@ -361,12 +352,11 @@
                                             <p id="code9"></p>
                                             <p id="code10"></p>
                                             <p id="code11"></p>
-                                            <p id="code12" style="padding-bottom: 10px;"></p>
+                                            <p id="code12" style="padding-bottom: 10px"></p>
                                         </div>
                                     </div>
                                 </li>
                             </ul>
-
                         </div>
                     </div>
                 </div>
@@ -381,19 +371,14 @@
             <div class="color-secondary"></div>
         </div>
     </div>
-
-
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
     <script src="https://d3js.org/d3.v3.min.js"></script>
-
     <script type="text/javascript" src="js/algo-initials.js"></script>
     <script type="text/javascript" src="js/viz.js"></script>
     <script type="text/javascript" src="js/graph_library.js"></script>
     <script type="text/javascript" src="js/list.js"></script>
     <script src="js/drawGraph.js"></script>
-
 </body>
-
 
 </html>
