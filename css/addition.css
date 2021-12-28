@@ -6,9 +6,7 @@
     height: 200px;
     max-height: inherit;
     width: inherit;
-    /*border:1px solid #ccc;*/
     overflow: auto;
-    /*white-space: nowrap;*/
 }
 
 a,

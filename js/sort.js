@@ -1707,7 +1707,7 @@ function createList(type) {
     setTimeout(function () {
         gw.createList(type);
         isPlaying = false;
-    }, 2000);
+    }, 500);
 }
 
 function sort(callback) {
@@ -1716,7 +1716,7 @@ function sort(callback) {
         if (gw.sort(callback)) {
             isPlaying = true;
         }
-    }, 2000);
+    }, 500);
 }
 
 function convertToNumber(num) {
