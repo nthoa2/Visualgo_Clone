@@ -1,5 +1,3 @@
-
-
 var BST = function () {
     var self = this;
     var gw = new GraphWidget();
@@ -10,21 +8,6 @@ var BST = function () {
 
     var initialArray = [15, 6, 23, 4, 7, 71, 5, 50];
     var initialAvlArray = [15, 6, 50, 4, 7, 23, 71, 5];
-
-    /*
-     * iBST: Internal representation of BST in this object
-     * The keys are the text of the nodes, and the value is the attributes of the corresponding node encapsulated in a JS object, which are:
-     * - "parent": text of the parent node. If the node is root node, the value is null.
-     * - "leftChild": text of the left child. No child -> null
-     * - "rightChild": text of the right child. No child -> null
-     * - "cx": X-coordinate of center of the node
-     * - "cy": Y-coordinate of center of the node
-     * - "height": height of the node. Height of root is 0
-     * - "vertexClassNumber": Vertex class number of the corresponding node
-     *
-     * In addition, there is a key called "root" in iBST, containing the text of the root node.
-     * If BST is empty, root is null.
-     */
 
     var iBST = {};
     var amountVertex = 0;
@@ -319,14 +302,12 @@ var BST = function () {
                 edgeTraversed[edgeHighlighted] = true;
                 cs["el"][edgeHighlighted]["animateHighlighted"] = true;
                 cs["el"][edgeHighlighted]["state"] = EDGE_TRAVERSED;
-                //cs["status"] = "Vì vậy, hãy tìm kiếm ở bên phải."; //status_search_4
                 cs["status"] = 'Vì vậy, tiếp tục tìm kiếm ở bên phải.';
                 cs["lineNo"] = 6;
                 sl.push(cs);
             }
             else {
                 cs = createState(iBST, vertexTraversed, edgeTraversed);
-                //cs["status"] = cur + " lớn hơn " + val + "."; //status_search_5
                 cs["status"] = '{cur} lớn hơn {val}.'.replace("{cur}", cur).replace("{val}", val);
                 cs["lineNo"] = 7;
                 sl.push(cs);
@@ -334,7 +315,6 @@ var BST = function () {
                 cur = iBST[cur]["leftChild"];
                 if (cur == null) {
                     cs = createState(iBST, vertexTraversed, edgeTraversed);
-                    //cs["status"] = "Value " + val + " không có trong BST.";  //status_search_6
                     cs["status"] = 'Giá trị {val} không có trong BST.'.replace("{val}", val);
                     cs["lineNo"] = [1, 2];
                     sl.push(cs);
@@ -346,7 +326,6 @@ var BST = function () {
                 edgeTraversed[edgeHighlighted] = true;
                 cs["el"][edgeHighlighted]["animateHighlighted"] = true;
                 cs["el"][edgeHighlighted]["state"] = EDGE_TRAVERSED;
-                //cs["status"] = "Vì vậy, hãy tìm kiếm bên trái.";  //status_search_7
                 cs["status"] = 'Vì vậy, tiếp tục tìm kiếm bên trái.';
                 cs["lineNo"] = 7;
                 sl.push(cs);
@@ -357,7 +336,6 @@ var BST = function () {
             cs = createState(iBST, vertexTraversed, edgeTraversed);
             currentVertexClass = iBST[cur]["vertexClassNumber"];
             cs["vl"][currentVertexClass]["state"] = VERTEX_HIGHLIGHTED;
-            //cs["status"] = "Found Giá trị " + val + ".";  //status_search_8
             cs["status"] = 'Tìm thấy giá trị {val}.'.replace("{val}", val);
             cs["lineNo"] = 4;
             sl.push(cs);
@@ -381,7 +359,6 @@ var BST = function () {
         var sl = [], vertexTraversed = {}, edgeTraversed = {}, cur = iBST["root"], cs, key, ans;
 
         cs = createState(iBST);
-        //cs["status"] = "Cây BST hiện tại"; //status_minmax_0
         cs["status"] = 'Cây BST hiện tại';
         cs["lineNo"] = 0;
         sl.push(cs);
@@ -389,11 +366,9 @@ var BST = function () {
         if (cur == null) {
             cs = createState(iBST);
             if (isMin) {
-                //cs["status"] = "Cây trống, không có giá trị nhỏ nhất."; //status_minmax_1
                 cs["status"] = 'Cây trống, không có giá trị nhỏ nhất.';
             }
             else {
-                //cs["status"] = "Cây trống, không có giá trị nhỏ nhất.."; //status_minmax_2
                 cs["status"] = 'Cây trống, không có giá trị lớn nhất..';
             }
             cs["lineNo"] = 1;
@@ -410,11 +385,9 @@ var BST = function () {
             if ((isMin && (iBST[cur]["leftChild"] != null)) ||
                 (!isMin && (iBST[cur]["rightChild"] != null))) {
                 if (isMin) {
-                    //cs["status"] = cur + " không phải là giá trị nhỏ nhất vì nó có con bên trái.";  //status_minmax_3
                     cs["status"] = '{cur} không phải là giá trị nhỏ nhất vì nó có con bên trái.'.replace("{cur}", cur);
                 }
                 else {
-                    //cs["status"] = cur + " không phải là giá trị lớn nhất vì nó có một con bên phải.";  //status_minmax_4
                     cs["status"] = '{cur} không phải là giá trị lớn nhất vì nó có một con bên phải.'.replace("{cur}", cur);
                 }
                 cs["lineNo"] = 2;
@@ -422,11 +395,9 @@ var BST = function () {
             else {
                 ans = cur;
                 if (isMin) {
-                    //cs["status"] = "Minimum value found!";  //status_minmax_5
                     cs["status"] = 'Giá trị nhỏ nhất được tìm thấy!';
                 }
                 else {
-                    //cs["status"] = "Maximum value found!";  //status_minmax_6
                     cs["status"] = 'Giá trị lớn nhất được tìm thấy!';
                 }
 
@@ -443,11 +414,9 @@ var BST = function () {
             cs["el"][edgeHighlighted]["animateHighlighted"] = true;
             cs["el"][edgeHighlighted]["state"] = EDGE_TRAVERSED;
             if (isMin) {
-                //cs["status"] = "Chuyển sang trái để kiểm tra giá trị nhỏ hơn ..."; //status_minmax_7
                 cs["status"] = 'Chuyển sang trái để kiểm tra giá trị nhỏ hơn ...';
             }
             else {
-                //cs["status"] = "Chuyển sang phải để kiểm tra giá trị lớn hơn ..."; //status_minmax_8
                 cs["status"] = 'Chuyển sang phải để kiểm tra giá trị lớn hơn ...';
             }
 
@@ -457,11 +426,9 @@ var BST = function () {
 
         cs = createState(iBST);
         if (isMin) {
-            //cs["status"] = "Tìm Min đã kết thúc. <br> Giá trị nhỏ nhất là " + ans + ".";  //status_minmax_9
             cs["status"] = 'Tìm Min đã kết thúc. <br> Giá trị nhỏ nhất là {ans}.'.replace("{ans}", ans);
         }
         else {
-            //cs["status"] = "Find Max has ended.<br>The maximum value is " + ans + ".";  //status_minmax_10
             cs["status"] = 'Tìm Max đã kết thúc. <br> Giá trị lớn nhất là {ans}.'.replace("{ans}", ans);
         }
 
@@ -479,7 +446,6 @@ var BST = function () {
         var sl = [], vertexTraversed = {}, edgeTraversed = {}, cur = iBST["root"], cs, key, currentVertexClass, i;
 
         cs = createState(iBST);
-        //cs["status"] = "Cây BST hiện tại.";  //status_insert_0
         cs["status"] = 'Cây BST hiện tại.';
         cs["lineNo"] = 0;
         sl.push(cs);
@@ -599,7 +565,6 @@ var BST = function () {
                 cs["vl"][currentVertexClass]["state"] = VERTEX_HIGHLIGHTED;
 
                 vertexTraversed[cur] = true;
-                //cs["status"] = "So sánh " + val + " với " + cur; //status_insert_1
                 cs["status"] = 'So sánh {val} với {cur}'.replace("{val}", val).replace("{cur}", cur);
                 if (!isAVL) cs["lineNo"] = 3;
                 else cs["lineNo"] = 1;
@@ -626,13 +591,11 @@ var BST = function () {
                 cs["el"][edgeHighlighted]["state"] = EDGE_TRAVERSED;
 
                 if (parseInt(val) > parseInt(iBST[cur]["parent"])) {
-                    //cs["status"] = val + " is larger than " + iBST[cur]["parent"] + ", so go right."; //status_insert_2
                     cs["status"] = '{val} lớn hơn {parent}, => sang phải.'.replace("{val}", val).replace("{parent}", iBST[cur]["parent"]);
                     if (!isAVL) cs["lineNo"] = 5;
                     else cs["lineNo"] = 1;
                 }
                 else {
-                    //cs["status"] = val + " is smaller than " + iBST[cur]["parent"] + ", so go left."; //status_insert_3
                     cs["status"] = '{val} nhỏ hơn {parent}, => sang trái.'.replace("{val}", val).replace("{parent}", iBST[cur]["parent"]);
                     if (!isAVL) cs["lineNo"] = 4;
                     else cs["lineNo"] = 1;
@@ -674,13 +637,9 @@ var BST = function () {
 
                 cs["el"][newNodeVertexClass]["state"] = EDGE_TRAVERSED;
                 cs["el"][newNodeVertexClass]["animateHighlighted"] = true;
-
-                //cs["status"] = "Location found!<br>Inserting " + val + "."; //status_insert_4
                 cs["status"] = 'Vị trí được tìm thấy!<br>Inserting {val}.'.replace("{val}", val);
                 cs["lineNo"] = 1;
-
                 sl.push(cs);
-
                 edgeTraversed[newNodeVertexClass] = true;
             }
 
@@ -688,7 +647,6 @@ var BST = function () {
             cs = createState(iBST, vertexTraversed, edgeTraversed);
             cs["vl"][newNodeVertexClass]["state"] = EDGE_HIGHLIGHTED;
 
-            //cs["status"] = val + " has been inserted!"  //status_insert_5
             cs["status"] = '{val} đã dược chèn vào !'.replace("{val}", val);
             if (!isAVL) cs["lineNo"] = 2;
             else cs["lineNo"] = 1;
@@ -696,7 +654,6 @@ var BST = function () {
 
             // End State
             cs = createState(iBST);
-            //cs["status"] = "Insert " + val + " has been completed." //status_insert_6
             cs["status"] = 'Chèn {val}  đã được hoàn thành.'.replace("{val}", val);
             if (isAVL) cs["lineNo"] = 1;
             sl.push(cs);
@@ -711,7 +668,6 @@ var BST = function () {
 
                     cs = createState(iBST);
                     cs["vl"][vertexCheckBfClass]["state"] = VERTEX_HIGHLIGHTED;
-                    //cs["status"] = "Hệ số cân bằng của " + vertexCheckBf + " is " + bf + ".";  //status_insert_7
                     cs["status"] = 'Hệ số cân bằng của {vertexCheckBf} là {bf}.'.replace("{vertexCheckBf}", vertexCheckBf).replace("{bf}", bf);
                     cs["lineNo"] = 2;
                     sl.push(cs);
@@ -724,7 +680,6 @@ var BST = function () {
                         cs = createState(iBST);
                         cs["vl"][vertexCheckBfClass]["state"] = VERTEX_HIGHLIGHTED;
                         cs["vl"][vertexCheckBfLeftClass]["state"] = VERTEX_HIGHLIGHTED;
-                        //cs["status"] = "Và hệ số cân bằng của " + vertexCheckBfLeft + " is " + bfLeft + ".";  //status_insert_8
                         cs["status"] = 'Và hệ số cân bằng của {vertexCheckBf} là {bf}.'.replace("{vertexCheckBf}", vertexCheckBfLeft).replace("{bf}", bfLeft);
                         cs["lineNo"] = 2;
                         sl.push(cs);
@@ -738,7 +693,6 @@ var BST = function () {
                             cs["el"][vertexCheckBfClass]["state"] = EDGE_HIGHLIGHTED;
                             if (iBST["root"] != vertexCheckBfLeft)
                                 cs["el"][vertexCheckBfLeftClass]["state"] = EDGE_HIGHLIGHTED;
-                            //cs["status"] = "Xoay phải " + vertexCheckBf + "."; //status_insert_9
                             cs["status"] = 'Xoay phải {vertexCheckBf}.'.replace("{vertexCheckBf}", vertexCheckBf);
                             cs["lineNo"] = 3;
                             sl.push(cs);
@@ -751,7 +705,6 @@ var BST = function () {
                             cs["el"][vertexCheckBfClass]["state"] = EDGE_HIGHLIGHTED;
                             if (iBST["root"] != vertexCheckBfLeft)
                                 cs["el"][vertexCheckBfLeftClass]["state"] = EDGE_HIGHLIGHTED;
-                            //cs["status"] = "Tăng tốc độ tìm kiếm cho cây!";  //status_insert_10
                             cs["status"] = 'Tăng tốc độ tìm kiếm cho cây';
                             cs["lineNo"] = 3;
                             sl.push(cs);
@@ -767,7 +720,6 @@ var BST = function () {
                             cs["vl"][vertexCheckBfLeftRightClass]["state"] = VERTEX_HIGHLIGHTED;
                             cs["el"][vertexCheckBfLeftClass]["state"] = EDGE_HIGHLIGHTED;
                             cs["el"][vertexCheckBfLeftRightClass]["state"] = EDGE_HIGHLIGHTED;
-                            //cs["status"] = "Xoay trái " + vertexCheckBfLeft + ".";  //status_insert_11
                             cs["status"] = 'Xoay trái {vertexCheckBf}.'.replace("{vertexCheckBf}", vertexCheckBfLeft);
                             cs["lineNo"] = 4;
                             sl.push(cs);
@@ -779,7 +731,6 @@ var BST = function () {
                             cs["vl"][vertexCheckBfLeftRightClass]["state"] = VERTEX_HIGHLIGHTED;
                             cs["el"][vertexCheckBfLeftClass]["state"] = EDGE_HIGHLIGHTED;
                             cs["el"][vertexCheckBfLeftRightClass]["state"] = EDGE_HIGHLIGHTED;
-                            //cs["status"] = "Tăng tốc độ tìm kiếm cho cây!";  //status_insert_10
                             cs["status"] = 'Tăng tốc độ tìm kiếm cho cây!';
                             cs["lineNo"] = 4;
                             sl.push(cs);
@@ -792,7 +743,6 @@ var BST = function () {
                             cs["el"][vertexCheckBfClass]["state"] = EDGE_HIGHLIGHTED;
                             if (iBST["root"] != vertexCheckBfLeftRight)
                                 cs["el"][vertexCheckBfLeftRightClass]["state"] = EDGE_HIGHLIGHTED;
-                            //cs["status"] = "Xoay phải " + vertexCheckBf + "."; //status_insert_9
                             cs["status"] = 'Xoay phải {vertexCheckBf}.'.replace("{vertexCheckBf}", vertexCheckBf);
                             cs["lineNo"] = 4;
                             sl.push(cs);
@@ -805,7 +755,6 @@ var BST = function () {
                             cs["el"][vertexCheckBfClass]["state"] = EDGE_HIGHLIGHTED;
                             if (iBST["root"] != vertexCheckBfLeftRight)
                                 cs["el"][vertexCheckBfLeftRightClass]["state"] = EDGE_HIGHLIGHTED;
-                            //cs["status"] = "Tăng tốc độ tìm kiếm cho cây!";  //status_insert_10
                             cs["status"] = 'Tăng tốc độ tìm kiếm cho cây!';
                             cs["lineNo"] = 4;
                             sl.push(cs);
@@ -819,7 +768,6 @@ var BST = function () {
                         cs = createState(iBST);
                         cs["vl"][vertexCheckBfClass]["state"] = VERTEX_HIGHLIGHTED;
                         cs["vl"][vertexCheckBfRightClass]["state"] = VERTEX_HIGHLIGHTED;
-                        //cs["status"] = "Và hệ số cân bằng của " + vertexCheckBfRight + " is " + bfRight + ".";  //status_insert_8
                         cs["status"] = 'Và hệ số cân bằng của {vertexCheckBf} is {bf}.'.replace("{vertexCheckBf}", vertexCheckBfRight).replace("{bf}", bfRight);
                         cs["lineNo"] = 2;
                         sl.push(cs);
@@ -835,7 +783,6 @@ var BST = function () {
                             cs["vl"][vertexCheckBfRightLeftClass]["state"] = VERTEX_HIGHLIGHTED;
                             cs["el"][vertexCheckBfRightClass]["state"] = EDGE_HIGHLIGHTED;
                             cs["el"][vertexCheckBfRightLeftClass]["state"] = EDGE_HIGHLIGHTED;
-                            //cs["status"] = "Xoay phải " + vertexCheckBfRight + ".";  //status_insert_9
                             cs["status"] = 'Xoay phải {vertexCheckBf}.'.replace("{vertexCheckBf}", vertexCheckBfRight);
                             cs["lineNo"] = 6;
                             sl.push(cs);
@@ -847,7 +794,6 @@ var BST = function () {
                             cs["vl"][vertexCheckBfRightLeftClass]["state"] = VERTEX_HIGHLIGHTED;
                             cs["el"][vertexCheckBfRightClass]["state"] = EDGE_HIGHLIGHTED;
                             cs["el"][vertexCheckBfRightLeftClass]["state"] = EDGE_HIGHLIGHTED;
-                            //cs["status"] = "Tăng tốc độ tìm kiếm cho cây!";  //status_insert_10
                             cs["status"] = 'Tăng tốc độ tìm kiếm cho cây!';
                             cs["lineNo"] = 6;
                             sl.push(cs);
@@ -860,7 +806,6 @@ var BST = function () {
                             cs["el"][vertexCheckBfClass]["state"] = EDGE_HIGHLIGHTED;
                             if (iBST["root"] != vertexCheckBfRightLeft)
                                 cs["el"][vertexCheckBfRightLeftClass]["state"] = EDGE_HIGHLIGHTED;
-                            //cs["status"] = "Xoay trái " + vertexCheckBf + ".";  //status_insert_11
                             cs["status"] = 'Xoay trái {vertexCheckBf}.'.replace("{vertexCheckBf}", vertexCheckBf);
                             cs["lineNo"] = 6;
                             sl.push(cs);
@@ -873,7 +818,6 @@ var BST = function () {
                             cs["el"][vertexCheckBfClass]["state"] = EDGE_HIGHLIGHTED;
                             if (iBST["root"] != vertexCheckBfRightLeft)
                                 cs["el"][vertexCheckBfRightLeftClass]["state"] = EDGE_HIGHLIGHTED;
-                            //cs["status"] = "Tăng tốc độ tìm kiếm cho cây!";  //status_insert_10
                             cs["status"] = 'Tăng tốc độ tìm kiếm cho cây!';
                             cs["lineNo"] = 6;
                             sl.push(cs);
@@ -887,7 +831,6 @@ var BST = function () {
                             cs["el"][vertexCheckBfClass]["state"] = EDGE_HIGHLIGHTED;
                             if (iBST["root"] != vertexCheckBfRight)
                                 cs["el"][vertexCheckBfRightClass]["state"] = EDGE_HIGHLIGHTED;
-                            //cs["status"] = "Xoay trái " + vertexCheckBf + ".";  //status_insert_11
                             cs["status"] = 'Xoay trái {vertexCheckBf}.'.replace("{vertexCheckBf}", vertexCheckBf);
                             cs["lineNo"] = 5;
                             sl.push(cs);
@@ -901,7 +844,6 @@ var BST = function () {
                             cs["el"][vertexCheckBfClass]["state"] = EDGE_HIGHLIGHTED;
                             if (iBST["root"] != vertexCheckBfRight)
                                 cs["el"][vertexCheckBfRightClass]["state"] = EDGE_HIGHLIGHTED;
-                            cs["status"] = "Tăng tốc độ tìm kiếm cho cây!";  //status_insert_10
                             cs["status"] = 'Tăng tốc độ tìm kiếm cho cây!';
                             cs["lineNo"] = 5;
                             sl.push(cs);
@@ -911,7 +853,6 @@ var BST = function () {
                     if (vertexCheckBf != iBST["root"]) {
                         cs = createState(iBST);
                         cs["el"][vertexCheckBfClass]["state"] = EDGE_HIGHLIGHTED;
-                        //cs["status"] = "Check the parent vertex.";  //status_insert_12
                         cs["status"] = 'Check the parent vertex.';
                         cs["lineNo"] = 2;
                         sl.push(cs);
@@ -921,7 +862,6 @@ var BST = function () {
                 }
 
                 cs = createState(iBST);
-                //cs["status"] = "The tree is now balanced."; //status_insert_13
                 cs["status"] = 'The tree is now balanced.';
                 cs["lineNo"] = 7;
                 sl.push(cs);
@@ -944,7 +884,6 @@ var BST = function () {
         var key;
         var i;
 
-        //cs["status"] = "Cây BST hiện tại"; //status_remove_0
         cs["status"] = 'Cây BST hiện tại';
         cs["lineNo"] = 0;
         sl.push(cs);
@@ -983,7 +922,6 @@ var BST = function () {
 
                 vertexTraversed[cur] = true;
 
-                //cs["status"] = "Searching for node " + val + " to remove";  //status_remove_1
                 cs["status"] = 'Đang tìm kiếm node có giá trị =  {val} để xóa.'.replace("{val}", val);
                 cs["lineNo"] = 1;
                 sl.push(cs);
@@ -1003,7 +941,6 @@ var BST = function () {
                 cs["el"][edgeHighlighted]["animateHighlighted"] = true;
                 cs["el"][edgeHighlighted]["state"] = EDGE_TRAVERSED;
 
-                //cs["status"] = "Searching for node " + val + " to remove";  //status_remove_1
                 cs["status"] = 'Đang tìm kiếm node có giá trị =  {val} để xóa.'.replace("{val}", val);
                 cs["lineNo"] = 1;
                 sl.push(cs);
@@ -1015,7 +952,6 @@ var BST = function () {
 
                 cs["vl"][currentVertexClass]["state"] = VERTEX_HIGHLIGHTED;
 
-                //cs["status"] = "Searching for node " + val + " to remove";  //status_remove_1
                 cs["status"] = 'Đang tìm kiếm node có giá trị =  {val} để xóa.'.replace("{val}", val);
                 cs["lineNo"] = 1;
                 sl.push(cs);
@@ -1023,7 +959,6 @@ var BST = function () {
             // Vertex is not inside the tree
             else {
                 cs = createState(iBST);
-                //cs["status"] = "Node " + val + " không có trong BST";  //status_remove_2
                 cs["status"] = 'Node có giá trị = {val} không có trong BST'.replace("{val}", val);
                 cs["lineNo"] = 0; //Node {val} không có trong BST
                 sl.push(cs);
@@ -1034,7 +969,6 @@ var BST = function () {
             // Case 1: no child
             if (iBST[cur]["leftChild"] == null && iBST[cur]["rightChild"] == null) {
                 cs = createState(iBST, vertexTraversed, edgeTraversed);
-                //cs["status"] = "Node " + val + " has no children. It is a leaf."; //status_remove_3
                 cs["status"] = 'Node có giá trị = {val} không còn node con. Nó chính là node lá.'.replace("{val}", val);
                 if (!isAVL) cs["lineNo"] = 2;
                 else cs["lineNo"] = 1;
@@ -1058,7 +992,6 @@ var BST = function () {
 
                 cs = createState(iBST, vertexTraversed, edgeTraversed);
 
-                //cs["status"] = "Remove leaf " + val;  //status_remove_4
                 cs["status"] = 'Xóa node lá {val}'.replace("{val}", val);
                 if (!isAVL) cs["lineNo"] = 3;
                 else cs["lineNo"] = 1;
@@ -1069,7 +1002,6 @@ var BST = function () {
             // Case 2: One child
             else if (iBST[cur]["leftChild"] == null) { // Only right child
                 cs = createState(iBST, vertexTraversed, edgeTraversed);
-                //cs["status"] = "Node " + val + " has a right child only"; //status_remove_5
                 cs["status"] = 'Node có giá trị {val} chỉ có node con bên phải'.replace("{val}", val);
                 if (!isAVL) cs["lineNo"] = 4;
                 else cs["lineNo"] = 1;
@@ -1102,7 +1034,6 @@ var BST = function () {
                 if (parentVertex != null)
                     cs["el"][rightChildVertexClass]["state"] = EDGE_HIGHLIGHTED;
 
-                //cs["status"] = "Delete node " + val + " and connect its parent to its right child"; //status_remove_6
                 cs["status"] = 'Xóa node có giá trị {val} và nối node cha của nó với node con bên phải nó.'.replace("{val}", val);
                 if (!isAVL) cs["lineNo"] = 5;
                 else cs["lineNo"] = 1;
@@ -1117,7 +1048,6 @@ var BST = function () {
                 if (parentVertex != null)
                     cs["el"][rightChildVertexClass]["state"] = EDGE_HIGHLIGHTED;
 
-                //cs["status"] = "Bố trí lại cây";  //status_remove_7
                 cs["status"] = 'Bố trí lại cây';
                 if (!isAVL) cs["lineNo"] = 5;
                 else cs["lineNo"] = 1;
@@ -1127,7 +1057,6 @@ var BST = function () {
             }
             else if (iBST[cur]["rightChild"] == null) { // Only left child
                 cs = createState(iBST, vertexTraversed, edgeTraversed);
-                //cs["status"] = "Node " + val + " has a left child only";  //status_remove_8
                 cs["status"] = 'Node có giá trị {val} chỉ có node con bên trái.'.replace("{val}", val);
                 if (!isAVL) cs["lineNo"] = 4;
                 else cs["lineNo"] = 1;
@@ -1160,7 +1089,6 @@ var BST = function () {
                 if (parentVertex != null)
                     cs["el"][leftChildVertexClass]["state"] = EDGE_HIGHLIGHTED;
 
-                //cs["status"] = "Delete node " + val + " and connect its parent to its left child";  //status_remove_9
                 cs["status"] = 'Xóa node có giá trị {val} và nối node cha của nó với node con bên trái nó '.replace("{val}", val);
                 if (!isAVL) cs["lineNo"] = 5;
                 else cs["lineNo"] = 1;
@@ -1175,7 +1103,6 @@ var BST = function () {
                 if (parentVertex != null)
                     cs["el"][leftChildVertexClass]["state"] = EDGE_HIGHLIGHTED;
 
-                //cs["status"] = "Bố trí lại cây";  //status_remove_7
                 cs["status"] = 'Bố trí lại cây';
                 if (!isAVL) cs["lineNo"] = 5;
                 else cs["lineNo"] = 1;
@@ -1197,7 +1124,6 @@ var BST = function () {
                 cs["el"][successorVertexClass]["state"] = EDGE_TRAVERSED;
                 cs["el"][successorVertexClass]["animateHighlighted"] = true;
 
-                //cs["status"] = "Finding successor of " + val; //status_remove_10
                 cs["status"] = 'Đang tìm kiếm node thừa kế node {val}...'.replace("{val}", val);
                 if (!isAVL) cs["lineNo"] = 6;
                 else cs["lineNo"] = 1;
@@ -1207,11 +1133,8 @@ var BST = function () {
                 vertexTraversed[successorVertex] = true;
 
                 cs = createState(iBST, vertexTraversed, edgeTraversed);
-
                 cs["vl"][currentVertexClass]["state"] = VERTEX_HIGHLIGHTED;
                 cs["vl"][successorVertexClass]["state"] = VERTEX_HIGHLIGHTED;
-
-                //cs["status"] = "Finding successor of " + val; //status_remove_10
                 cs["status"] = 'Đang tìm kiếm node thừa kế node {val}...'.replace("{val}", val);
                 if (!isAVL) cs["lineNo"] = 6;
                 else cs["lineNo"] = 1;
@@ -1222,13 +1145,9 @@ var BST = function () {
                     successorVertexClass = iBST[successorVertex]["vertexClassNumber"];
 
                     cs = createState(iBST, vertexTraversed, edgeTraversed);
-
                     cs["vl"][currentVertexClass]["state"] = VERTEX_HIGHLIGHTED;
-
                     cs["el"][successorVertexClass]["state"] = EDGE_TRAVERSED;
                     cs["el"][successorVertexClass]["animateHighlighted"] = true;
-
-                    //cs["status"] = "Finding successor of " + val; //status_remove_10
                     cs["status"] = 'Đang tìm kiếm node thừa kế node {val}...'.replace("{val}", val);
                     if (!isAVL) cs["lineNo"] = 6;
                     else cs["lineNo"] = 1;
@@ -1241,8 +1160,6 @@ var BST = function () {
 
                     cs["vl"][currentVertexClass]["state"] = VERTEX_HIGHLIGHTED;
                     cs["vl"][successorVertexClass]["state"] = VERTEX_HIGHLIGHTED;
-
-                    //cs["status"] = "Finding successor of " + val; //status_remove_10
                     cs["status"] = 'Đang tìm kiếm node thừa kế node {val}...'.replace("{val}", val);
                     if (!isAVL) cs["lineNo"] = 6;
                     else cs["lineNo"] = 1;
@@ -1264,9 +1181,7 @@ var BST = function () {
 
                 iBST[successorVertex]["parent"] = parentVertex;
                 iBST[successorVertex]["leftChild"] = leftChildVertex;
-
                 iBST[leftChildVertex]["parent"] = successorVertex;
-
                 if (successorVertex != rightChildVertex) {
                     iBST[successorVertex]["rightChild"] = rightChildVertex;
                     iBST[rightChildVertex]["parent"] = successorVertex;
@@ -1308,14 +1223,12 @@ var BST = function () {
                 if (successorVertex != rightChildVertex) {
                     var rightChildVertexClass = iBST[rightChildVertex]["vertexClassNumber"];
                     cs["el"][rightChildVertexClass]["state"] = EDGE_HIGHLIGHTED;
-
                     if (successorRightChildVertex != null) {
                         var successorRightChildVertexClass = iBST[successorRightChildVertex]["vertexClassNumber"];
                         cs["el"][successorRightChildVertexClass]["state"] = EDGE_HIGHLIGHTED;
                     }
                 }
 
-                //cs["status"] = "Replace node " + val + " với its successor"; //status_remove_11
                 cs["status"] = 'Đổi vị trí node {val} với node thừa kế nó.'.replace("{val}", val);
                 if (!isAVL) cs["lineNo"] = 6;
                 else cs["lineNo"] = 1;
@@ -1345,7 +1258,6 @@ var BST = function () {
                     }
                 }
 
-                //cs["status"] = "Bố trí lại cây";  //status_remove_7
                 cs["status"] = 'Bố trí lại cây';
                 if (!isAVL) cs["lineNo"] = 6;
                 else cs["lineNo"] = 1;
@@ -1357,7 +1269,6 @@ var BST = function () {
             }
 
             cs = createState(iBST);
-            //cs["status"] = "Removal of " + val + " completed";  //status_remove_12
             cs["status"] = 'Thực hiện xóa node có giá trị = {val} thành công.'.replace("{val}", val);
             if (!isAVL) cs["lineNo"] = 0;
             else cs["lineNo"] = 1;
@@ -1365,8 +1276,6 @@ var BST = function () {
 
             if (isAVL) {
                 recalculateBalanceFactor();
-                // console.log(iBST);
-
                 while (vertexCheckBf != null) {
                     var vertexCheckBfClass = iBST[vertexCheckBf]["vertexClassNumber"];
 
@@ -1374,7 +1283,6 @@ var BST = function () {
 
                     cs = createState(iBST);
                     cs["vl"][vertexCheckBfClass]["state"] = VERTEX_HIGHLIGHTED;
-                    //cs["status"] = "Hệ số cân bằng của " + vertexCheckBf + " is " + bf + ".";  //status_remove_13
                     cs["status"] = 'Hệ số cân bằng của {vertexCheckBf} là {bf}.'.replace("{vertexCheckBf}", vertexCheckBf).replace("{bf}", bf);
                     cs["lineNo"] = 2;
                     sl.push(cs);
@@ -1387,7 +1295,6 @@ var BST = function () {
                         cs = createState(iBST);
                         cs["vl"][vertexCheckBfClass]["state"] = VERTEX_HIGHLIGHTED;
                         cs["vl"][vertexCheckBfLeftClass]["state"] = VERTEX_HIGHLIGHTED;
-                        //cs["status"] = "Và hệ số cân bằng của " + vertexCheckBfLeft + " is " + bfLeft + ".";  //status_remove_14
                         cs["status"] = 'Và hệ số cân bằng của {vertexCheckBf} là {bf}.'.replace("{vertexCheckBfLeft}", vertexCheckBf).replace("{bfLeft}", bf);
                         cs["lineNo"] = 2;
                         sl.push(cs);
@@ -1401,7 +1308,6 @@ var BST = function () {
                             cs["el"][vertexCheckBfClass]["state"] = EDGE_HIGHLIGHTED;
                             if (iBST["root"] != vertexCheckBfLeft)
                                 cs["el"][vertexCheckBfLeftClass]["state"] = EDGE_HIGHLIGHTED;
-                            //cs["status"] = "Xoay phải " + vertexCheckBf + "."; //status_remove_15
                             cs["status"] = 'Xoay phải {vertexCheckBf}.'.replace("{vertexCheckBf}", vertexCheckBf);
                             cs["lineNo"] = 3;
                             sl.push(cs);
@@ -1414,7 +1320,6 @@ var BST = function () {
                             cs["el"][vertexCheckBfClass]["state"] = EDGE_HIGHLIGHTED;
                             if (iBST["root"] != vertexCheckBfLeft)
                                 cs["el"][vertexCheckBfLeftClass]["state"] = EDGE_HIGHLIGHTED;
-                            //cs["status"] = "Tăng tốc độ tìm kiếm cho cây!";  //status_remove_7
                             cs["status"] = 'Bố trí lại cây';
                             cs["lineNo"] = 3;
                             sl.push(cs);
@@ -1430,7 +1335,6 @@ var BST = function () {
                             cs["vl"][vertexCheckBfLeftRightClass]["state"] = VERTEX_HIGHLIGHTED;
                             cs["el"][vertexCheckBfLeftClass]["state"] = EDGE_HIGHLIGHTED;
                             cs["el"][vertexCheckBfLeftRightClass]["state"] = EDGE_HIGHLIGHTED;
-                            //cs["status"] = "Xoay trái " + vertexCheckBfLeft + ".";  //status_remove_16
                             cs["status"] = 'Xoay trái {vertexCheckBf}.'.replace("{vertexCheckBf}", vertexCheckBfLeft);
                             cs["lineNo"] = 4;
                             sl.push(cs);
@@ -1442,7 +1346,6 @@ var BST = function () {
                             cs["vl"][vertexCheckBfLeftRightClass]["state"] = VERTEX_HIGHLIGHTED;
                             cs["el"][vertexCheckBfLeftClass]["state"] = EDGE_HIGHLIGHTED;
                             cs["el"][vertexCheckBfLeftRightClass]["state"] = EDGE_HIGHLIGHTED;
-                            //cs["status"] = "Tăng tốc độ tìm kiếm cho cây!";  //status_remove_7
                             cs["status"] = 'Bố trí lại cây';
                             cs["lineNo"] = 4;
                             sl.push(cs);
@@ -1455,7 +1358,6 @@ var BST = function () {
                             cs["el"][vertexCheckBfClass]["state"] = EDGE_HIGHLIGHTED;
                             if (iBST["root"] != vertexCheckBfLeftRight)
                                 cs["el"][vertexCheckBfLeftRightClass]["state"] = EDGE_HIGHLIGHTED;
-                            //cs["status"] = "Xoay phải " + vertexCheckBf + "."; //status_remove_15
                             cs["status"] = 'Xoay phải {vertexCheckBf}.'.replace("{vertexCheckBf}", vertexCheckBf);
                             cs["lineNo"] = 4;
                             sl.push(cs);
@@ -1468,7 +1370,6 @@ var BST = function () {
                             cs["el"][vertexCheckBfClass]["state"] = EDGE_HIGHLIGHTED;
                             if (iBST["root"] != vertexCheckBfLeftRight)
                                 cs["el"][vertexCheckBfLeftRightClass]["state"] = EDGE_HIGHLIGHTED;
-                            //cs["status"] = "Tăng tốc độ tìm kiếm cho cây!";  //status_remove_7
                             cs["status"] = 'Bố trí lại cây';
                             cs["lineNo"] = 4;
                             sl.push(cs);
@@ -1482,7 +1383,6 @@ var BST = function () {
                         cs = createState(iBST);
                         cs["vl"][vertexCheckBfClass]["state"] = VERTEX_HIGHLIGHTED;
                         cs["vl"][vertexCheckBfRightClass]["state"] = VERTEX_HIGHLIGHTED;
-                        //cs["status"] = "Và hệ số cân bằng của " + vertexCheckBfRight + " is " + bfRight + ".";  //status_remove_14
                         cs["status"] = 'Và hệ số cân bằng của {vertexCheckBf} is {bf}.'.replace("{vertexCheckBf}", vertexCheckBfRight).replace("{bf}", bfRight);
                         cs["lineNo"] = 2;
                         sl.push(cs);
@@ -1498,7 +1398,6 @@ var BST = function () {
                             cs["vl"][vertexCheckBfRightLeftClass]["state"] = VERTEX_HIGHLIGHTED;
                             cs["el"][vertexCheckBfRightClass]["state"] = EDGE_HIGHLIGHTED;
                             cs["el"][vertexCheckBfRightLeftClass]["state"] = EDGE_HIGHLIGHTED;
-                            //cs["status"] = "Xoay phải " + vertexCheckBfRight + ".";  //status_remove_15
                             cs["status"] = 'Xoay phải {vertexCheckBf}.'.replace("{vertexCheckBf}", vertexCheckBfRight);
                             cs["lineNo"] = 6;
                             sl.push(cs);
@@ -1510,7 +1409,6 @@ var BST = function () {
                             cs["vl"][vertexCheckBfRightLeftClass]["state"] = VERTEX_HIGHLIGHTED;
                             cs["el"][vertexCheckBfRightClass]["state"] = EDGE_HIGHLIGHTED;
                             cs["el"][vertexCheckBfRightLeftClass]["state"] = EDGE_HIGHLIGHTED;
-                            //cs["status"] = "Tăng tốc độ tìm kiếm cho cây!";  //status_remove_7
                             cs["status"] = 'Bố trí lại cây';
                             cs["lineNo"] = 6;
                             sl.push(cs);
@@ -1523,7 +1421,6 @@ var BST = function () {
                             cs["el"][vertexCheckBfClass]["state"] = EDGE_HIGHLIGHTED;
                             if (iBST["root"] != vertexCheckBfRightLeft)
                                 cs["el"][vertexCheckBfRightLeftClass]["state"] = EDGE_HIGHLIGHTED;
-                            //cs["status"] = "Xoay trái " + vertexCheckBf + ".";  //status_remove_16
                             cs["status"] = 'Xoay trái {vertexCheckBf}.'.replace("{vertexCheckBf}", vertexCheckBf);
                             cs["lineNo"] = 6;
                             sl.push(cs);
@@ -1536,7 +1433,6 @@ var BST = function () {
                             cs["el"][vertexCheckBfClass]["state"] = EDGE_HIGHLIGHTED;
                             if (iBST["root"] != vertexCheckBfRightLeft)
                                 cs["el"][vertexCheckBfRightLeftClass]["state"] = EDGE_HIGHLIGHTED;
-                            //cs["status"] = "Tăng tốc độ tìm kiếm cho cây!";  //status_remove_7
                             cs["status"] = 'Bố trí lại cây';
                             cs["lineNo"] = 6;
                             sl.push(cs);
@@ -1550,7 +1446,6 @@ var BST = function () {
                             cs["el"][vertexCheckBfClass]["state"] = EDGE_HIGHLIGHTED;
                             if (iBST["root"] != vertexCheckBfRight)
                                 cs["el"][vertexCheckBfRightClass]["state"] = EDGE_HIGHLIGHTED;
-                            //cs["status"] = "Xoay trái " + vertexCheckBf + ".";  //status_remove_16
                             cs["status"] = 'Xoay trái {vertexCheckBf}.'.replace("{vertexCheckBf}", vertexCheckBf);
                             cs["lineNo"] = 5;
                             sl.push(cs);
@@ -1564,7 +1459,6 @@ var BST = function () {
                             cs["el"][vertexCheckBfClass]["state"] = EDGE_HIGHLIGHTED;
                             if (iBST["root"] != vertexCheckBfRight)
                                 cs["el"][vertexCheckBfRightClass]["state"] = EDGE_HIGHLIGHTED;
-                            //cs["status"] = "Tăng tốc độ tìm kiếm cho cây!";  //status_remove_7
                             cs["status"] = 'Bố trí lại cây';
                             cs["lineNo"] = 5;
                             sl.push(cs);
@@ -1574,12 +1468,10 @@ var BST = function () {
                     if (vertexCheckBf != iBST["root"]) {
                         cs = createState(iBST);
                         cs["el"][vertexCheckBfClass]["state"] = EDGE_HIGHLIGHTED;
-                        //cs["status"] = "Kiểm tra đỉnh cha ...";  //status_remove_17
                         cs["status"] = 'Kiểm tra đỉnh cha ...';
                         cs["lineNo"] = 2;
                         sl.push(cs);
                     }
-
                     vertexCheckBf = iBST[vertexCheckBf]["parent"];
                 }
 
@@ -1861,126 +1753,81 @@ var BST = function () {
         switch (act) {
             case 1: // findMinMax
             case 2:
-                //$('#code1').html('if this is null return empty'); // code_minmax_1
                 $('#code1').html('if this is null return empty');
                 if (act == 1) {
-                    //$('#code2').html('if right != null'); // code_max_2
-                    //$('#code3').html('&nbsp&nbspgo right'); // code_max_3
                     $('#code2').html('if right != null');
                     $('#code3').html('&nbsp&nbspgo right');
                 }
                 else {
-                    //$('#code2').html('if left != null');  // code_min_2
-                    //$('#code3').html('&nbsp;&nbsp;go left');  // code_min_3
                     $('#code2').html('if left != null');
                     $('#code3').html('&nbsp;&nbsp;go left');
                 }
-                //$('#code4').html('else return this key'); // code_minmax_4
                 $('#code4').html('else return this key');
                 $('#code5').html('');
                 $('#code6').html('');
                 $('#code7').html('');
                 break;
             case 4: // search
-                //$('#code1').html('if this == null');  //code_search_1
                 $('#code1').html('if this == null');
-                //$('#code2').html('&nbsp;&nbsp;return null');  //code_search_2
                 $('#code2').html('&nbsp;&nbsp;return null');
-                //$('#code3').html('else if this key == search value'); //code_search_3
                 $('#code3').html('else if this key == search value');
-                //$('#code4').html('&nbsp;&nbsp;return this');  //code_search_4
                 $('#code4').html('&nbsp;&nbsp;return this');
-                //$('#code5').html('else if this key < search value');  //code_search_5
                 $('#code5').html('else if this key < search value');
-                //$('#code6').html('&nbsp;&nbsp;search right'); //code_search_6
                 $('#code6').html('&nbsp;&nbsp;search right');
-                //$('#code7').html('else search left'); //code_search_7
                 $('#code7').html('else search left');
                 break;
             case 0: // Insert
-                //$('#code1').html('if insertion point is found');  //code_insert_1
                 $('#code1').html('if insertion point is found');
-                //$('#code2').html('&nbsp;&nbsp;create new vertex');  //code_insert_2
                 $('#code2').html('&nbsp;&nbsp;create new vertex');
-                //$('#code3').html('if value to be inserted < this key'); //code_insert_3
                 $('#code3').html('if value to be inserted < this key');
-                //$('#code4').html('&nbsp;&nbsp;go left');  //code_insert_4
                 $('#code4').html('&nbsp;&nbsp;go left');
-                //$('#code5').html('else go right');  //code_insert_5
                 $('#code5').html('else go right');
                 $('#code6').html('');
                 $('#code7').html('');
                 break;
             case 5: // remove
-                //$('#code1').html('search for v'); //code_remove_1
                 $('#code1').html('search for v');
-                //$('#code2').html('if v is a leaf'); //code_remove_2
                 $('#code2').html('if v is a leaf');
-                //$('#code3').html('&nbsp;&nbsp;delete leaf v');  //code_remove_3
                 $('#code3').html('&nbsp;&nbsp;delete leaf v');
-                //$('#code4').html('else if v has 1 child');  //code_remove_4
                 $('#code4').html('else if v has 1 child');
-                //$('#code5').html('&nbsp;&nbsp;bypass v'); //code_remove_5
                 $('#code5').html('&nbsp;&nbsp;bypass v');
-                //$('#code6').html('else replace v with successor');  //code_remove_6
                 $('#code6').html('else replace v with successor');
                 $('#code7').html('');
                 break;
             case 6: // insert with rotations
             case 7: // remove with rotations
                 if (act == 6) {
-                    //$('#code1').html('insert v'); //code_insert_avl_1
                     $('#code1').html('insert v');
                 } else {
-                    //$('#code1').html('remove v'); //code_remove_avl_1
                     $('#code1').html('remove v');
                 }
-                //$('#code2').html('check Hệ số cân bằng của this and its children');  //code_avl_2
                 $('#code2').html('check Hệ số cân bằng của this and its children');
-                //$('#code3').html('&nbsp;&nbsp;case1: this.rotateRight');  //code_avl_3
                 $('#code3').html('&nbsp;&nbsp;case1: this.rotateRight');
-                //$('#code4').html('&nbsp;&nbsp;case2: this.left.rotateLeft, this.rotateRight');  //code_avl_4
                 $('#code4').html('&nbsp;&nbsp;case2: this.left.rotateLeft, this.rotateRight');
-                //$('#code5').html('&nbsp;&nbsp;case3: this.rotateLeft'); //code_avl_5
                 $('#code5').html('&nbsp;&nbsp;case3: this.rotateLeft');
-                //$('#code6').html('&nbsp;&nbsp;case4: this.right.rotateRight, this.rotateLeft'); //code_avl_6
                 $('#code6').html('&nbsp;&nbsp;case4: this.right.rotateRight, this.rotateLeft');
-                //$('#code7').html('&nbsp;&nbsp;this is balanced'); //code_avl_7
                 $('#code7').html('&nbsp;&nbsp;this is balanced');
                 break;
             case 8: // successor
             case 9: // predecessor
                 if (act == 8) {
-                    //$('#code1').html('if this.right != null return findMin(this.right)'); //code_successor_1
-                    //$('#code4').html('&nbsp;&nbsp;while(p != null && T == p.right)'); //code_successor_4
                     $('#code1').html('if this.right != null return findMin(this.right)');
                     $('#code4').html('&nbsp;&nbsp;while(p != null && T == p.right)');
                 }
-                else {
-                    //$('#code1').html('if this.left != null return findMax(this.left)'); //code_predecessor_1
-                    //$('#code4').html('&nbsp;&nbsp;while(p != null && T == p.left)');  //code_predecessor_4
+                else {4
                     $('#code1').html('if this.left != null return findMax(this.left)');
                     $('#code4').html('&nbsp;&nbsp;while(p != null && T == p.left)');
                 }
-                //$('#code2').html('else'); //code_predsucc_2
                 $('#code2').html('else');
-                //$('#code3').html('&nbsp;&nbsp;p = this.parent, T = this');  //code_predsucc_3
                 $('#code3').html('&nbsp;&nbsp;p = this.parent, T = this');
-                //$('#code5').html('&nbsp;&nbsp;&nbsp;&nbsp;T = p, p = T.parent');  //code_predsucc_5
                 $('#code5').html('&nbsp;&nbsp;&nbsp;&nbsp;T = p, p = T.parent');
-                //$('#code6').html('&nbsp;&nbsp;if p is null return -1'); //code_predsucc_6
                 $('#code6').html('&nbsp;&nbsp;if p is null return -1');
-                //$('#code7').html('&nbsp;&nbsp;else return p');  //code_predsucc_7
                 $('#code7').html('&nbsp;&nbsp;else return p');
                 break;
             case 3: // inorder traversal
-                //$('#code1').html('if this is null');  //code_inorder_1
                 $('#code1').html('if this is null');
-                //$('#code2').html('&nbsp;&nbsp;return'); //code_inorder_2
                 $('#code2').html('&nbsp;&nbsp;return');
-                //$('#code3').html('inOrder(left)');  //code_inorder_3
                 $('#code3').html('inOrder(left)');
-                //$('#code4').html('visit this, then inOrder(right)');  //code_inorder_4
                 $('#code4').html('visit this, then inOrder(right)');
                 $('#code5').html('');
                 $('#code6').html('');
@@ -1989,13 +1836,10 @@ var BST = function () {
         }
     }
 }
-
-
 // BSTaction.js
 
 // local
 var bw, gw;
-
 $(function () {
     $('#play').hide();
     bw = new BST();
@@ -2065,7 +1909,6 @@ $('#title-BST').click(function () {
     title.innerHTML = "BINARY SEARCH TREE";
     noteTitle.innerHTML = '<h1>BINARY SEARCH TREE</h1>';
     note.innerHTML += "<div>BST là tập hợp các nút được sắp xếp theo cách mà chúng duy trì các thuộc tính của BST. Mỗi nút có một khóa và một giá trị liên quan. Trong khi tìm kiếm, khóa mong muốn được so sánh với các khóa trong BST và nếu được tìm thấy, giá trị liên quan sẽ được truy xuất.</div>"
-
     bw.isAVL(false);
 });
 
@@ -2074,7 +1917,6 @@ $('#title-AVL').click(function () {
     title.innerHTML = "AVL TREE";
     noteTitle.innerHTML = '<h1>AVL TREE</h1>';
     note.innerHTML = "<div>Được đặt theo tên của nhà phát minh Adelson, Velski & Landis, cây AVL là cây tìm kiếm nhị phân cân bằng độ cao. Cây AVL kiểm tra chiều cao của cây con bên trái và bên phải và đảm bảo rằng sự khác biệt không quá 1. Sự khác biệt này được gọi là Hệ số Cân bằng.</div>"
-
     bw.isAVL(true);
 });
 
@@ -2094,7 +1936,6 @@ function example(id) {
     setTimeout(function () {
         if (bw.generateExample(id)) { // (mode == "exploration") &&
             $('#progress-bar').slider("option", "max", 0);
-
             isPlaying = false;
         }
     }, 100);
@@ -2116,7 +1957,6 @@ function skewed(side) {
     setTimeout(function () {
         if (bw.generateSkewed(side)) { // (mode == "exploration") &&
             $('#progress-bar').slider("option", "max", 0);
-
             isPlaying = false;
         }
     }, 500);

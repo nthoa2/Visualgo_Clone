@@ -2,7 +2,6 @@ var statusCodetraceWidth = 420;
 
 var colourArray = ["#52bc69", "#d65775", "#2ebbd1", "#d9513c", "#fec515", "#4b65ba", "#ff8a27", "#a7d41e"];
 
-
 function getColours() {
     var generatedColours = new Array();
     while (generatedColours.length < 4) {
@@ -32,26 +31,18 @@ var Sorting = function () {
     var HIGHLIGHT_RIGHT = "#9932CC";
     var HIGHLIGHT_PIVOT = "yellow";
 
-    var HIGHLIGHT_GRAY = "#CCCCCC";
-
     var barWidth = 50;
     var maxHeight = 230;
     var gapBetweenBars = 5;
-    var maxNumOfElements = 15;
     var gapBetweenPrimaryAndSecondaryRows = 30; // of the bars
     var maxElementValue = 50;
     var maxRadixElementValue = 9999;
 
 
-    // green, pink, blue, red, yellow, indigo, orange, lime
-
-
     var transitionTime = 750;
-    var issPlaying;
     var animInterval;
     var currentStep;
     var centreBarsOffset;
-    var computeInversionIndex = false;
     var radixSortBucketOrdering;
 
     this.selectedSortFunction;
@@ -66,7 +57,6 @@ var Sorting = function () {
     scaler = d3.scale
         .linear()
         .range([0, maxHeight]);
-
     width = $(".gridGraph").width();
 
     canvas = d3.select("#viz-canvas")
@@ -173,7 +163,6 @@ var Sorting = function () {
     // end class StateHelper
 
     // class FunctionList
-
     var FunctionList = new Object();
     FunctionList.text_y = function (d) {
         var barHeight = scaler(d.value);
@@ -224,20 +213,16 @@ var Sorting = function () {
             positionToHighLight++;
             positionCounter /= 10;
         }
-
         positionToHighLight = 3 - positionToHighLight;
-
         if (text.charAt(positionToHighLight) != " ") {
             text = text.slice(0, positionToHighLight) + "<span style='color: red;'>" + text.charAt(positionToHighLight) + "</span>" + text.slice(positionToHighLight + 1);
         }
-
         text = text.trim();
         return text;
     }
-
     // end class FunctionList
 
-    var generateRandomNumber = function (min, max) { //generates a random integer between min and max (both bao gồm)
+    var generateRandomNumber = function (min, max) { //generates a random integer between min and max
         return Math.floor(Math.random() * (max - min + 1)) + min;
     };
 
@@ -249,7 +234,7 @@ var Sorting = function () {
         return numArray;
     };
 
-    var generateRandomNumber = function (min, max) { //generates a random integer between min and max (both bao gồm)
+    var generateRandomNumber = function (min, max) { //generates a random integer between min and max
         return Math.floor(Math.random() * (max - min + 1)) + min;
     };
 
@@ -284,11 +269,9 @@ var Sorting = function () {
 
     var initLogMessage = function (state) {
         state.logMessage = "original array = [";
-
         for (var i = 0; i < state.backlinks.length - 1; i++) {
             state.logMessage += state.backlinks[i].value + ", ";
         }
-
         state.logMessage += state.backlinks[state.backlinks.length - 1].value + "]";
     }
 
@@ -315,7 +298,6 @@ var Sorting = function () {
             swapped = false;
 
             // Set the swapped flag to false.
-            // Sau đó, lặp lại từ 1 đến {endIdx} bao gồm.
             state.status = '<div>Gán vị trí cần đổi = false.</div><div>Sau đó, lặp lại từ 1 đến {endIdx} bao gồm.</div>'.replace("{endIdx}", indexOfLastUnsortedElement - 1);
             state.logMessage = '<div>Gán vị trí cần đổi = false.</div><div>Sau đó, lặp lại từ 1 đến {endIdx} bao gồm.</div>'.replace("{endIdx}", indexOfLastUnsortedElement - 1)
                 + state.logMessage;
@@ -327,7 +309,6 @@ var Sorting = function () {
                 state.backlinks[i].highlight = HIGHLIGHT_STANDARD;
 
                 // Kiểm tra, nếu {val1} > {val2} và hoán đổi vị trí chúng
-                // Giá trị hiện tại của swapped = {swapped}.
                 state.status = '<div>Kiểm tra, nếu {val1} &gt; {val2} và hoán đổi vị trí chúng</div><div>Giá trị hiện tại của swapped = {swapped}.</div>'
                     .replace("{val1}", state.backlinks[i - 1].value)
                     .replace("{val2}", state.backlinks[i].value)
@@ -347,21 +328,14 @@ var Sorting = function () {
                     state.status = '<div>Hoán đổi vị trí của {val1} và {val2}.</div><div>Swapped = true.</div>'
                         .replace("{val1}", state.backlinks[i - 1].value)
                         .replace("{val2}", state.backlinks[i].value);
-                    // state.logMessage = '<div>swap {val1} and {val2}</div>'
-                    //     .replace("{val1}", state.backlinks[i - 1].value)
-                    //     .replace("{val2}", state.backlinks[i].value) + state.logMessage;
                     state.logMessage = '<div>Hoán đổi vị trí của {val1} và {val2}.</div><div>Swapped = true.</div>'
                         .replace("{val1}", state.backlinks[i - 1].value)
                         .replace("{val2}", state.backlinks[i].value) + state.logMessage;
                     if (this.computeInversionIndex) {
                         swapCounter++;
-                        // For Chỉ số nghịch đảo computation: Add 1 to swapCounter.
-                        // Giá trị hiện tại của swapCounter = {swapCounter}.
                         state.status += ' Đối với chỉ số nghịch đảo: Thêm 1 vào swapCounter.<div>Giá trị hiện tại của swapCounter = {swapCounter}.</div>'.replace("{swapCounter}", swapCounter);
                     }
-
                     state.lineNo = [5, 6];
-
                     EntryBacklinkHelper.swapBacklinks(state.backlinks, i, i - 1);
                     StateHelper.updateCopyPush(statelist, state);
                 }
@@ -373,13 +347,8 @@ var Sorting = function () {
             indexOfLastUnsortedElement--;
             state.backlinks[indexOfLastUnsortedElement].highlight = HIGHLIGHT_SORTED;
             if (swapped == false)
-                // Không có sự hoán đổi nào được thực hiện trong thẻ này.
-                // Chúng ta có thể chấm dứt tính năng Sắp xếp bong bóng ngay bây giờ.
                 state.status = '<div>Không có sự hoán đổi nào được thực hiện trong thẻ này.</div><div>Chúng ta có thể chấm dứt tính năng Sắp xếp nổi bọt ngay bây giờ</div>';
-            // state.logMessage = '<div>Không có sự hoán đổi nào được thực hiện trong thẻ này.</div><div>Chúng ta có thể chấm dứt tính năng Sắp xếp bong bóng ngay bây giờ</div>' + state.logMessage;
             else {
-                // Mark last unsorted element as sorted now.
-                // As at least one swap is done in this pass, we continue.
                 state.status = '<div> Phần tử cuối cùng đã được sắp xếp. </div> <div>  Chúng ta tiếp tục hoán đổi. </div>';
                 state.logMessage = '<div> Phần tử cuối cùng đã được sắp xếp. </div> <div>  Chúng ta tiếp tục hoán đổi. </div>' + state.logMessage;
             }
@@ -395,7 +364,6 @@ var Sorting = function () {
         state.status = '<div>Danh sách đã được sắp xếp !</div>';
         state.logMessage = '<div>Danh sách đã được sắp xếp !</div>' + state.logMessage;
         if (this.computeInversionIndex)
-            // Chỉ số nghịch đảo = {swapCounter}.
             state.status += ' Chỉ số nghịch đảo = {swapCounter}.'.replace("swapCounter", swapCounter);
 
         state.lineNo = 0;
@@ -437,7 +405,6 @@ var Sorting = function () {
             StateHelper.updateCopyPush(statelist, state);
 
             for (var j = i + 1; j < numElements; j++) {
-                // Check if {val} is smaller than the current minimum ({minVal}).
                 state.status = '<div>So sánh giá trị {val} có nhỏ hơn giá trị nhỏ nhất hiện tại ({minVal} ) hay không?.</div>'
                     .replace("{val}", state.backlinks[j].value)
                     .replace("{minVal}", state.backlinks[minPosition].value);
@@ -453,8 +420,6 @@ var Sorting = function () {
                 if (state.backlinks[j].value < state.backlinks[minPosition].value) {
                     state.status = '<div>Gán {val} là giá trị nhỏ nhất tạm thời.</div>'
                         .replace("{val}", state.backlinks[j].value);
-                    // state.logMessage = '<div>{val} is the current minimum</div>'
-                    //     .replace("{val}", state.backlinks[j].value) + state.logMessage;
                     state.logMessage = '<div>Gán {val} là giá trị nhỏ nhất tạm thời.</div>'
                         .replace("{val}", state.backlinks[j].value) + state.logMessage;
                     state.lineNo = 5;
@@ -471,14 +436,9 @@ var Sorting = function () {
                 state.status = '<div>Đổi chổ giá trị nhỏ nhất hiện tại là ({minVal}) với phần tử đầu tiên (chưa được sắp xếp) ({element}).</div>'
                     .replace("{minVal}", state.backlinks[minPosition].value)
                     .replace("{element}", state.backlinks[i].value);
-
-                // state.logMessage = '<div>swap {minVal} and {element}</div>'
-                //     .replace("{minVal}", state.backlinks[minPosition].value)
-                //     .replace("{element}", state.backlinks[i].value) + state.logMessage;
                 state.logMessage = '<div>Đổi chổ giá trị nhỏ nhất hiện tại là ({minVal}) với phần tử đầu tiên (chưa được sắp xếp) ({element}).</div>'
                     .replace("{minVal}", state.backlinks[minPosition].value)
                     .replace("{element}", state.backlinks[i].value) + state.logMessage;
-
                 state.lineNo = 6;
                 state.backlinks[i].highlight = HIGHLIGHT_SPECIAL;
                 StateHelper.updateCopyPush(statelist, state);
@@ -510,7 +470,6 @@ var Sorting = function () {
         state.logMessage = "<div>Danh sách đã được sắp xếp !</div>" + state.logMessage;
         status.lineNo = 0;
         StateHelper.updateCopyPush(statelist, state);
-
         this.play(callback);
         return true;
     }
@@ -618,9 +577,6 @@ var Sorting = function () {
             state.status += '<div>Chọn {pivot} là pivot. (storeIndex = {storeIndex}.)</div>'
                 .replace("{pivot}", state.backlinks[pivotIndex].value)
                 .replace("{storeIndex}", (startIndex + 1));
-
-            // state.logMessage = '<div>Select {val} là pivot</div>'
-            //     .replace("{val}", state.backlinks[pivotIndex].value) + state.logMessage;
             state.logMessage += '<div>Chọn {pivot} là pivot. (storeIndex = {storeIndex}.)</div>'
                 .replace("{pivot}", state.backlinks[pivotIndex].value)
                 .replace("{storeIndex}", (startIndex + 1)) + state.logMessage;
@@ -691,10 +647,6 @@ var Sorting = function () {
                 .replace("{pivot}", pivotValue)
                 .replace("{newIdx}", (storeIndex - 1))
                 .replace("{newVal}", state.backlinks[storeIndex - 1].value);
-
-            // state.logMessage = '<div>Swap {val1} and {val2}</div>'
-            //     .replace("{val1}", pivotValue)
-            //     .replace("{val2}", state.backlinks[storeIndex - 1].value) + state.logMessage;
             state.logMessage = '<div>Hoán đổi pivot (index = {pivotIdx}, giá trị = {pivot}) với phần tử tại storeIndex - 1 (index = {newIdx}, giá trị = {newVal}).</div>'
                 .replace("{pivotIdx}", pivotIndex)
                 .replace("{pivot}", pivotValue)
@@ -705,7 +657,6 @@ var Sorting = function () {
             EntryBacklinkHelper.swapBacklinks(state.backlinks, storeIndex - 1, pivotIndex);
             StateHelper.updateCopyPush(statelist, state);
         }
-
         state.status = '<div>Pivot hiện đang ở vị trí được sắp xếp của nó.</div>';
         state.logMessage = '<div>Pivot hiện đang ở vị trí được sắp xếp của nó.</div>' + state.logMessage;
         state.lineNo = 7;
@@ -809,7 +760,6 @@ var Sorting = function () {
                     // StateHelper.updateCopyPush(statelist, state);
                     state.backlinks[j].highlight = HIGHLIGHT_SORTED;
                     StateHelper.updateCopyPush(statelist, state);
-
                 }
             } // End backward loop
         } // End forward loop
@@ -826,7 +776,6 @@ var Sorting = function () {
     this.cocktailShakerSort = function (callback) {
         var numElements = statelist[0].backlinks.length;
         var state = StateHelper.copyState(statelist[0]);
-
         populatePseudocode([
             'swapped = false, start = 0, end = last index',
             'while (swapped = true)',
@@ -841,7 +790,6 @@ var Sorting = function () {
             '  if swapped = false: break loop',
             '  else: swapped = false and start++'
         ]);
-
         initLogMessage(state);
 
         var swapped = true;
@@ -1147,7 +1095,6 @@ var Sorting = function () {
     this.mergeSort = function (callback) {
         var numElements = statelist[0].backlinks.length;
         var state = StateHelper.copyState(statelist[0]);
-
         populatePseudocode([
             'split each element into partitions of size 1',
             'recursively merge adjancent partitions',
@@ -1182,22 +1129,17 @@ var Sorting = function () {
         this.mergeSortMerge(state, startIndex, midIndex, endIndex);
 
         // Copy sorted array back to original array
-
         state.status = "<div>Đưa các phần tử đã sắp xếp vào lại mảng ban đầu.</div>";
         state.logMessage = "<div>Đưa các phần tử đã sắp xếp vào lại mảng ban đầu.</div>" + state.logMessage;
-
         state.lineNo = 7;
-
         var duplicatedArray = new Array();
         for (var i = startIndex; i < endIndex; i++) {
             var newPosition = state.backlinks[i].secondaryPositionStatus;
             duplicatedArray[newPosition] = state.backlinks[i];
         }
-
         for (var i = startIndex; i < endIndex; i++) {
             state.backlinks[i] = duplicatedArray[i];
         }
-
         for (var i = startIndex; i < endIndex; i++) {
             state.backlinks[i].secondaryPositionStatus = POSITION_USE_PRIMARY;
             state.backlinks[i].highlight = HIGHLIGHT_NONE;
@@ -1208,7 +1150,6 @@ var Sorting = function () {
     this.mergeSortMerge = function (state, startIndex, midIndex, endIndex) {
         var leftIndex = startIndex;
         var rightIndex = midIndex;
-
         for (var i = startIndex; i < endIndex; i++) {
             state.backlinks[i].highlight = HIGHLIGHT_STANDARD;
         }
@@ -1231,15 +1172,12 @@ var Sorting = function () {
                 return d.value;
             }))
             .replace('{startIdx2}', midIndex).replace('{endIdx2}', (endIndex - 1)) + state.logMessage;
-
         state.lineNo = 2;
         StateHelper.updateCopyPush(statelist, state);
 
         for (var i = startIndex; i < endIndex; i++) {
-
             if (leftIndex < midIndex && (rightIndex >= endIndex || state.backlinks[leftIndex].value <= state.backlinks[rightIndex].value)) {
                 state.backlinks[leftIndex].secondaryPositionStatus = i;
-
                 if (rightIndex < endIndex) {
                     state.status = "<div>Ta thấy {leftPart} <= {rightPart} ,    sao chép {leftPart}(phần tử bên trái) vào trong mảng mới</div>"
                         .replace(/{leftPart}/g, state.backlinks[leftIndex].value).replace('{rightPart}', state.backlinks[rightIndex].value);
@@ -1251,16 +1189,12 @@ var Sorting = function () {
                     state.logMessage = "<div>Vì phân vùng bên phải trống, chúng ta sao chép {leftPart} (phần tử bên trái) vào trong mảng mới</div>".replace('{leftPart}', state.backlinks[leftIndex].value)
                         + state.logMessage;
                 }
-
                 state.lineNo = [3, 4, 5];
-
                 leftIndex++;
                 StateHelper.updateCopyPush(statelist, state);
             } else {
                 state.backlinks[rightIndex].secondaryPositionStatus = i;
-
                 state.lineNo = [3, 6];
-
                 if (leftIndex < midIndex) {
                     state.status = "<div>Ta thấy {leftPart}  > {rightPart} ,  sao chép {rightPart} (phần tử bên phải) vào trong mảng mới</div>"
                         .replace('{leftPart}', state.backlinks[leftIndex].value).replace(/{rightPart}/g, state.backlinks[rightIndex].value);
@@ -1272,7 +1206,6 @@ var Sorting = function () {
                     state.logMessage = "<div>Vì phân vùng bên trái rỗng, chúng ta sao chép {rightPart} (phần tử bên phải) vào trong mảng mới</div>".replace('{rightPart}', state.backlinks[rightIndex].value) + state.logMessage;
                 }
                 state.lineNo = [3, 6];
-
                 rightIndex++;
                 StateHelper.updateCopyPush(statelist, state);
             }
@@ -1283,10 +1216,7 @@ var Sorting = function () {
         var numElements = statelist[0].backlinks.length;
         var state = StateHelper.copyState(statelist[0]);
 
-        populatePseudocode([
-
-        ]);
-
+        populatePseudocode([]);
         secondaryStateList = [false];
         var currentPlacing = 1;
         var targetPlacing = 1;
@@ -1315,7 +1245,6 @@ var Sorting = function () {
                 StateHelper.updateCopyPush(statelist, state);
                 secondaryStateList.push(true);
             }
-
             for (var i = 0, j = 0; i <= 9;) {
                 if (backlinkBuckets[i].length == 0) {
                     i++;
@@ -1323,22 +1252,18 @@ var Sorting = function () {
                 }
                 state.backlinks[j++] = backlinkBuckets[i].shift();
             }
-
             for (var i = 0; i < numElements; i++) {
                 state.backlinks[i].secondaryPositionStatus = POSITION_USE_PRIMARY;
                 StateHelper.updateCopyPush(statelist, state);
                 secondaryStateList.push(true);
             }
         }
-
         for (var i = 0; i < numElements; i++) {
             state.backlinks[i].highlight = HIGHLIGHT_NONE;
         }
         StateHelper.updateCopyPush(statelist, state);
         secondaryStateList.push(false);
-
         this.play(callback);
-
         return true;
     }
 
@@ -1368,11 +1293,8 @@ var Sorting = function () {
         scaler.domain([0, d3.max(state.entries, function (d) {
             return d.value;
         })]);
-
         centreBarsOffset = 0;
-
         var canvasData = canvas.selectAll("g").data(state.entries);
-
         // Exit ==============================
         var exitData = canvasData.exit()
             .remove();
@@ -1500,7 +1422,6 @@ var Sorting = function () {
     this.loadNumberList = function (numArray) {
         issPlaying = false;
         currentStep = 0;
-
         statelist = [StateHelper.createNewState(numArray)];
         secondaryStateList = [null];
         drawState(0);
@@ -1515,43 +1436,34 @@ var Sorting = function () {
             numArrayMaxListSize = 15;
             numArrayMaxElementValue = maxRadixElementValue;
         }
-
         var numArray = generateRandomNumberArray(generateRandomNumber(10, numArrayMaxListSize), numArrayMaxElementValue);
-
         switch (type) {
             case 'random':
                 break;
             case 'custom':
                 numArray = $('#custom-input').val().split(",");
-
                 if (numArray.length > numArrayMaxListSize) {
                     window.alert('List max size is ' + numArrayMaxListSize);
                     return false;
                 }
-
                 for (var i = 0; i < numArray.length; i++) {
                     var num = convertToNumber(numArray[i]);
-
                     if (numArray[i].trim() == "") {
                         window.alert('Missing element in custom list!');
                         return false;
                     }
-
                     if (isNaN(num)) {
                         window.alert('Element \"{el}\" is not number!'.replace('{el}', numArray[i].trim()));
                         return false;
                     }
-
                     if (num < 1 || num > numArrayMaxElementValue) {
                         window.alert('Element range must be in range from {min} to {max}'.replace('{min}', '1').replace('{max}', numArrayMaxElementValue));
                         return false;
                     }
-
                     numArray[i] = convertToNumber(numArray[i]);
                 }
                 break;
         }
-
         this.loadNumberList(numArray);
     }
 
@@ -1560,38 +1472,28 @@ var Sorting = function () {
         // showCodetracePanel();
         // showStatusPanel();
     }
-
     this.setSelectedSortFunction = function (f) {
         this.selectedSortFunction = f;
-        // this.sort();
-        // isRadixSort = (this.selectedSortFunction == this.radixSort);
-        // isCountingSort = (this.selectedSortFunction == this.countingSort);
     }
-
     this.sort = function (callback) {
         return this.selectedSortFunction(callback);
     }
-
     this.getCurrentIteration = function () {
         return currentStep;
     }
-
     this.getTotalIteration = function () {
         return statelist.length;
     }
-
     this.forceNext = function () {
         if ((currentStep + 1) < statelist.length)
             currentStep++;
         drawCurrentState();
     }
-
     this.forcePrevious = function () {
         if ((currentStep - 1) >= 0)
             currentStep--;
         drawCurrentState();
     }
-
     this.jumpToIteration = function (n) {
         currentStep = n;
         drawCurrentState();
@@ -1600,28 +1502,22 @@ var Sorting = function () {
 }
 
 var title = document.getElementById('title');
-
 var note = document.getElementById('noteContent');
-
 var noteTitle = document.getElementById('noteTitle');
-
-// var gw = new Sorting();
 
 $('#execute').click(function () {
     if (isPlaying) return;
     sort();
 });
-
 $('#create-random').click(function () {
     createList('random');
 });
-
 $('#create-custom').click(function () {
     createList('custom');
 });
-
 this.changeClass = function () {
-    // $('li').removeClass('active');
+    //* Bug with sidebarOpenList temp disable
+    // $('li').removeClass('active'); 
     // $(this).closest('li').addClass('active');
 }
 
@@ -1631,15 +1527,12 @@ $('#bubbleSort').click(function () {
     $('#viz-canvas').show();
     $('#viz-radix-sort-canvas').hide();
     isRadixSort = false;
-
     changeClass();
-
     if (!gw.issPlaying) {
         title.innerHTML = "Bubble Sort";
         changeSortType(gw.bubbleSort);
         noteTitle.innerHTML = 'Bubble Sort';
         note.innerHTML = "<div>Sắp xếp nổi bọt, đôi khi được gọi là sắp xếp chìm, là một thuật toán sắp xếp đơn giản lặp đi lặp lại các bước qua danh sách được sắp xếp, so sánh từng cặp mục liền kề và hoán đổi chúng nếu chúng không đúng thứ tự. Việc chuyển qua danh sách được lặp lại cho đến khi không cần hoán đổi, điều này cho biết rằng danh sách đã được sắp xếp.</div>";
-
     } else {
         sort();
     }
@@ -1653,7 +1546,6 @@ $('#selectionSort').click(function () {
     if (!gw.issPlaying) {
         title.innerHTML = "Selection Sort";
         changeSortType(gw.selectionSort);
-
         noteTitle.innerHTML = 'Selection Sort';
         note.innerHTML = "<div>Sắp xếp chọn là một thuật toán sắp xếp, cụ thể là sắp xếp so sánh tại chỗ. Nó có độ phức tạp về thời gian là O (n2), làm cho nó không hiệu quả trên các danh sách lớn và thường hoạt động kém hơn so với loại chèn tương tự. Sắp xếp lựa chọn được chú ý vì tính đơn giản của nó và nó có lợi thế về hiệu suất so với các thuật toán phức tạp hơn trong một số trường hợp nhất định, đặc biệt khi bộ nhớ phụ bị hạn chế.</div>";
     } else {
@@ -1669,7 +1561,6 @@ $('#quickSort').click(function () {
     if (!gw.issPlaying) {
         title.innerHTML = "Quick Sort";
         changeSortType(gw.quickSort);
-
         noteTitle.innerHTML = 'Quick Sort';
         note.innerHTML = "<div>Sắp xếp nhanh (đôi khi được gọi là sắp xếp trao đổi phân vùng) là một thuật toán sắp xếp hiệu quả, phục vụ như một phương pháp có hệ thống để sắp xếp các phần tử của một mảng theo thứ tự. Được phát triển bởi Tony Hoare vào năm 1959, với công trình của ông được xuất bản vào năm 1961, nó vẫn là một thuật toán được sử dụng phổ biến để sắp xếp. Khi được triển khai tốt, nó có thể nhanh hơn khoảng hai hoặc ba lần so với các đối thủ cạnh tranh chính của nó, sắp xếp hợp nhất và sắp xếp theo thứ tự.</div>";
     } else {
@@ -1685,10 +1576,8 @@ $('#insertionSort').click(function () {
     if (!gw.issPlaying) {
         title.innerHTML = "Insertion Sort";
         changeSortType(gw.insertionSort);
-
         noteTitle.innerHTML = 'Insertion Sort';
         note.innerHTML = "<div>Sắp xếp chèn là một thuật toán sắp xếp đơn giản xây dựng mảng (hoặc danh sách) được sắp xếp cuối cùng một mục tại một thời điểm. Nó kém hiệu quả hơn nhiều trên các danh sách lớn so với các thuật toán nâng cao hơn như quicksort, heapsort hoặc merge sort.</div>";
-
     } else {
         sort();
     }
@@ -1698,14 +1587,11 @@ $('#cocktailSort').click(function () {
     $('#viz-canvas').show();
     $('#viz-radix-sort-canvas').hide();
     isRadixSort = false;
-
     if (!gw.issPlaying) {
         title.innerHTML = "Cocktail Shaker Sort";
         changeSortType(gw.cocktailShakerSort);
-
         noteTitle.innerHTML = 'Cocktail Shaker Sort';
         note.innerHTML = "<div>Cocktail shaker sort, also known as bidirectional bubble sort, cocktail sort, shaker sort (which can also refer to a variant of selection sort), ripple sort, shuffle sort, or shuttle sort, is a variation of bubble sort that is both a stable sorting algorithm and a comparison sort. The algorithm differs from a bubble sort in that it sorts in both directions on each pass through the list. This sorting algorithm is only marginally more difficult to implement than a bubble sort, and solves the problem of turtles in bubble sorts</div>  ";
-
     } else {
         sort();
     }
@@ -1715,14 +1601,11 @@ $('#combSort').click(function () {
     $('#viz-canvas').show();
     $('#viz-radix-sort-canvas').hide();
     isRadixSort = false;
-
     if (!gw.issPlaying) {
         title.innerHTML = "Comb Sort";
         changeSortType(gw.combSort);
-
         noteTitle.innerHTML = 'Comb Sort';
         note.innerHTML = "<div>Comb Sort is mainly an improvement over Bubble Sort. Bubble sort always compares adjacent values. So all inversions are removed one by one. Comb Sort improves on Bubble Sort by using gap of size more than 1. The gap starts with a large value and shrinks by a factor of 1.3 in every iteration until it reaches the value 1. Thus Comb Sort removes more than one inversion counts with one swap and performs better than Bublle Sort.</div>";
-
     } else {
         sort();
     }
@@ -1732,11 +1615,9 @@ $('#shellSort').click(function () {
     $('#viz-canvas').show();
     $('#viz-radix-sort-canvas').hide();
     isRadixSort = false;
-
     if (!gw.issPlaying) {
         title.innerHTML = "Shell Sort";
         changeSortType(gw.shellSort);
-
         noteTitle.innerHTML = 'Shell Sort';
         note.innerHTML = "<div>Shellsort, also known as Shell sort or Shell's method, is an in-place comparison sort. It can be seen as either a generalization of sorting by exchange (bubble sort) or sorting by insertion (insertion sort). The method starts by sorting pairs of elements far apart from each other, then progressively reducing the gap between elements to be compared.</div>";
     } else {
@@ -1752,7 +1633,6 @@ $('#mergeSort').click(function () {
     if (!gw.issPlaying) {
         title.innerHTML = "Merge Sort";
         changeSortType(gw.mergeSort);
-
         noteTitle.innerHTML = 'Merge Sort';
         note.innerHTML = "<div>Trong khoa học máy tính, sắp xếp trộn (cũng thường được đánh vần là mergesort) là một thuật toán sắp xếp hiệu quả, có mục đích chung, dựa trên so sánh. Hầu hết các triển khai tạo ra một sắp xếp ổn định, có nghĩa là việc triển khai bảo toàn thứ tự đầu vào của các phần tử bằng nhau trong đầu ra được sắp xếp. Mergesort là một thuật toán chia và chinh phục được John von Neumann phát minh vào năm 1945. Mô tả và phân tích chi tiết về hợp nhất từ dưới lên đã xuất hiện trong một báo cáo của Goldstine và Neumann vào đầu năm 1948.</div>";
     } else {
@@ -1764,11 +1644,9 @@ $('#radixSort').click(function () {
     $('#viz-canvas').hide();
     $('#viz-radix-sort-canvas').show();
     isRadixSort = true;
-
     if (!gw.issPlaying) {
         title.innerHTML = "Radix Sort";
         changeSortType(gw.radixSort);
-
         noteTitle.innerHTML = 'Radix Sort';
         note.innerHTML = "<div>In computer science, radix sort is a non-comparative integer sorting algorithm that sorts data with integer keys by grouping keys by the individual digits which share the same significant position and value. A positional notation is required, but because integers can represent strings of characters (e.g., names or dates) and specially formatted floating point numbers, radix sort is not limited to integers. Radix sort dates back as far as 1887 to the work of Herman Hollerith on tabulating machines.</div>";
     } else {
@@ -1778,7 +1656,6 @@ $('#radixSort').click(function () {
 
 window.onload = function () {
     var reloading = sessionStorage.getItem("type");
-    // gw = new Sorting();
     switch (reloading) {
         case "bubble":
             title.innerHTML = "Bubble Sort";
@@ -1800,18 +1677,14 @@ window.onload = function () {
 }
 
 function responsivefy(svg) {
-
     var container = d3.select(svg.node().parentNode),
         width = parseInt(svg.style("width")) + 30,
         height = parseInt(svg.style("height")),
         aspect = width / height;
-
     svg.attr("viewBox", "0 0 " + width + " " + height)
         .attr("preserveAspectRatio", "xMinYMid")
         .call(resize);
-
     d3.select(window).on("resize." + container.attr("id"), resize);
-
     function resize() {
         var targetWidth = parseInt(container.style("width"));
         svg.attr("width", targetWidth);
@@ -1820,9 +1693,7 @@ function responsivefy(svg) {
 }
 
 function changeSortType(newSortingFunction) {
-
     createList('random');
-
     if (isPlaying) stop();
     gw.clearPseudocode();
     gw.setSelectedSortFunction(newSortingFunction);

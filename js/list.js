@@ -1,5 +1,3 @@
-
-
 function getQueryVariable(variable) {
     var query = window.location.search.substring(1);
     var vars = query.split('&');
@@ -11,16 +9,13 @@ function getQueryVariable(variable) {
     return "";
 }
 
-
 $('#status').bind("DOMSubtreeModified", function () {
     $('#console').append($('#status').html());
 });
 
 function clearConsole(callback) {
     $('#console').html('');
-
 }
-
 // List Widget
 // original author: Steven Kester Yuwono, then cleaned and maintained by Steven Halim
 
@@ -208,21 +203,13 @@ var List = function () {
                     cs["status"] = 'Chúng ta đã cố gắng tìm kiếm.<br>Nhưng...';
                     cs["lineNo"] = 4;
                     stateList.push(cs);
-
-                    // if temp == null
-                    //   return -1
                     cs = createState(iL, vertexTraversed, edgeTraversed);
-                    // nhiệt độ là null (chúng ta đã đi qua đuôi sau (các) bước O (N)).
-                    // Chúng tôi kết luận rằng giá trị {val} NOT_FOUND trong Danh sách liên kết.
                     cs["status"] = 'Temp = null, chúng ta đã duyệt hết danh sách.<br>Có vẻ như giá trị v = {val} bạn muốn tìm không tồn tại trong Danh sách liên kết.'.replace("{val}", val);
                     cs["lineNo"] = [5, 6];
                     stateList.push(cs);
-
                     break;
                 }
 
-                // temp = temp.next, index++
-                // if temp == null
                 curVtx = iL[currentVertex]["prev"];
                 curVtxIdx = iL[currentVertex]["vtxIdx"];
                 var edgeHighlighted = iL[curVtx]["vtxIdx"];
@@ -234,12 +221,9 @@ var List = function () {
                 cs["vl"][curVtxIdx]["extratext"] = curVtxIdx + (curVtxIdx == 0 ? "/head" : (iL[currentVertex]["next"] == null ? "/tail" : "")) + "/temp";
                 cs["el"][edgeHighlighted]["animateHighlighted"] = true;
                 cs["el"][edgeHighlighted]["state"] = EDGE_TRAVERSED;
-                // So temp advances to the next vertex.
-                // temp is not null, continue searching.
                 cs["status"] = 'Đi đến đỉnh tiếp theo.<br> Tiếp tục tìm kiếm !.';
                 cs["lineNo"] = [4, 5];
                 stateList.push(cs);
-
                 index++;
             }
 
@@ -250,14 +234,11 @@ var List = function () {
                 curVtxIdx = iL[currentVertex]["vtxIdx"];
                 cs["vl"][curVtxIdx]["state"] = VERTEX_HIGHLIGHTED;
                 cs["vl"][curVtxIdx]["extratext"] = curVtxIdx + (curVtxIdx == 0 ? "/head" : (iL[currentVertex]["next"] == null ? "/tail" : "")) + "/temp";
-                // Found value v = {val} at this highlighted vertex so we return index {index}.
-                // Độ phức tạp là O(N).
                 cs["status"] = 'Giá trị v = {val} được tìm thấy tại chỉ mục (index = {index}).<br>Độ phức tạp là O(N).'.replace("{val}", val).replace("{index}", index);
                 cs["lineNo"] = 7;
                 stateList.push(cs);
             }
         }
-
         graphWidget.startAnimation(stateList, callback);
         populatePseudocode(4);
         return true;
@@ -266,10 +247,8 @@ var List = function () {
     this.peek = function (isHead, callback) {
         var stateList = [], vertexTraversed = {}, edgeTraversed = {}, currentVertex = iL["head"],
             cs = createState(iL), curVtxIdx, key, index = 0;
-
         if (currentVertex == null) {
             cs = createState(iL, vertexTraversed, edgeTraversed);
-            // Danh sách liên kết hiện tại trống, chúng ta trả về NOT_FOUND.
             cs["status"] = 'Danh sách liên kết hiện tại trống, chúng ta trả về NOT_FOUND.';
             cs["lineNo"] = 1;
             stateList.push(cs);
@@ -281,57 +260,48 @@ var List = function () {
                     else break;
                 }
             }
-
             cs = createState(iL, vertexTraversed, edgeTraversed);
             curVtxIdx = iL[currentVertex]["vtxIdx"];
             cs["vl"][curVtxIdx]["state"] = VERTEX_HIGHLIGHTED;
-            // Trả về giá trị được lưu trữ ở head: {currentVertex}.
             cs["status"] = (isHead ? 'Trả về giá trị được lưu trữ ở head: {currentVertex}.' : 'Trả về giá trị được lưu trữ ở tail: {currentVertex}.').replace("{currentVertex}", currentVertex);
             cs["lineNo"] = 2;
             stateList.push(cs);
         }
-
         graphWidget.startAnimation(stateList, callback);
         populatePseudocode(isHead ? 3 : 9);
         return true;
     }
 
     /* THIRD MENU: Insert (LL, DLL, minor differences only)/Push (Stack)/Enqueue (Queue, Deque) */
-
     this.insertHead = function (v, callback) {
         var val = parseInt(v);
         var tempinternalList = deepCopy(iL);
 
         // 1. Check whether value is number
         if (isNaN(val)) {
-            // Vui lòng chỉ nhập số nguyên
             $('#insert-err').html('Vui lòng chỉ nhập số nguyên');
             return false;
         }
         // 2. No duplicates allowed. Also works if more than one similar value are inserted
         if (tempinternalList[val] != null) {
-            // Không cho phép đỉnh trùng lặp!
             $('#insert-err').html('Không cho phép đỉnh trùng lặp!');
             if (typeof callback == 'function') callback();
             return false;
         }
         // 3. Check range
         if (parseInt(val) < valueRange[0] || parseInt(val) > valueRange[1]) {
-            // Xin lỗi, chỉ những giá trị giữa {range0} and {range1} có thể được chèn.
             $('#insert-err').html('Xin lỗi, chỉ những giá trị giữa {range0} và {range1} mới có thể chèn.'.replace("{range0}", valueRange[0]).replace("{range1}", valueRange[1]));
             return false;
         }
         // 4. check size
         if (activeStatus == "stack") {
             if (amountVertex >= maxStackSize) {
-                // Xin lỗi, kích thước tối đa là {maxSize}.
                 $('#insert-err').html('Xin lỗi, kích thước tối đa là {maxSize}.'.replace("{maxSize}", maxStackSize));
                 return false;
             }
         }
         else {
             if (amountVertex >= maxSize) {
-                // Xin lỗi, kích thước tối đa là {maxSize}.
                 $('#insert-err').html('Xin lỗi, kích thước tối đa là {maxSize}.'.replace("{maxSize}", maxSize));
                 return false;
             }
@@ -341,7 +311,6 @@ var List = function () {
             curVtxIdx;
         if (amountVertex >= 1) cs = createState(iL);
         else cs = {};
-
         // Begin insertion, first, update internal representation
         iL[parseInt(val)] = {
             "next": null,
@@ -351,7 +320,6 @@ var List = function () {
         // modified this part for linked list insertion
         var newVtx = parseInt(val);
         var oldHeadIdx;
-
         iL[newVtx]["cx"] = 50;
         iL[newVtx]["cy"] = 120;
 
@@ -369,7 +337,6 @@ var List = function () {
 
         // Then, draw edge
         var newVtxIdx = iL[parseInt(val)]["vtxIdx"];
-
         if (amountVertex > 1) {
             // Vertex vtx = new Vertex(v)
             cs = createState(iL, vertexTraversed, edgeTraversed);
@@ -379,12 +346,9 @@ var List = function () {
             cs["el"][newVtxIdx]["state"] = OBJ_HIDDEN;
             if ((activeStatus == "doublylist") || (activeStatus == "deque"))
                 cs["el"][newVtxIdx + BACK_EDGE_CONST]["state"] = OBJ_HIDDEN;
-            // Tạo đỉnh mới để lưu giá trị. {val}.
             cs["status"] = 'Tạo đỉnh mới để lưu giá trị. {val}.'.replace("{val}", val);
             cs["lineNo"] = 1;
             stateList.push(cs);
-
-            // vtx.next = head
             cs = createState(iL, vertexTraversed, edgeTraversed);
             var edgeHighlighted = iL[newVtx]["vtxIdx"];
             cs["el"][edgeHighlighted]["animateHighlighted"] = true;
@@ -394,8 +358,7 @@ var List = function () {
             cs["vl"][oldHeadIdx]["extratext"] = "head";
             if ((activeStatus == "doublylist") || (activeStatus == "deque"))
                 cs["el"][newVtxIdx + BACK_EDGE_CONST]["state"] = OBJ_HIDDEN;
-            // Now, temp.next trỏ đến the current head.
-            cs["status"] = 'Now, vtx.next trỏ đến the current head.';
+            cs["status"] = 'Bây giờ, vtx.next trỏ đến the current head.';
             cs["lineNo"] = 2;
             stateList.push(cs);
 
@@ -414,23 +377,18 @@ var List = function () {
             }
         }
         else {
-            // Vertex vtx = new Vertex(v)
             cs = createState(iL, vertexTraversed, edgeTraversed);
             cs["vl"][newVtxIdx]["state"] = VERTEX_HIGHLIGHTED;
             cs["vl"][newVtxIdx]["extratext"] = "vtx";
-            // Tạo đỉnh mới để lưu giá trị. {val}.
-            // Tuy nhiên, vì head hiện là rỗng, temp.next vẫn là null.
             cs["status"] = 'Tạo đỉnh mới để lưu giá trị. {val}.'.replace("{val}", val) + '<br>Tuy nhiên, vì head hiện là rỗng, temp.next vẫn là null.';
             cs["lineNo"] = [1, 2];
             stateList.push(cs);
         }
 
-        // head = vtx
         cs = createState(iL, vertexTraversed, edgeTraversed);
         cs["vl"][newVtxIdx]["state"] = VERTEX_GREEN_FILL;
         cs["vl"][newVtxIdx]["extratext"] = "head/vtx";
-        // Now, head trỏ đến vtx.
-        cs["status"] = 'Now, head trỏ đến vtx.';
+        cs["status"] = 'Bây giờ, head trỏ đến vtx.';
         if ((activeStatus == "doublylist") || (activeStatus == "deque"))
             cs["lineNo"] = 4;
         else
@@ -438,11 +396,9 @@ var List = function () {
         stateList.push(cs);
 
         if (amountVertex == 1) {
-            // tail = head
             cs = createState(iL, vertexTraversed, edgeTraversed);
             cs["vl"][newVtxIdx]["state"] = VERTEX_GREEN_FILL;
             cs["vl"][newVtxIdx]["extratext"] = "head/tail/vtx";
-            // Tail trỏ đến head.
             cs["status"] = 'Tail trỏ đến head.';
             cs["lineNo"] = 3;
             stateList.push(cs);
@@ -452,12 +408,9 @@ var List = function () {
         cs = createState(iL, vertexTraversed, edgeTraversed);
         cs["vl"][newVtxIdx]["state"] = VERTEX_GREEN_FILL;
         cs["vl"][newVtxIdx]["extratext"] = "head" + (amountVertex == 1 ? "/tail" : "") + "/vtx";
-        // Bố cục lại Danh sách liên kết để dễ hình dung.
-        // Độ phức tạp là O({N}).
         cs["status"] = 'Bố cục lại Danh sách liên kết để dễ hình dung.<br>Độ phức tạp là O({N}).'.replace("{N}", "1");
         cs["lineNo"] = 0;
         stateList.push(cs);
-
         graphWidget.startAnimation(stateList, callback);
         populatePseudocode(1);
         return true;
@@ -477,26 +430,23 @@ var List = function () {
             return false;
         }
         // 2. No duplicates allowed. Also works if more than one similar value are inserted
-        // if (tempinternalList[val] != null) {
-        //     // Không cho phép đỉnh trùng lặp!
-        //     $('#insert-err').html('Không cho phép đỉnh trùng lặp!');
-        //     if (typeof callback == 'function') callback();
-            // return false;
-        // }
+        if (tempinternalList[val] != null) {
+            $('#insert-err').html('Không cho phép đỉnh trùng lặp!');
+            if (typeof callback == 'function') callback();
+            return false;
+        }
         // 3. Check range
         if (parseInt(val) < valueRange[0] || parseInt(val) > valueRange[1]) {
-            // Xin lỗi, chỉ những giá trị giữa {range0} and {range1} có thể được chèn.
             $('#insert-err').html('Xin lỗi, chỉ những giá trị giữa {range0} và {range1} mới có thể chèn.'.replace("{range0}", valueRange[0]).replace("{range1}", valueRange[1]));
             if (typeof callback == 'function') callback();
             return false;
         }
         // 4. check size
         if (amountVertex >= maxSize) {
-            // Xin lỗi, kích thước tối đa là {maxSize}.
             $('#insert-err').html('Xin lỗi, kích thước tối đa là {maxSize}.'.replace("{maxSize}", maxSize));
             if (typeof callback == 'function') callback();
             return false;
-    }
+        }
 
         var stateList = [], vertexTraversed = {}, edgeTraversed = {}, currentVertex = iL["head"], cs = {},
             curVtxIdx;
@@ -533,7 +483,6 @@ var List = function () {
         var newVtxIdx = iL[parseInt(val)]["vtxIdx"];
         curVtxIdx = iL[currentVertex]["vtxIdx"];
 
-        // Vertex vtx = new vertex(v)
         cs = createState(iL, vertexTraversed, edgeTraversed);
         cs["vl"][newVtxIdx]["state"] = VERTEX_HIGHLIGHTED;
         cs["vl"][newVtxIdx]["extratext"] = "vtx";
@@ -541,12 +490,10 @@ var List = function () {
         cs["el"][curVtxIdx]["state"] = OBJ_HIDDEN;
         if ((activeStatus == "doublylist") || (activeStatus == "deque"))
             cs["el"][curVtxIdx + BACK_EDGE_CONST]["state"] = OBJ_HIDDEN;
-        // Tạo đỉnh mới để lưu giá trị. {val}.
         cs["status"] = 'Tạo đỉnh mới để lưu giá trị. {val}.'.replace("{val}", val);
         cs["lineNo"] = 1;
         stateList.push(cs);
 
-        // tail.next = vtx
         cs = createState(iL, vertexTraversed, edgeTraversed);
         cs["vl"][curVtxIdx]["state"] = VERTEX_GREEN_FILL;
         cs["vl"][newVtxIdx]["state"] = VERTEX_HIGHLIGHTED;
@@ -556,8 +503,7 @@ var List = function () {
         cs["el"][curVtxIdx]["animateHighlighted"] = true;
         if ((activeStatus == "doublylist") || (activeStatus == "deque"))
             cs["el"][curVtxIdx + BACK_EDGE_CONST]["state"] = OBJ_HIDDEN;
-        // Now vtx.next trỏ đến new vertex.
-        cs["status"] = 'Now temp.next trỏ đến new vertex.';
+        cs["status"] = 'Bây giờ, temp.next trỏ đến new vertex.';
         cs["lineNo"] = 2;
         stateList.push(cs);
 
@@ -569,18 +515,14 @@ var List = function () {
             cs["vl"][newVtxIdx]["extratext"] = "vtx";
             cs["el"][curVtxIdx + BACK_EDGE_CONST]["state"] = EDGE_HIGHLIGHTED;
             cs["el"][curVtxIdx + BACK_EDGE_CONST]["animateHighlighted"] = true;
-            // Cập nhật con trỏ trước của đỉnh mới để trỏ ngược về đuôi (cũ).
             cs["status"] = 'Cập nhật con trỏ prev của đỉnh mới để trỏ ngược về tail (cũ).';
             cs["lineNo"] = 2;
             stateList.push(cs);
         }
 
-        // tail = vtx
         cs = createState(iL, vertexTraversed, edgeTraversed);
         cs["vl"][newVtxIdx]["state"] = VERTEX_GREEN_FILL;
         cs["vl"][newVtxIdx]["extratext"] = "tail/vtx";
-        // Bây giờ, đuôi trỏ đến đỉnh mới.
-        // Độ phức tạp là O(1) nếu chúng ta giữ nguyên con trỏ đuôi.
         cs["status"] = 'Bây giờ, con trỏ tail trỏ đến đỉnh mới.<br>Độ phức tạp là O(1) nếu chúng ta giữ nguyên con trỏ đuôi.';
         cs["lineNo"] = 3;
         stateList.push(cs);
@@ -593,12 +535,10 @@ var List = function () {
     this.insertKth = function (index, v, callback) {
         // index checking start
         if (isNaN(index)) {
-            // Vui lòng chỉ nhập số nguyên
             $('#insert-err').html('Vui lòng chỉ nhập số nguyên');
             return false;
         }
         if ((index < 1) || (index > amountVertex)) {
-            // Vui lòng nhập một chỉ mục hợp lệ giữa [1..{limit}].
             $('#insert-err').html('Vui lòng nhập một chỉ mục hợp lệ giữa [1..{limit}].'.replace("{limit}", Math.max(1, amountVertex - 1)));
             return false;
         }
@@ -612,25 +552,21 @@ var List = function () {
 
         // 1. Check whether value is number
         if (isNaN(val)) {
-            // Vui lòng chỉ nhập số nguyên
             $('#insert-err').html('Vui lòng chỉ nhập số nguyên');
             return false;
         }
         // 2. No duplicates allowed. Also works if more than one similar value are inserted
         if (tempinternalList[val] != null) {
-            // Không cho phép đỉnh trùng lặp!
             $('#insert-err').html('Không cho phép đỉnh trùng lặp!');
             return false;
         }
         // 3. Check range
         if (parseInt(val) < valueRange[0] || parseInt(val) > valueRange[1]) {
-            // Xin lỗi, chỉ những giá trị giữa {range0} and {range1} có thể được chèn.
             $('#insert-err').html('Xin lỗi, chỉ những giá trị giữa {range0} and {range1} mới có thể chèn.'.replace("{range0}", valueRange[0]).replace("{range1}", valueRange[1]));
             return false;
         }
         // 4. check size
         if (amountVertex >= maxSize) {
-            // Xin lỗi, kích thước tối đa là {maxSize}.
             $('#insert-err').html('Xin lỗi, kích thước tối đa là {maxSize}.'.replace("{maxSize}", maxSize));
             return false;
         }
@@ -638,7 +574,6 @@ var List = function () {
         var stateList = [], vertexTraversed = {}, edgeTraversed = {}, currentVertex = iL["head"], cs = {};
         var temp1Idx, temp2Idx, newVtxIdx;
 
-        // Vertex prev = head
         cs = createState(iL, vertexTraversed, edgeTraversed);
         temp1Idx = iL[currentVertex]["vtxIdx"];
         cs["vl"][temp1Idx]["state"] = VERTEX_HIGHLIGHTED;
@@ -650,7 +585,6 @@ var List = function () {
         stateList.push(cs);
 
         // Find prev
-        // for (k = 0; k < i; k++)
         var i = 0;
         for (var k = 0; k < index - 1; k++) {
             cs = createState(iL, vertexTraversed, edgeTraversed);
@@ -658,8 +592,6 @@ var List = function () {
             cs["vl"][temp1Idx]["state"] = VERTEX_HIGHLIGHTED;
             cs["vl"][temp1Idx]["extratext"] = i + (i == 0 ? "/head" : (iL[currentVertex]["next"] == null ? "/tail" : "")) + "/pre";
             vertexTraversed[currentVertex] = true;
-            // Increment k, Chỉ số được chỉ định chưa đạt được.
-            // k is now: {k}.
             cs["status"] = 'Giảm k, chỉ số được chỉ định chưa đạt.<br>k bây giờ là: {k}.'.replace("{k}", k);
             cs["lineNo"] = 2;
             stateList.push(cs);
@@ -670,7 +602,6 @@ var List = function () {
             if (nextVertex == null) break;
             else currentVertex = nextVertex;
 
-            // pre = pre.next
             curVtx = iL[currentVertex]["prev"];
             cs = createState(iL, vertexTraversed, edgeTraversed);
             var edgeHighlighted = iL[curVtx]["vtxIdx"];
@@ -678,7 +609,6 @@ var List = function () {
             cs["vl"][temp1Idx]["extratext"] = i + (i == 0 ? "/head" : (iL[currentVertex]["next"] == null ? "/tail" : "")) + "/pre";
             cs["el"][edgeHighlighted]["animateHighlighted"] = true;
             cs["el"][edgeHighlighted]["state"] = EDGE_TRAVERSED;
-            // Chúng ta thiết lập trước cho đỉnh tiếp theo.
             cs["status"] = 'Chúng ta thiết lập trước cho đỉnh tiếp theo.';
             cs["lineNo"] = 3;
             stateList.push(cs);
@@ -692,15 +622,12 @@ var List = function () {
             cs["vl"][temp1Idx]["state"] = VERTEX_HIGHLIGHTED;
             cs["vl"][temp1Idx]["extratext"] = i + (i == 0 ? "/head" : (iL[currentVertex]["next"] == null ? "/tail" : "")) + "/pre";
             vertexTraversed[currentVertex] = true;
-            // We have found the insertion point.
-            // We continue the next insertion step.
             cs["status"] = 'Chúng ta đã tìm ra điểm chèn. <br> Chúng ta tiếp tục bước chèn tiếp theo.';
             cs["lineNo"] = 2;
             stateList.push(cs);
         }
 
         // Begin insertion, first, update internal representation
-        // Vertex aft = pre.next
         var temp2Vertex = iL[currentVertex]["next"];
         temp2Idx = iL[temp2Vertex]["vtxIdx"];
         cs = createState(iL, vertexTraversed, edgeTraversed);
@@ -711,8 +638,6 @@ var List = function () {
         cs["el"][temp1Idx]["state"] = EDGE_TRAVERSED;
         cs["el"][temp1Idx]["animateHighlighted"] = true;
         edgeTraversed[temp1Idx] = true;
-        // The specified index is found.
-        // pre is before the insertion point and aft is the insertion point.
         cs["status"] = 'Chỉ mục trước khi tìm thấy điểm chèn. <br> Prev là trước điểm chèn và phía sau là điểm chèn.';
         cs["lineNo"] = 4;
         stateList.push(cs);
@@ -730,7 +655,6 @@ var List = function () {
         iL[newVtx]["cx"] = iL[temp2Vertex]["cx"];
         iL[newVtx]["cy"] = iL[temp2Vertex]["cy"] + 70;
 
-        // vertex vtx = new Vertex(v)
         cs = createState(iL, vertexTraversed, edgeTraversed);
         cs["vl"][temp1Idx]["state"] = VERTEX_HIGHLIGHTED;
         cs["vl"][temp1Idx]["extratext"] = i + (i == 0 ? "/head" : (iL[currentVertex]["next"] == null ? "/tail" : "")) + "/pre";
@@ -738,7 +662,6 @@ var List = function () {
         cs["vl"][temp2Idx]["extratext"] = (i + 1) + (i + 1 == 0 ? "/head" : (iL[temp2Vertex]["next"] == null ? "/tail" : "")) + "/aft";
         cs["vl"][newVtxIdx]["state"] = VERTEX_GREEN_FILL;
         cs["vl"][newVtxIdx]["extratext"] = "vtx";
-        // Tạo đỉnh mới để lưu giá trị. {val}.
         cs["status"] = 'Tạo đỉnh mới để lưu giá trị. {val}.'.replace("{val}", val);
         cs["lineNo"] = 5;
         stateList.push(cs);
@@ -748,7 +671,6 @@ var List = function () {
         iL[newVtx]["next"] = temp2Vertex;
         iL[temp2Vertex]["prev"] = newVtx;
 
-        // vtx.next = aft
         cs = createState(iL, vertexTraversed, edgeTraversed);
         cs["vl"][temp1Idx]["state"] = VERTEX_HIGHLIGHTED;
         cs["vl"][temp1Idx]["extratext"] = i + (i == 0 ? "/head" : (iL[currentVertex]["next"] == null ? "/tail" : "")) + "/pre";
@@ -761,12 +683,10 @@ var List = function () {
         cs["el"][newVtxIdx]["animateHighlighted"] = true;
         if ((activeStatus == "doublylist") || (activeStatus == "deque"))
             cs["el"][newVtxIdx + BACK_EDGE_CONST]["state"] = OBJ_HIDDEN;
-        // v.next trỏ đến aft.
         cs["status"] = 'vtx.next trỏ đến aft.';
         cs["lineNo"] = 6;
         stateList.push(cs);
 
-        // aft.prev = v (for DLL and deque)
         if ((activeStatus == "doublylist") || (activeStatus == "deque")) {
             cs = createState(iL, vertexTraversed, edgeTraversed);
             cs["vl"][temp1Idx]["state"] = VERTEX_HIGHLIGHTED;
@@ -779,7 +699,6 @@ var List = function () {
             cs["el"][newVtxIdx]["state"] = EDGE_GREEN;
             cs["el"][newVtxIdx + BACK_EDGE_CONST]["state"] = EDGE_GREEN;
             cs["el"][temp1Idx + BACK_EDGE_CONST]["state"] = OBJ_HIDDEN;
-            // aft.prev trỏ đến vtx.
             cs["status"] = 'aft.prev trỏ đến vtx.';
             cs["lineNo"] = 6;
             stateList.push(cs);
@@ -788,7 +707,6 @@ var List = function () {
         iL[currentVertex]["next"] = newVtx;
         iL[newVtx]["prev"] = currentVertex;
 
-        // pre.next = vtx
         cs = createState(iL, vertexTraversed, edgeTraversed);
         cs["vl"][temp1Idx]["state"] = VERTEX_HIGHLIGHTED;
         cs["vl"][temp1Idx]["extratext"] = i + (i == 0 ? "/head" : (iL[currentVertex]["next"] == null ? "/tail" : "")) + "/pre";
@@ -800,12 +718,10 @@ var List = function () {
         cs["el"][temp1Idx]["state"] = EDGE_TRAVERSED;
         if ((activeStatus == "doublylist") || (activeStatus == "deque"))
             cs["el"][temp1Idx + BACK_EDGE_CONST]["state"] = OBJ_HIDDEN;
-        // pre.next trỏ đến vtx.
         cs["status"] = 'pre.next trỏ đến vtx.';
         cs["lineNo"] = 7;
         stateList.push(cs);
 
-        // vtx.prev = pre
         if ((activeStatus == "doublylist") || (activeStatus == "deque")) {
             cs = createState(iL, vertexTraversed, edgeTraversed);
             cs["vl"][temp1Idx]["state"] = VERTEX_HIGHLIGHTED;
@@ -816,7 +732,6 @@ var List = function () {
             cs["vl"][newVtxIdx]["extratext"] = temp2Idx + "/vtx";
             cs["el"][temp1Idx]["state"] = EDGE_TRAVERSED;
             cs["el"][temp1Idx + BACK_EDGE_CONST]["state"] = EDGE_TRAVERSED;
-            // vtx.prev trỏ đến pre.
             cs["status"] = 'vtx.prev trỏ đến pre.';
             cs["lineNo"] = 7;
             stateList.push(cs);
@@ -826,8 +741,6 @@ var List = function () {
         cs = createState(iL, {}, {});
         cs["vl"][newVtxIdx]["state"] = VERTEX_GREEN_FILL;
         cs["vl"][newVtxIdx]["extratext"] = (i + 1) + "/vtx";
-        // Bố cục lại Danh sách liên kết để dễ hình dung.
-        // Độ phức tạp là O({N}).
         cs["status"] = 'Bố cục lại Danh sách liên kết để dễ hình dung.<br>Độ phức tạp là O({N}).'.replace("{N}", "N");
         cs["lineNo"] = 0;
         stateList.push(cs);
@@ -838,15 +751,11 @@ var List = function () {
     }
 
     /* FOURTH MENU: Remove */
-
     this.removeHead = function (callback) {
         var stateList = [], vertexTraversed = {}, edgeTraversed = {}, currentVertex = iL["head"], cs = {},
             curVtxIdx;
-
         if (currentVertex == null) {
             cs = createState(iL, vertexTraversed, edgeTraversed);
-            // Danh sách liên kết đã trống.
-            // Không có tác vụ nào được thực hiện.
             cs["status"] = 'Danh sách liên kết đã trống.<br>Không có tác vụ nào được thực hiện.';
             cs["lineNo"] = 1;
             stateList.push(cs);
@@ -857,7 +766,6 @@ var List = function () {
                 cs = createState(iL, vertexTraversed, edgeTraversed);
                 curVtxIdx = iL[currentVertex]["vtxIdx"];
                 cs["vl"][curVtxIdx]["state"] = VERTEX_HIGHLIGHTED;
-                // Phần đầu là đỉnh duy nhất trong Danh sách này.
                 cs["status"] = 'Phần head là đỉnh duy nhất trong Danh sách này.';
                 cs["lineNo"] = 2;
                 stateList.push(cs);
@@ -866,7 +774,6 @@ var List = function () {
                 cs = createState(iL, vertexTraversed, edgeTraversed);
                 curVtxIdx = iL[currentVertex]["vtxIdx"];
                 cs["vl"][curVtxIdx]["state"] = VERTEX_HIGHLIGHTED;
-                // Head trỏ đến next (which is null).
                 cs["status"] = 'Head trỏ đến next (which is null).';
                 cs["lineNo"] = 3;
                 stateList.push(cs);
@@ -880,19 +787,17 @@ var List = function () {
                 delete edgeTraversed[curVtxIdx];
 
                 cs = createState(iL, vertexTraversed, edgeTraversed);
-                // Remove head vertex.
-                // We now have an empty List.
                 cs["status"] = 'Loại bỏ đỉnh đầu(head). <br> Bây giờ chúng ta có một Danh sách trống.';
                 cs["lineNo"] = 4;
                 stateList.push(cs);
             }
             else { // head has next vertex
-                // temp = head
+
                 curVtxIdx = iL[currentVertex]["vtxIdx"];
                 cs = createState(iL, vertexTraversed, edgeTraversed);
                 cs["vl"][curVtxIdx]["state"] = VERTEX_HIGHLIGHTED;
                 cs["vl"][curVtxIdx]["extratext"] = "head/temp";
-                // The head has a next vertex.
+
                 cs["status"] = 'Head có tồn tại đỉnh kế tiếp.';
                 cs["lineNo"] = 2;
                 stateList.push(cs);
@@ -901,7 +806,6 @@ var List = function () {
                 curVtxIdx = iL[currentVertex]["vtxIdx"];
                 nextVtxIdx = iL[rightChildVertex]["vtxIdx"];
 
-                // head = head.next
                 cs = createState(iL, vertexTraversed, edgeTraversed);
                 cs["vl"][curVtxIdx]["state"] = VERTEX_HIGHLIGHTED;
                 cs["vl"][curVtxIdx]["extratext"] = "temp";
@@ -909,7 +813,7 @@ var List = function () {
                 cs["vl"][nextVtxIdx]["extratext"] = "head";
                 cs["el"][curVtxIdx]["state"] = EDGE_GREEN;
                 cs["el"][curVtxIdx]["animateHighlighted"] = true;
-                // head trỏ đến the next vertex.
+
                 cs["status"] = 'head trỏ đến đỉnh kế tiếp.';
                 cs["lineNo"] = 3;
                 stateList.push(cs);
@@ -923,7 +827,7 @@ var List = function () {
                 delete edgeTraversed[curVtxIdx];
                 cs = createState(iL, vertexTraversed, edgeTraversed);
                 cs["vl"][nextVtxIdx]["state"] = VERTEX_GREEN_FILL;
-                // Delete temp = (previous) head.
+
                 cs["status"] = 'Xóa (Prev) head.';
                 cs["lineNo"] = 4;
                 stateList.push(cs);
@@ -940,12 +844,10 @@ var List = function () {
 
                 // relayout
                 amountVertex--;
-                recalculatePosition(); // this line triggers some D3.js errors although OK? find the root cause?
+                recalculatePosition();
                 cs = createState(iL, vertexTraversed, edgeTraversed);
                 cs["vl"][nextVtxIdx]["state"] = VERTEX_GREEN_FILL;
                 if (amountVertex == 1) cs["vl"][nextVtxIdx]["extratext"] = "head/tail";
-                // Bố cục lại Danh sách liên kết để dễ hình dung.
-                // Độ phức tạp là O({N}).
                 cs["status"] = 'Bố trí lại Danh sách liên kết.<br>Độ phức tạp là O({N}).'.replace("{N}", "1");
                 stateList.push(cs);
             }
@@ -964,8 +866,6 @@ var List = function () {
 
         if (currentVertex == null) {
             cs = createState(iL, vertexTraversed, edgeTraversed);
-            // Danh sách liên kết đã trống.
-            // Không có tác vụ nào được thực hiện.
             cs["status"] = 'Danh sách liên kết đã trống.<br>Không có tác vụ nào được thực hiện.';
             cs["lineNo"] = 1;
             stateList.push(cs);
@@ -978,8 +878,6 @@ var List = function () {
             curVtxIdx = iL[currentVertex]["vtxIdx"];
             cs["vl"][curVtxIdx]["state"] = VERTEX_HIGHLIGHTED;
             cs["vl"][curVtxIdx]["extratext"] = "head/pre";
-            // Set up pre pointer.
-            // pre will eventually point to the last vertex before tail.
             cs["status"] = 'Thiết lập con trỏ Prev. <br>Con trỏ Prev cuối cùng sẽ trỏ tới đỉnh cuối cùng trước con trỏ Tail.';
             cs["lineNo"] = 2;
             stateList.push(cs);
@@ -994,8 +892,6 @@ var List = function () {
             cs["vl"][nextVtxIdx]["extratext"] = (iL[nextVertex]["next"] == null ? "tail/" : "") + "temp";
             cs["el"][curVtxIdx]["animateHighlighted"] = true;
             cs["el"][curVtxIdx]["state"] = EDGE_TRAVERSED;
-            // Set up temp pointer.
-            // temp will eventually point to the current tail.
             cs["status"] = 'Thiết lập con trỏ tạm thời(temp). <br>Con trỏ temp cuối cùng sẽ trỏ đến con trỏ Tail hiện tại.';
             cs["lineNo"] = 3;
             stateList.push(cs);
@@ -1011,7 +907,6 @@ var List = function () {
                 cs["vl"][nextVtxIdx]["state"] = VERTEX_GREEN_FILL;
                 cs["vl"][nextVtxIdx]["extratext"] = (iL[nextVertex]["next"] == null ? "tail/" : "") + "temp";
                 vertexTraversed[currentVertex] = true;
-                // Kiểm tra xem temp.next có phải là null hay không.
                 cs["status"] = 'Kiểm tra xem temp.next có phải là null hay không.';
                 cs["lineNo"] = 4;
                 stateList.push(cs);
@@ -1024,7 +919,6 @@ var List = function () {
                 else
                     break;
 
-                // pre = pre.next, temp = temp.next
                 cs = createState(iL, vertexTraversed, edgeTraversed);
                 curVtxIdx = iL[currentVertex]["vtxIdx"];
                 cs["vl"][curVtxIdx]["state"] = VERTEX_HIGHLIGHTED;
@@ -1041,14 +935,11 @@ var List = function () {
                 var edgeHighlighted2 = iL[currentVertex]["vtxIdx"];
                 cs["el"][edgeHighlighted2]["animateHighlighted"] = true;
                 cs["el"][edgeHighlighted2]["state"] = EDGE_GREEN;
-                // It is not null.
-                // So both pre and temp pointers advance to their next vertex.
                 cs["status"] = 'Không phải là giá trị null. <br> Vì vậy, cả con trỏ Prev và con trỏ Temp đều tiến tới đỉnh tiếp theo.';
                 cs["lineNo"] = 5;
                 stateList.push(cs);
             }
 
-            // pre.next = null
             cs = createState(iL, vertexTraversed, edgeTraversed);
             curVtxIdx = iL[currentVertex]["vtxIdx"];
             nextVtxIdx = iL[nextVertex]["vtxIdx"];
@@ -1059,8 +950,6 @@ var List = function () {
             cs["vl"][nextVtxIdx]["state"] = VERTEX_GREEN_FILL;
             cs["vl"][nextVtxIdx]["extratext"] = "tail/temp";
             vertexTraversed[currentVertex] = true;
-            // It is null.
-            // So set the next of pre (the new tail) to null.
             cs["status"] = 'Nó là null. <br> Vì vậy, ta đặt con trỏ Prev (của node kế trước đó) thành null.';
             cs["lineNo"] = 6;
             stateList.push(cs);
@@ -1078,9 +967,8 @@ var List = function () {
 
             cs = createState(iL, vertexTraversed, edgeTraversed);
             cs["vl"][curVtxIdx]["state"] = VERTEX_GREEN_FILL;
-            if (amountVertex == 1) cs["vl"][curVtxIdx]["extratext"] = "head/tail";
-            // Delete temp (the previous tail) then update the tail pointer to prev (the current tail). Độ phức tạp là O(N) just to find the pre pointer.
-            cs["status"] = 'Xóa temp (the previus tail) sau đó cập nhật con trỏ Tail thành Prev. Độ phức tạp là O (N).';
+            if (amountVertex == 1) cs["vl"][curVtxIdx]["extratext"] = "head/tail"; r.
+                cs["status"] = 'Xóa temp (the previus tail) sau đó cập nhật con trỏ Tail thành Prev. Độ phức tạp là O (N).';
             cs["lineNo"] = 7;
             stateList.push(cs);
         }
@@ -1097,8 +985,6 @@ var List = function () {
 
         if (currentVertex == null) {
             cs = createState(iL, vertexTraversed, edgeTraversed);
-            // Danh sách liên kết đã trống.
-            // Không có tác vụ nào được thực hiện.
             cs["status"] = 'Danh sách liên kết đã trống.<br>Không có tác vụ nào được thực hiện.';
             cs["lineNo"] = 1;
             stateList.push(cs);
@@ -1188,12 +1074,10 @@ var List = function () {
             return false;
         }
         if (amountVertex < 3) {
-            // Thao tác này chỉ hoạt động đối với N lớn hơn 2.
             $('#remove-err').html('Thao tác này chỉ hoạt động đối với N lớn hơn 2.');
             return false;
         }
         if ((index < 1) || (index >= amountVertex - 1)) {
-            // Vui lòng nhập một chỉ mục hợp lệ giữa [1..{limit}].
             $('#remove-err').html('Vui lòng nhập một chỉ mục hợp lệ giữa [1..{limit}].'.replace("{limit}", Math.max(1, amountVertex - 2)));
             return false;
         }
@@ -1210,8 +1094,6 @@ var List = function () {
 
         if (prevVtx == null) {
             cs = createState(iL, vertexTraversed, edgeTraversed);
-            // Danh sách liên kết đã trống.
-            // Không có tác vụ nào được thực hiện.
             cs["status"] = 'Danh sách liên kết đã trống.<br>Không có tác vụ nào được thực hiện.';
             cs["lineNo"] = 1;
             stateList.push(cs);
@@ -1222,8 +1104,6 @@ var List = function () {
             cs = createState(iL, vertexTraversed, edgeTraversed);
             cs["vl"][prevIdx]["state"] = VERTEX_HIGHLIGHTED;
             cs["vl"][prevIdx]["extratext"] = "0/head/pre";
-            // Set prev to head.
-            // Pointer prev will stop at one vertex before the deleted vertex.
             cs["status"] = 'Gán con trỏ Prev là head. <br> Con trỏ Prev sẽ dừng tại một đỉnh trước đỉnh bị xóa.';
             cs["lineNo"] = 2;
             stateList.push(cs);
@@ -1233,430 +1113,416 @@ var List = function () {
                 cs = createState(iL, vertexTraversed, edgeTraversed);
                 cs["vl"][prevIdx]["state"] = VERTEX_HIGHLIGHTED;
                 cs["vl"][prevIdx]["extratext"] = i + (i == 0 ? "/head" : "") + "/pre";
-                vertexTraversed[prevVtx] = true;
-                // Chỉ số được chỉ định chưa đạt được.
-                // k = {k}.
-                cs["status"] = 'Vị trí cần xóa chưa được tìm thấy!.<br>k = {i}.'.replace("{k}", i);
-                cs["lineNo"] = 3;
-                stateList.push(cs);
-
-                // important assignment
-                var edgeHighlighted = iL[prevVtx]["vtxIdx"]; // before moving
-                prevVtx = iL[prevVtx]["next"];
-                prevIdx = iL[prevVtx]["vtxIdx"];
-
-                // pre = pre.next
-                cs = createState(iL, vertexTraversed, edgeTraversed);
-                cs["vl"][prevIdx]["state"] = VERTEX_HIGHLIGHTED;
-                cs["vl"][prevIdx]["extratext"] = (i + 1) + "/pre";
-                edgeTraversed[edgeHighlighted] = true;
-                cs["el"][edgeHighlighted]["animateHighlighted"] = true;
-                cs["el"][edgeHighlighted]["state"] = EDGE_TRAVERSED;
-                // Con trỏ trước đó tiến đến đỉnh tiếp theo.
-                cs["status"] = 'Con trỏ Prev tiếp tục trỏ đến đỉnh tiếp theo.';
-                cs["lineNo"] = 4;
-                stateList.push(cs);
+                vertexTraversed[prevVtx] = true; k
             }
-
-            cs = createState(iL, vertexTraversed, edgeTraversed);
-            cs["vl"][prevIdx]["state"] = VERTEX_HIGHLIGHTED;
-            cs["vl"][prevIdx]["extratext"] = i + "/pre";
-            vertexTraversed[prevVtx] = true;
-            // k is 0, prev now trỏ đến one vertex behind the vertex to-be-deleted.
-            // We stop searching and continue with the removal.
-            cs["status"] = 'k là 0, hiện tại con trỏ Prev đã trỏ đến đỉnh sau đỉnh cần xóa. <br> Chúng ta ngừng việc tìm kiếm vị trí và bắt đầu thực hiện xóa node.';
+            cs["status"] = 'Vị trí cần xóa chưa được tìm thấy!.<br>k = {i}.'.replace("{k}", i);
             cs["lineNo"] = 3;
             stateList.push(cs);
 
-            var delVertex = iL[prevVtx]["next"];
-            delIdx = iL[delVertex]["vtxIdx"];
-            var afterVertex = iL[delVertex]["next"];
-            afterIdx = iL[afterVertex]["vtxIdx"];
+            // important assignment
+            var edgeHighlighted = iL[prevVtx]["vtxIdx"]; // before moving
+            prevVtx = iL[prevVtx]["next"];
+            prevIdx = iL[prevVtx]["vtxIdx"];
 
-            // Vertex del = prev.next
+            // pre = pre.next
             cs = createState(iL, vertexTraversed, edgeTraversed);
             cs["vl"][prevIdx]["state"] = VERTEX_HIGHLIGHTED;
-            cs["vl"][prevIdx]["extratext"] = i + "/pre";
-            cs["vl"][delIdx]["state"] = VERTEX_RED_FILL;
-            cs["vl"][delIdx]["extratext"] = (i + 1) + "/del";
-            cs["vl"][afterIdx]["state"] = VERTEX_GREEN_FILL;
-            cs["vl"][afterIdx]["extratext"] = (i + 2) + "/aft";
-            edgeTraversed[prevIdx] = edgeTraversed[delIdx] = true;
-            cs["el"][prevIdx]["animateHighlighted"] = cs["el"][delIdx]["animateHighlighted"] = true;
-            cs["el"][prevIdx]["state"] = EDGE_HIGHLIGHTED;
-            cs["el"][delIdx]["state"] = EDGE_RED;
-            if ((activeStatus == "doublylist") || (activeStatus == "deque")) {
-                cs["el"][prevIdx + BACK_EDGE_CONST]["state"] = EDGE_HIGHLIGHTED;
-                cs["el"][delIdx + BACK_EDGE_CONST]["state"] = EDGE_RED;
-            }
-            vertexTraversed[prevVtx] = true;
-            // We store reference to the vertex to-be-deleted.
-            // We also store reference to the vertex after the to-be-deleted vertex.
-            cs["status"] = 'Chúng ta lưu trữ tham chiếu   đỉnh sẽ bị xóa. <br> Chúng ta cũng lưu trữ tham chiếu đến đỉnh sau đỉnh sắp xóa.';
-            cs["lineNo"] = 5;
-            stateList.push(cs);
-
-            // prev.next = after, after.prev = prev (for DLL and deque)
-            iL[delVertex]["cy"] = 50 + iL[delVertex]["cy"];
-            iL[prevVtx]["next"] = afterVertex;
-            iL[afterVertex]["prev"] = prevVtx;
-
-            cs = createState(iL, vertexTraversed, edgeTraversed);
-            cs["vl"][prevIdx]["state"] = VERTEX_HIGHLIGHTED;
-            cs["vl"][prevIdx]["extratext"] = i + "/pre";
-            cs["vl"][delIdx]["state"] = VERTEX_RED_FILL;
-            cs["vl"][delIdx]["extratext"] = "del";
-            cs["vl"][afterIdx]["state"] = VERTEX_GREEN_FILL;
-            cs["vl"][afterIdx]["extratext"] = (i + 1) + "/aft";
-            cs["el"][prevIdx]["animateHighlighted"] = true;
-            cs["el"][prevIdx]["state"] = EDGE_HIGHLIGHTED;
-            if ((activeStatus == "doublylist") || (activeStatus == "deque")) {
-                cs["el"][prevIdx + BACK_EDGE_CONST]["state"] = EDGE_HIGHLIGHTED;
-                cs["el"][delIdx + BACK_EDGE_CONST]["state"] = OBJ_HIDDEN;
-            }
-            // Ta nối đỉnh phía sau đỉnh cần xóa (con trỏ trước) với đỉnh tiếp theo sau đỉnh cần xóa (con trỏ sau).
-            cs["status"] = 'Ta nối đỉnh, đỉnh phía sau đỉnh cần xóa (con trỏ trước) với đỉnh trước đỉnh cần xóa (con trỏ sau).';
-            cs["lineNo"] = 6;
-            stateList.push(cs);
-
-            // delete temp
-            delete iL[delVertex];
-            delete vertexTraversed[delVertex];
-            delete edgeTraversed[delIdx];
-            cs = createState(iL, vertexTraversed, edgeTraversed);
-            cs["vl"][prevIdx]["state"] = VERTEX_HIGHLIGHTED;
-            cs["vl"][afterIdx]["state"] = VERTEX_GREEN_FILL;
-            // Bây giờ chúng ta xóa đỉnh này.
-            cs["status"] = 'Bây giờ chúng ta xóa đỉnh này.';
-            cs["lineNo"] = 7;
-            stateList.push(cs);
-            amountVertex--;
-
-            // relayout list
-            recalculatePosition();
-            cs = createState(iL, {}, {});
-            cs["vl"][prevIdx]["state"] = VERTEX_HIGHLIGHTED;
-            cs["vl"][afterIdx]["state"] = VERTEX_GREEN_FILL;
-            if (amountVertex == 1) cs["vl"][afterIdx]["extratext"] = "head/tail";
-            // Bố cục lại Danh sách liên kết để dễ hình dung.
-            // Độ phức tạp là O({N}).
-            cs["status"] = 'Bố trí lại Danh sách liên kết.<br>Độ phức tạp là O({N}).'.replace("{N}", "N");
+            cs["vl"][prevIdx]["extratext"] = (i + 1) + "/pre";
+            edgeTraversed[edgeHighlighted] = true;
+            cs["el"][edgeHighlighted]["animateHighlighted"] = true;
+            cs["el"][edgeHighlighted]["state"] = EDGE_TRAVERSED;
+            cs["status"] = 'Con trỏ Prev tiếp tục trỏ đến đỉnh tiếp theo.';
+            cs["lineNo"] = 4;
             stateList.push(cs);
         }
 
-        graphWidget.startAnimation(stateList, callback);
-        populatePseudocode(7);
-        return true;
-    }
+        cs = createState(iL, vertexTraversed, edgeTraversed);
+        cs["vl"][prevIdx]["state"] = VERTEX_HIGHLIGHTED;
+        cs["vl"][prevIdx]["extratext"] = i + "/pre";
+        vertexTraversed[prevVtx] = true;
+        cs["status"] = 'k là 0, hiện tại con trỏ Prev đã trỏ đến đỉnh sau đỉnh cần xóa. <br> Chúng ta ngừng việc tìm kiếm vị trí và bắt đầu thực hiện xóa node.';
+        cs["lineNo"] = 3;
+        stateList.push(cs);
 
-    function init(initArr) {
-        amountVertex = 0;
-        clearScreen();
+        var delVertex = iL[prevVtx]["next"];
+        delIdx = iL[delVertex]["vtxIdx"];
+        var afterVertex = iL[delVertex]["next"];
+        afterIdx = iL[afterVertex]["vtxIdx"];
 
-        for (var i = 0; i < initArr.length; i++) {
-            var curVtx = iL["head"];
-            var newVtx = parseInt(initArr[i]);
-
-            if (curVtx == null) {
-                iL["head"] = parseInt(newVtx);
-                iL[newVtx] = {
-                    "prev": null,
-                    "next": null,
-                    "vtxIdx": amountVertex
-                };
-            }
-            else {
-                while (true) { // go to tail
-                    if (iL[curVtx]["next"] == null) break;
-                    curVtx = iL[curVtx]["next"];
-                }
-                iL[curVtx]["next"] = newVtx;
-                iL[newVtx] = {
-                    "prev": curVtx,
-                    "next": null,
-                    "vtxIdx": amountVertex
-                }
-            }
-
-            amountVertex++;
+        cs = createState(iL, vertexTraversed, edgeTraversed);
+        cs["vl"][prevIdx]["state"] = VERTEX_HIGHLIGHTED;
+        cs["vl"][prevIdx]["extratext"] = i + "/pre";
+        cs["vl"][delIdx]["state"] = VERTEX_RED_FILL;
+        cs["vl"][delIdx]["extratext"] = (i + 1) + "/del";
+        cs["vl"][afterIdx]["state"] = VERTEX_GREEN_FILL;
+        cs["vl"][afterIdx]["extratext"] = (i + 2) + "/aft";
+        edgeTraversed[prevIdx] = edgeTraversed[delIdx] = true;
+        cs["el"][prevIdx]["animateHighlighted"] = cs["el"][delIdx]["animateHighlighted"] = true;
+        cs["el"][prevIdx]["state"] = EDGE_HIGHLIGHTED;
+        cs["el"][delIdx]["state"] = EDGE_RED;
+        if ((activeStatus == "doublylist") || (activeStatus == "deque")) {
+            cs["el"][prevIdx + BACK_EDGE_CONST]["state"] = EDGE_HIGHLIGHTED;
+            cs["el"][delIdx + BACK_EDGE_CONST]["state"] = EDGE_RED;
         }
+        vertexTraversed[prevVtx] = true;
+        cs["status"] = 'Chúng ta lưu trữ tham chiếu   đỉnh sẽ bị xóa. <br> Chúng ta cũng lưu trữ tham chiếu đến đỉnh sau đỉnh sắp xóa.';
+        cs["lineNo"] = 5;
+        stateList.push(cs);
 
+        iL[delVertex]["cy"] = 50 + iL[delVertex]["cy"];
+        iL[prevVtx]["next"] = afterVertex;
+        iL[afterVertex]["prev"] = prevVtx;
+
+        cs = createState(iL, vertexTraversed, edgeTraversed);
+        cs["vl"][prevIdx]["state"] = VERTEX_HIGHLIGHTED;
+        cs["vl"][prevIdx]["extratext"] = i + "/pre";
+        cs["vl"][delIdx]["state"] = VERTEX_RED_FILL;
+        cs["vl"][delIdx]["extratext"] = "del";
+        cs["vl"][afterIdx]["state"] = VERTEX_GREEN_FILL;
+        cs["vl"][afterIdx]["extratext"] = (i + 1) + "/aft";
+        cs["el"][prevIdx]["animateHighlighted"] = true;
+        cs["el"][prevIdx]["state"] = EDGE_HIGHLIGHTED;
+        if ((activeStatus == "doublylist") || (activeStatus == "deque")) {
+            cs["el"][prevIdx + BACK_EDGE_CONST]["state"] = EDGE_HIGHLIGHTED;
+            cs["el"][delIdx + BACK_EDGE_CONST]["state"] = OBJ_HIDDEN;
+        }
+        cs["status"] = 'Ta nối đỉnh, đỉnh phía sau đỉnh cần xóa (con trỏ trước) với đỉnh trước đỉnh cần xóa (con trỏ sau).';
+        cs["lineNo"] = 6;
+        stateList.push(cs);
+
+        // delete temp
+        delete iL[delVertex];
+        delete vertexTraversed[delVertex];
+        delete edgeTraversed[delIdx];
+        cs = createState(iL, vertexTraversed, edgeTraversed);
+        cs["vl"][prevIdx]["state"] = VERTEX_HIGHLIGHTED;
+        cs["vl"][afterIdx]["state"] = VERTEX_GREEN_FILL;
+        cs["status"] = 'Bây giờ chúng ta xóa đỉnh này.';
+        cs["lineNo"] = 7;
+        stateList.push(cs);
+        amountVertex--;
+
+        // relayout list
         recalculatePosition();
-
-        for (key in iL) {
-            if (key == "head") continue;
-            graphWidget.addVertex(iL[key]["cx"], iL[key]["cy"], key, iL[key]["vtxIdx"], true, (iL["head"] == key ? "head" : (iL[key]["next"] == null ? "tail" : ""))); // iL[key]["vtxIdx"] +
-        }
-
-        for (key in iL) {
-            if (key == "head") continue;
-            if (key == iL["head"]) continue;
-            var curVtx = iL[key]["prev"];
-
-            graphWidget.addEdge(iL[curVtx]["vtxIdx"], iL[key]["vtxIdx"], iL[curVtx]["vtxIdx"], EDGE_TYPE_DE, 1, true);
-            if ((activeStatus == "doublylist") || (activeStatus == "deque"))
-                graphWidget.addEdge(iL[key]["vtxIdx"], iL[curVtx]["vtxIdx"], iL[curVtx]["vtxIdx"] + BACK_EDGE_CONST, EDGE_TYPE_DE, 1, true);
-        }
+        cs = createState(iL, {}, {});
+        cs["vl"][prevIdx]["state"] = VERTEX_HIGHLIGHTED;
+        cs["vl"][afterIdx]["state"] = VERTEX_GREEN_FILL;
+        if (amountVertex == 1) cs["vl"][afterIdx]["extratext"] = "head/tail";
+        cs["status"] = 'Bố trí lại Danh sách liên kết.<br>Độ phức tạp là O({N}).'.replace("{N}", "N");
+        stateList.push(cs);
     }
 
-    function clearScreen() {
-        var key;
+    graphWidget.startAnimation(stateList, callback);
+    populatePseudocode(7);
+    return true;
+}
 
-        for (key in iL) {
-            if (key == "head") continue;
-            graphWidget.removeEdge(iL[key]["vtxIdx"] + BACK_EDGE_CONST);
-            graphWidget.removeEdge(iL[key]["vtxIdx"]);
+function init(initArr) {
+    amountVertex = 0;
+    clearScreen();
+
+    for (var i = 0; i < initArr.length; i++) {
+        var curVtx = iL["head"];
+        var newVtx = parseInt(initArr[i]);
+
+        if (curVtx == null) {
+            iL["head"] = parseInt(newVtx);
+            iL[newVtx] = {
+                "prev": null,
+                "next": null,
+                "vtxIdx": amountVertex
+            };
+        }
+        else {
+            while (true) { // go to tail
+                if (iL[curVtx]["next"] == null) break;
+                curVtx = iL[curVtx]["next"];
+            }
+            iL[curVtx]["next"] = newVtx;
+            iL[newVtx] = {
+                "prev": curVtx,
+                "next": null,
+                "vtxIdx": amountVertex
+            }
         }
 
-        for (key in iL) {
-            if (key == "head") continue;
-            graphWidget.removeVertex(iL[key]["vtxIdx"]);
-        }
-
-        iL = {};
-        iL["head"] = null;
-        amountVertex = 0;
+        amountVertex++;
     }
 
-    this.getN = function () {
-        return amountVertex;
+    recalculatePosition();
+
+    for (key in iL) {
+        if (key == "head") continue;
+        graphWidget.addVertex(iL[key]["cx"], iL[key]["cy"], key, iL[key]["vtxIdx"], true, (iL["head"] == key ? "head" : (iL[key]["next"] == null ? "tail" : ""))); // iL[key]["vtxIdx"] +
     }
 
-    /*
-     * iLObject: a JS object with the same structure of iL. This means the List doen't have to be the List stored in this class
-     * vertexTraversed: JS object with the vertexes of the List which are to be marked as traversed as the key
-     * edgeTraversed: JS object with the edges of the List which are to be marked as traversed as the key
-     */
+    for (key in iL) {
+        if (key == "head") continue;
+        if (key == iL["head"]) continue;
+        var curVtx = iL[key]["prev"];
 
-    function createState(iLObject, vertexTraversed, edgeTraversed) {
-        if (vertexTraversed == null || vertexTraversed == undefined || !(vertexTraversed instanceof Object))
-            vertexTraversed = {};
-        if (edgeTraversed == null || edgeTraversed == undefined || !(edgeTraversed instanceof Object))
-            edgeTraversed = {};
+        graphWidget.addEdge(iL[curVtx]["vtxIdx"], iL[key]["vtxIdx"], iL[curVtx]["vtxIdx"], EDGE_TYPE_DE, 1, true);
+        if ((activeStatus == "doublylist") || (activeStatus == "deque"))
+            graphWidget.addEdge(iL[key]["vtxIdx"], iL[curVtx]["vtxIdx"], iL[curVtx]["vtxIdx"] + BACK_EDGE_CONST, EDGE_TYPE_DE, 1, true);
+    }
+}
 
-        var state = {
-            "vl": {},
-            "el": {}
-        };
-        var key;
+function clearScreen() {
+    var key;
 
-        for (key in iLObject) {
-            if (key == "head") continue;
+    for (key in iL) {
+        if (key == "head") continue;
+        graphWidget.removeEdge(iL[key]["vtxIdx"] + BACK_EDGE_CONST);
+        graphWidget.removeEdge(iL[key]["vtxIdx"]);
+    }
 
-            idx = iLObject[key]["vtxIdx"];
+    for (key in iL) {
+        if (key == "head") continue;
+        graphWidget.removeVertex(iL[key]["vtxIdx"]);
+    }
 
-            state["vl"][idx] = {};
-            state["vl"][idx]["cx"] = iLObject[key]["cx"];
-            state["vl"][idx]["cy"] = iLObject[key]["cy"];
-            state["vl"][idx]["text"] = key;
-            state["vl"][idx]["state"] = VERTEX_DEFAULT;
+    iL = {};
+    iL["head"] = null;
+    amountVertex = 0;
+}
 
-            if (iLObject[key]["next"] == null) continue;
+this.getN = function () {
+    return amountVertex;
+}
 
-            parentChildEdgeId = iLObject[key]["vtxIdx"];
+/*
+ * iLObject: a JS object with the same structure of iL. This means the List doen't have to be the List stored in this class
+ * vertexTraversed: JS object with the vertexes of the List which are to be marked as traversed as the key
+ * edgeTraversed: JS object with the edges of the List which are to be marked as traversed as the key
+ */
 
+function createState(iLObject, vertexTraversed, edgeTraversed) {
+    if (vertexTraversed == null || vertexTraversed == undefined || !(vertexTraversed instanceof Object))
+        vertexTraversed = {};
+    if (edgeTraversed == null || edgeTraversed == undefined || !(edgeTraversed instanceof Object))
+        edgeTraversed = {};
+
+    var state = {
+        "vl": {},
+        "el": {}
+    };
+    var key;
+
+    for (key in iLObject) {
+        if (key == "head") continue;
+
+        idx = iLObject[key]["vtxIdx"];
+
+        state["vl"][idx] = {};
+        state["vl"][idx]["cx"] = iLObject[key]["cx"];
+        state["vl"][idx]["cy"] = iLObject[key]["cy"];
+        state["vl"][idx]["text"] = key;
+        state["vl"][idx]["state"] = VERTEX_DEFAULT;
+
+        if (iLObject[key]["next"] == null) continue;
+
+        parentChildEdgeId = iLObject[key]["vtxIdx"];
+
+        state["el"][parentChildEdgeId] = {};
+
+        state["el"][parentChildEdgeId]["vertexA"] = iLObject[key]["vtxIdx"];
+        state["el"][parentChildEdgeId]["vertexB"] = iLObject[iLObject[key]["next"]]["vtxIdx"];
+        state["el"][parentChildEdgeId]["type"] = EDGE_TYPE_DE;
+        state["el"][parentChildEdgeId]["weight"] = 1;
+        state["el"][parentChildEdgeId]["state"] = EDGE_DEFAULT;
+        state["el"][parentChildEdgeId]["animateHighlighted"] = false;
+
+        // add an edge for doubly linked list
+        if ((activeStatus == "doublylist") || (activeStatus == "deque")) {
+            parentChildEdgeId = iLObject[key]["vtxIdx"] + BACK_EDGE_CONST;
             state["el"][parentChildEdgeId] = {};
 
-            state["el"][parentChildEdgeId]["vertexA"] = iLObject[key]["vtxIdx"];
-            state["el"][parentChildEdgeId]["vertexB"] = iLObject[iLObject[key]["next"]]["vtxIdx"];
+            state["el"][parentChildEdgeId]["vertexA"] = iLObject[iLObject[key]["next"]]["vtxIdx"];
+            state["el"][parentChildEdgeId]["vertexB"] = iLObject[key]["vtxIdx"];
             state["el"][parentChildEdgeId]["type"] = EDGE_TYPE_DE;
             state["el"][parentChildEdgeId]["weight"] = 1;
             state["el"][parentChildEdgeId]["state"] = EDGE_DEFAULT;
             state["el"][parentChildEdgeId]["animateHighlighted"] = false;
-
-            // add an edge for doubly linked list
-            if ((activeStatus == "doublylist") || (activeStatus == "deque")) {
-                parentChildEdgeId = iLObject[key]["vtxIdx"] + BACK_EDGE_CONST;
-                state["el"][parentChildEdgeId] = {};
-
-                state["el"][parentChildEdgeId]["vertexA"] = iLObject[iLObject[key]["next"]]["vtxIdx"];
-                state["el"][parentChildEdgeId]["vertexB"] = iLObject[key]["vtxIdx"];
-                state["el"][parentChildEdgeId]["type"] = EDGE_TYPE_DE;
-                state["el"][parentChildEdgeId]["weight"] = 1;
-                state["el"][parentChildEdgeId]["state"] = EDGE_DEFAULT;
-                state["el"][parentChildEdgeId]["animateHighlighted"] = false;
-            }
-        }
-
-        var cur = iLObject["head"], idx = 0;
-        while (cur != null) {
-            curIdx = iLObject[cur]["vtxIdx"];
-            // state["vl"][curIdx]["extratext"] = idx;
-            if (idx == 0) state["vl"][curIdx]["extratext"] = "head";
-            else if (iLObject[cur]["next"] == null) state["vl"][curIdx]["extratext"] = "tail";
-            cur = iLObject[cur]["next"];
-            idx++;
-        }
-
-        for (key in vertexTraversed) {
-            idx = iLObject[key]["vtxIdx"];
-            state["vl"][idx]["state"] = VERTEX_TRAVERSED;
-        }
-
-        for (key in edgeTraversed) {
-            state["el"][key]["state"] = EDGE_TRAVERSED;
-            if (state["el"][key + BACK_EDGE_CONST] != null) state["el"][key + BACK_EDGE_CONST] = EDGE_TRAVERSED;
-        }
-
-        return state;
-    }
-
-    // modified recalculateposition
-    function recalculatePosition() {
-        updatePosition(iL["head"]);
-
-        function updatePosition(currentVertex) {
-            if (currentVertex == null) return;
-
-            if (activeStatus == "stack") { // relayout vertical
-                if (currentVertex == iL["head"])
-                    iL[currentVertex]["cy"] = 20;
-                else {
-                    var curVtx = iL[currentVertex]["prev"]
-                    iL[currentVertex]["cy"] = iL[curVtx]["cy"] + 70;
-                }
-                iL[currentVertex]["cx"] = 350;
-            }
-            else { // relayout horizontal
-                if (currentVertex == iL["head"])
-                    iL[currentVertex]["cx"] = 50;
-                else {
-                    var curVtx = iL[currentVertex]["prev"];
-                    iL[currentVertex]["cx"] = iL[curVtx]["cx"] + 80;
-                }
-                iL[currentVertex]["cy"] = 50;
-            }
-
-            updatePosition(iL[currentVertex]["next"]);
         }
     }
 
-    function populatePseudocode(act) {
-        switch (act) {
-            case 4: // search
-                $('#code1').html('if empty, return NOT_FOUND');
-                $('#code2').html('index = 0, temp = head');
-                $('#code3').html('while (temp.item != v)');
-                $('#code4').html('&nbsp&nbsp' + 'index++, temp = temp.next');
-                $('#code5').html('&nbsp&nbspif temp == null');
-                $('#code6').html('&nbsp&nbsp&nbsp&nbspreturn NOT_FOUND');
-                $('#code7').html('return index');
-                break;
-            case 3: // peek
-                $('#code1').html('if empty, return NOT_FOUND');
-                $('#code2').html('return head.item');
-                $('#code3').html('');
-                $('#code4').html('');
-                $('#code5').html('');
-                $('#code6').html('');
-                $('#code7').html('');
-                break;
-            case 9: // peek back
-                $('#code1').html('if empty, return NOT_FOUND');
-                $('#code2').html('return tail.item');
-                $('#code3').html('');
-                $('#code4').html('');
-                $('#code5').html('');
-                $('#code6').html('');
-                $('#code7').html('');
-                break;
+    var cur = iLObject["head"], idx = 0;
+    while (cur != null) {
+        curIdx = iLObject[cur]["vtxIdx"];
+        // state["vl"][curIdx]["extratext"] = idx;
+        if (idx == 0) state["vl"][curIdx]["extratext"] = "head";
+        else if (iLObject[cur]["next"] == null) state["vl"][curIdx]["extratext"] = "tail";
+        cur = iLObject[cur]["next"];
+        idx++;
+    }
 
-            case 1: // insertHead
-                $('#code1').html('Vertex vtx = new Vertex(v)');
-                $('#code2').html('vtx.next = head');
-                if ((activeStatus == "doublylist") || (activeStatus == "deque")) {
-                    $('#code3').html('if (head != null) head.prev = temp');
-                    if (amountVertex == 1)
-                        $('#code4').html('head = vtx, tail = head');
-                    else
-                        $('#code4').html('head = vtx');
-                }
-                else if (amountVertex == 1) {
-                    $('#code3').html('head = vtx, tail = head');
-                    $('#code4').html('');
-                }
-                else {
-                    $('#code3').html('head = vtx');
-                    $('#code4').html('');
-                }
-                $('#code5').html('');
-                $('#code6').html('');
-                $('#code7').html('');
-                break;
-            case 2: // insertTail
-                $('#code1').html('Vertex vtx = new Vertex(v)');
-                if ((activeStatus == "doublylist") || (activeStatus == "deque"))
-                    $('#code2').html('tail.next = temp, temp.prev = tail');
-                else
-                    $('#code2').html('tail.next = vtx');
-                $('#code3').html('tail = vtx');
-                $('#code4').html('');
-                $('#code5').html('');
-                $('#code6').html('');
-                $('#code7').html('');
-                break;
-            case 0: // Insert
-                $('#code1').html('Vertex pre = head');
-                $('#code2').html('for (k = 0; k < i-1; k++)');
-                $('#code3').html('&nbsp&nbsp' + 'pre = pre.next');
-                $('#code4').html('Vertex aft = pre.next');
-                $('#code5').html('Vertex vtx = new Vertex(v)');
-                if ((activeStatus == "doublylist") || (activeStatus == "deque")) {
-                    $('#code6').html('vtx.next = aft, aft.prev = vtx');
-                    $('#code7').html('pre.next = vtx, vtx.prev = pre');
-                }
-                else {
-                    $('#code6').html('vtx.next = aft');
-                    $('#code7').html('pre.next = vtx');
-                }
-                break;
+    for (key in vertexTraversed) {
+        idx = iLObject[key]["vtxIdx"];
+        state["vl"][idx]["state"] = VERTEX_TRAVERSED;
+    }
 
-            case 5: // remove head
-                $('#code1').html('if empty, do nothing');
-                $('#code2').html('temp = head');
-                $('#code3').html('head = head.next');
-                $('#code4').html('delete temp');
-                if ((activeStatus == "doublylist") || (activeStatus == "deque"))
-                    $('#code5').html('if (head != null) head.prev = null');
-                else
-                    $('#code5').html('');
-                $('#code6').html('');
-                $('#code7').html('');
-                break;
-            case 6: // remove tail (SLL)
-                $('#code1').html('if empty, do nothing');
-                $('#code2').html('Vertex pre = head');
-                $('#code3').html('temp = head.next');
-                $('#code4').html('while (temp.next != null)');
-                $('#code5').html('&nbsp&nbsp' + 'pre = pre.next');
-                $('#code6').html('pre.next = null');
-                $('#code7').html('delete temp, tail = pre');
-                break;
-            case 7: // remove kth
-                $('#code1').html('if empty, do nothing');
-                $('#code2').html('Vertex pre = head');
-                $('#code3').html('for (k = 0; k < i-1; k++)');
-                $('#code4').html('&nbsp&nbsp' + 'pre = pre.next');
-                $('#code5').html('Vertex del = pre.next, aft = del.next');
-                if ((activeStatus == "doublylist") || (activeStatus == "deque"))
-                    $('#code6').html('pre.next = aft, aft.prev = pre');
-                else
-                    $('#code6').html('pre.next = aft // bypass del');
-                $('#code7').html('delete del');
-                break;
-            case 8: // remove tail (DLL, easier)
-                $('#code1').html('if empty, do nothing');
-                $('#code2').html('temp = tail');
-                $('#code3').html('tail = tail.prev');
-                $('#code4').html('tail.next = null');
-                $('#code5').html('delete temp');
-                $('#code6').html('');
-                $('#code7').html('');
-                break;
+    for (key in edgeTraversed) {
+        state["el"][key]["state"] = EDGE_TRAVERSED;
+        if (state["el"][key + BACK_EDGE_CONST] != null) state["el"][key + BACK_EDGE_CONST] = EDGE_TRAVERSED;
+    }
+
+    return state;
+}
+
+// modified recalculateposition
+function recalculatePosition() {
+    updatePosition(iL["head"]);
+
+    function updatePosition(currentVertex) {
+        if (currentVertex == null) return;
+
+        if (activeStatus == "stack") { // relayout vertical
+            if (currentVertex == iL["head"])
+                iL[currentVertex]["cy"] = 20;
+            else {
+                var curVtx = iL[currentVertex]["prev"]
+                iL[currentVertex]["cy"] = iL[curVtx]["cy"] + 70;
+            }
+            iL[currentVertex]["cx"] = 350;
         }
+        else { // relayout horizontal
+            if (currentVertex == iL["head"])
+                iL[currentVertex]["cx"] = 50;
+            else {
+                var curVtx = iL[currentVertex]["prev"];
+                iL[currentVertex]["cx"] = iL[curVtx]["cx"] + 80;
+            }
+            iL[currentVertex]["cy"] = 50;
+        }
+
+        updatePosition(iL[currentVertex]["next"]);
     }
 }
 
+function populatePseudocode(act) {
+    switch (act) {
+        case 4: // search
+            $('#code1').html('if empty, return NOT_FOUND');
+            $('#code2').html('index = 0, temp = head');
+            $('#code3').html('while (temp.item != v)');
+            $('#code4').html('&nbsp&nbsp' + 'index++, temp = temp.next');
+            $('#code5').html('&nbsp&nbspif temp == null');
+            $('#code6').html('&nbsp&nbsp&nbsp&nbspreturn NOT_FOUND');
+            $('#code7').html('return index');
+            break;
+        case 3: // peek
+            $('#code1').html('if empty, return NOT_FOUND');
+            $('#code2').html('return head.item');
+            $('#code3').html('');
+            $('#code4').html('');
+            $('#code5').html('');
+            $('#code6').html('');
+            $('#code7').html('');
+            break;
+        case 9: // peek back
+            $('#code1').html('if empty, return NOT_FOUND');
+            $('#code2').html('return tail.item');
+            $('#code3').html('');
+            $('#code4').html('');
+            $('#code5').html('');
+            $('#code6').html('');
+            $('#code7').html('');
+            break;
+
+        case 1: // insertHead
+            $('#code1').html('Vertex vtx = new Vertex(v)');
+            $('#code2').html('vtx.next = head');
+            if ((activeStatus == "doublylist") || (activeStatus == "deque")) {
+                $('#code3').html('if (head != null) head.prev = temp');
+                if (amountVertex == 1)
+                    $('#code4').html('head = vtx, tail = head');
+                else
+                    $('#code4').html('head = vtx');
+            }
+            else if (amountVertex == 1) {
+                $('#code3').html('head = vtx, tail = head');
+                $('#code4').html('');
+            }
+            else {
+                $('#code3').html('head = vtx');
+                $('#code4').html('');
+            }
+            $('#code5').html('');
+            $('#code6').html('');
+            $('#code7').html('');
+            break;
+        case 2: // insertTail
+            $('#code1').html('Vertex vtx = new Vertex(v)');
+            if ((activeStatus == "doublylist") || (activeStatus == "deque"))
+                $('#code2').html('tail.next = temp, temp.prev = tail');
+            else
+                $('#code2').html('tail.next = vtx');
+            $('#code3').html('tail = vtx');
+            $('#code4').html('');
+            $('#code5').html('');
+            $('#code6').html('');
+            $('#code7').html('');
+            break;
+        case 0: // Insert
+            $('#code1').html('Vertex pre = head');
+            $('#code2').html('for (k = 0; k < i-1; k++)');
+            $('#code3').html('&nbsp&nbsp' + 'pre = pre.next');
+            $('#code4').html('Vertex aft = pre.next');
+            $('#code5').html('Vertex vtx = new Vertex(v)');
+            if ((activeStatus == "doublylist") || (activeStatus == "deque")) {
+                $('#code6').html('vtx.next = aft, aft.prev = vtx');
+                $('#code7').html('pre.next = vtx, vtx.prev = pre');
+            }
+            else {
+                $('#code6').html('vtx.next = aft');
+                $('#code7').html('pre.next = vtx');
+            }
+            break;
+
+        case 5: // remove head
+            $('#code1').html('if empty, do nothing');
+            $('#code2').html('temp = head');
+            $('#code3').html('head = head.next');
+            $('#code4').html('delete temp');
+            if ((activeStatus == "doublylist") || (activeStatus == "deque"))
+                $('#code5').html('if (head != null) head.prev = null');
+            else
+                $('#code5').html('');
+            $('#code6').html('');
+            $('#code7').html('');
+            break;
+        case 6: // remove tail (SLL)
+            $('#code1').html('if empty, do nothing');
+            $('#code2').html('Vertex pre = head');
+            $('#code3').html('temp = head.next');
+            $('#code4').html('while (temp.next != null)');
+            $('#code5').html('&nbsp&nbsp' + 'pre = pre.next');
+            $('#code6').html('pre.next = null');
+            $('#code7').html('delete temp, tail = pre');
+            break;
+        case 7: // remove kth
+            $('#code1').html('if empty, do nothing');
+            $('#code2').html('Vertex pre = head');
+            $('#code3').html('for (k = 0; k < i-1; k++)');
+            $('#code4').html('&nbsp&nbsp' + 'pre = pre.next');
+            $('#code5').html('Vertex del = pre.next, aft = del.next');
+            if ((activeStatus == "doublylist") || (activeStatus == "deque"))
+                $('#code6').html('pre.next = aft, aft.prev = pre');
+            else
+                $('#code6').html('pre.next = aft // bypass del');
+            $('#code7').html('delete del');
+            break;
+        case 8: // remove tail (DLL, easier)
+            $('#code1').html('if empty, do nothing');
+            $('#code2').html('temp = tail');
+            $('#code3').html('tail = tail.prev');
+            $('#code4').html('tail.next = null');
+            $('#code5').html('delete temp');
+            $('#code6').html('');
+            $('#code7').html('');
+            break;
+    }
+}
 
 // List actions
 // actions panel stuff
@@ -1754,15 +1620,14 @@ $('#title-DLL').click(function () {
     displayList();
     changeTextDoublyList();
     lw.setActiveStatus("doublylist");
-    // $("#title-DLL").text('Doubly Linked List');
     title.innerHTML = "Doubly Linked List";
     noteTitle.innerHTML = '<h1>Danh sách liên kết đôi</h1>';
     note.innerHTML = "<div>Danh sách được liên kết gấp đôi là một biến thể của Danh sách được liên kết trong đó có thể điều hướng theo cả hai cách, " +
         "dễ dàng chuyển tiếp hoặc lùi lại so với Danh sách được liên kết đơn" +
         "Danh sách liên kết đôi chứa một phần tử link và được gọi là First và Last.<br>" +
         "Mỗi link mang một trường dữ liệu và một trường link được gọi là Next.<br>" +
-        "Mỗi link được liên kết với phần tử kế tiếp bởi sử dụng Next Link.<br>"+
-        "Mỗi link được liên kết với phần tử phía trước bởi sử dụng Prev Link.<br>"+
+        "Mỗi link được liên kết với phần tử kế tiếp bởi sử dụng Next Link.<br>" +
+        "Mỗi link được liên kết với phần tử phía trước bởi sử dụng Prev Link.<br>" +
         "Last Link mang một link trỏ tới NULL để đánh dầu phần cuối của Danh sách liên kết.</div>"
     clearConsole();
 });
@@ -2050,23 +1915,3 @@ function insertModelingOpen(modelingType) {
         $('#inserttail-input').fadeOut('fast');
     $('#' + modelingType + '-input').fadeIn('fast');
 }
-
-//
-// function responsivefy(svg) {
-//     var container = d3.select(svg.node().parentNode),
-//         width = parseInt(svg.style("width")) + 30,
-//         height = parseInt(svg.style("height")),
-//         aspect = width / height;
-//
-//     svg.attr("viewBox", "0 0 " + width + " " + height)
-//         .attr("preserveAspectRatio", "xMinYMid")
-//         .call(resize);
-//
-//     d3.select(window).on("resize." + container.attr("id"), resize);
-//
-//     function resize() {
-//         var targetWidth = parseInt(container.style("width"));
-//         svg.attr("width", targetWidth);
-//         svg.attr("height", Math.round(targetWidth / aspect));
-//     }
-// }

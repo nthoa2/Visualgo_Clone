@@ -296,10 +296,9 @@
             </article>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.16/d3.min.js"></script>
-
     <script src="https://d3js.org/d3.v3.min.js"></script>
     <script src="js/viz.js"></script>
     <script src="js/sort.js"></script>
@@ -309,7 +308,6 @@
     <script>
         var gw = new Sorting();
         var svg = d3.select("#viz-canvas");
-        // $('#bubbleSort').click();
         window.addEventListener('resize', responsivefy(svg));
         d3.selectAll("#radix-sort-bucket-labels span")
             .style({

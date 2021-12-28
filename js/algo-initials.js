@@ -1,4 +1,3 @@
-var PHP_DOMAIN = "";
 function commonAction(retval) {
     if(retval){
         isPlaying = true;
